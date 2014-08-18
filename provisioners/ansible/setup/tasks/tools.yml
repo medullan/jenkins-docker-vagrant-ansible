@@ -1,0 +1,15 @@
+---
+# Provides add-apt-repository
+- name: Install software-properties-common
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=software-properties-common state=installed update-cache=yes"
+
+# Add Jenkins repository
+- name: Add ansible repository
+  sudo: yes
+  action: apt_repository repo='ppa:ansible/ansible' state=present update-cache=yes
+
+# Install ansible
+- name: Install ansible 
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=ansible state=installed"

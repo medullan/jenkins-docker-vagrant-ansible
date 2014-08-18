@@ -1,0 +1,4 @@
+---
+# Add Setup task file
+- include: tools.yml tags=setup
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
