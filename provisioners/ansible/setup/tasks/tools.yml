@@ -16,7 +16,7 @@
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=python-setuptools state=installed"
 
-# needs python-setuptools to get access to easy_install
+# Requires python-setuptools
 - name: Install pip
   sudo: yes
   command: "easy_install pip"
