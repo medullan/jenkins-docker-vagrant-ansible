@@ -4,12 +4,22 @@
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=software-properties-common state=installed update-cache=yes"
 
-# Add Jenkins repository
 - name: Add ansible repository
   sudo: yes
   action: apt_repository repo='ppa:ansible/ansible' state=present update-cache=yes
 
-# Install ansible
-- name: Install ansible 
+- name: Install ansible
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=ansible state=installed"
+
+- name: Install python-setuptools
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=python-setuptools state=installed"
+
+# needs python-setuptools to get access to easy_install
+- name: Install pip
+  sudo: yes
+  command: "easy_install pip"
+
+- include: docker.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

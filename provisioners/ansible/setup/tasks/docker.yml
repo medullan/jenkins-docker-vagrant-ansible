@@ -1,0 +1,38 @@
+# TODO: fix linux kernel update before docker install
+# - name: Install new kernel
+#   sudo: True
+#   apt:
+#     pkg: ""
+#     state: latest
+#     update-cache: yes
+#   with_items:
+#     - linux-image-generic-lts-raring
+#     - linux-headers-generic-lts-raring
+#   register: kernel_result
+#
+# - name: Reboot instance if kernel has changed
+#   sudo: True
+#   command: reboot
+#   register: reboot_result
+#   when: "kernel_result|changed"
+#
+# - name: Wait for instance to come online
+#   sudo: False
+#   local_action: wait_for host= port=22 state=started
+#   when: "reboot_result|success"
+
+# setup docker on machine
+- name: Add Docker repository key
+  sudo: True
+  apt_key: url="https://get.docker.io/gpg"
+
+- name: Add Docker repository
+  sudo: True
+  apt_repository:
+    repo: 'deb http://get.docker.io/ubuntu docker main'
+    update_cache: yes
+
+- name: Install Docker
+  sudo: True
+  apt: pkg=lxc-docker state=present
+#  notify: "Start Docker"
