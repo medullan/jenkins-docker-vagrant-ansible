@@ -1,0 +1,3 @@
+[submodule "sample_app"]
+	path = provisioners/ansible/ansible-jenkins
+	url = https://github.com/lwhiteley/ansible-jenkins

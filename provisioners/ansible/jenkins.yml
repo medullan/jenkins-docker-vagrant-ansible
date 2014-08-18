@@ -1,0 +1,4 @@
+- name: Jenkins
+  hosts: jenkins
+  roles:
+    - ansible-jenkins
