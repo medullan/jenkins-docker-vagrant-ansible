@@ -1,0 +1,16 @@
+
+- name: Install libxml2-dev
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=libxml2-dev state=installed"
+
+- name: Install libxslt1-dev
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=libxslt1-dev state=installed"
+
+- name: Install python-lxml
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=python-lxml state=installed"
+
+- name: Install jmeter
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=jmeter state=installed"

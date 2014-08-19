@@ -1,4 +1,19 @@
 ---
-# Add Setup task file
-- include: tools.yml tags=setup
+# Add Setup task files
+# Include all sub task files here
+# Tasks will be executed in the order they appear here
+
+- include: langpack.yml tags=setup
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- include: ansible.yml tags=setup
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- include: docker.yml tags=setup
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- include: apt.yml tags=setup
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- include: piptools.yml tags=setup
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

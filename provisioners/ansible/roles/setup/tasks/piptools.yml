@@ -1,0 +1,17 @@
+
+- name: Install python-setuptools
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=python-setuptools state=installed"
+
+# Requires python-setuptools
+- name: Install pip
+  sudo: yes
+  command: "easy_install pip"
+
+- name: Install dotcloud
+  sudo: yes
+  command: "pip install dotcloud"
+
+- name: Install jenkins-autojobs
+  sudo: yes
+  command: "pip install jenkins-autojobs"

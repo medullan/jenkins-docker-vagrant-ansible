@@ -1,4 +1,3 @@
----
 # Provides add-apt-repository
 - name: Install software-properties-common
   sudo: yes
@@ -11,15 +10,3 @@
 - name: Install ansible
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=ansible state=installed"
-
-- name: Install python-setuptools
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=python-setuptools state=installed"
-
-# Requires python-setuptools
-- name: Install pip
-  sudo: yes
-  command: "easy_install pip"
-
-- include: docker.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
