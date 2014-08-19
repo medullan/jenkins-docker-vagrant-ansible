@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
 
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))
-    ansible.verbose = 'v'
+    # ansible.verbose = 'v'
   end
   # config.vm.provision "shell", path: "provisioners/shell/langpack.sh"
 
