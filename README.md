@@ -15,7 +15,6 @@ to pull this repository and submodules
 `jenkins-autojobs`, `dotcloud`
 
 ##TODOs
-- Add a task to create jobs
 - add a task to install plugins by a file or find a way to reuse whats there for this purpose
 - Configure language pack
 - Add docker build flow
