@@ -11,9 +11,10 @@
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=python-lxml state=installed"
 
+- name: Install groovy
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=groovy state=installed"
+
 - name: Install jmeter
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=jmeter state=installed"
-
-- include: groovy.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
