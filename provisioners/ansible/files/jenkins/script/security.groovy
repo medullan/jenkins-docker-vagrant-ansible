@@ -42,11 +42,11 @@ if(isValidString(orgName) && isValidString(clientId) && isValidString(clientSecr
     admins, /*adminUserNames*/
     true, /*authenticatedUserReadPermission*/
     true, /*useRepositoryPermissions*/
-    false, /*authenticatedUserCreateJobPermission*/
+    true, /*authenticatedUserCreateJobPermission*/
     orgName, /*organizationNames*/
     true, /*allowGithubWebHookPermission*/
     false, /*allowCcTrayPermission*/
-    true) /*allowAnonymousReadPermission*/
+    false) /*allowAnonymousReadPermission*/
 
   jenkins.model.Jenkins.instance.setSecurityRealm(githubSecurityRealm)
   jenkins.model.Jenkins.instance.setAuthorizationStrategy(authorizationStrategy)
@@ -54,4 +54,5 @@ if(isValidString(orgName) && isValidString(clientId) && isValidString(clientSecr
 
 }else{
   println "echo 'required strings were not set. cannot setup security!'".execute().text
+  throw new GroovyRuntimeException("required strings were not set. cannot setup security!")
 }
