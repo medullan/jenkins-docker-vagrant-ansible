@@ -1,0 +1,31 @@
+---
+# Copy Job xml and plugins to be used in virtual machine
+- name: make tmp directory to place job files
+  sudo: yes
+  shell: mkdir -p tmp/jobs
+
+- name: make tmp directory to place plugin files
+  sudo: yes
+  shell: mkdir -p tmp/plugins
+
+- name: make tmp directory to place script files
+  sudo: yes
+  shell: mkdir -p tmp/script
+
+- name: copy scripts to machine
+  sudo: yes
+  copy: src={{ local_files_dir }}/jenkins/script/security.groovy dest=/home/vagrant/tmp/script/security.groovy owner=vagrant mode=600
+
+- name: copy default jobs to machine
+  sudo: yes
+  copy: src={{ item }} dest=/home/vagrant/tmp/jobs owner=vagrant mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/jobs/*.xml"
+  register: jobs_copied
+
+- name: copy plugins to machine
+  sudo: yes
+  copy: src={{ item }} dest=/home/vagrant/tmp/plugins owner=vagrant mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/plugins/**/*.hpi"
+  register: plugins_copied

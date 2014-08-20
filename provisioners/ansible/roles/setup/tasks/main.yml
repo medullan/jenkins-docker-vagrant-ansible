@@ -17,3 +17,6 @@
 
 - include: piptools.yml tags=setup
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- include: pre-jenkins.yml tags=setup
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

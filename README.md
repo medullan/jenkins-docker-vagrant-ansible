@@ -10,13 +10,13 @@ to pull this repository and submodules
 - `Vagrant - latest`
 - `Ansible >= v1.7.1`
 
-## What's Installed?
-
-### Major Apt Packages
-`jenkins`, `ansible`, `docker`, `jmeter`, `python-setuptools`, `git`, `jre-7`, `jdk-7`, `curl`
-
-### Major pip Packages
-`jenkins-autojobs`, `dotcloud`
+### Features
+- Setup jenkins
+- Setup jenkins security (github strategy)
+- Install plugins
+- Update plugins
+- Create defined list of jobs from xml
+- Restarts jenkins if needed after provisioning
 
 ## How to use
 
@@ -38,10 +38,19 @@ ansible.extra_vars = {
   startup_delay_s: 40
 }
 ```
+- To setup jenkins security please edit the `security.groovy` script 
+
+
+## What's already Inside?
+
+### Major Apt Packages
+`jenkins`, `ansible`, `docker`, `jmeter`, `python-setuptools`, `git`, `jre-7`, `jdk-7`, `curl`
+
+### Major pip Packages
+`jenkins-autojobs`, `dotcloud`
+
 
 ## TODOs
-- add a task to install plugins by a file or find a way to reuse whats there for this purpose
-- Configure language pack
 - Add docker build flow
 - Configure Security
 - Add AWS integration

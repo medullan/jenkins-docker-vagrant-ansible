@@ -1,17 +1,6 @@
 ---
 # Copy Job xml to be used in virtual machine
 # Create jobs in jenkins instance
-- name: make tmp directory to place files
-  sudo: yes
-  shell: mkdir -p tmp/jobs
-
-- name: copy default jobs to machine
-  sudo: yes
-  copy: src={{ item }} dest=/home/vagrant/tmp/jobs owner=vagrant mode=600
-  with_fileglob:
-        - ../files/jenkins/jobs/*.xml
-  register: jobs_copied
-
 - name: list all jobs
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 list-jobs All
@@ -21,5 +10,11 @@
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < /home/vagrant/tmp/jobs/{{ item }}.xml
   with_items: jenkins_jobs
-  when: existing_jobs.changed and jenkins_jobs is defined and existing_jobs.stdout.find('{{ item }}') == -1
+  when: "existing_jobs.changed and jenkins_jobs is defined and existing_jobs.stdout.find('{{ item }}') == -1"
   register: jobs_created
+
+# - name: setup security
+#   sudo: yes
+#   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 groovy /home/vagrant/tmp/script/security.groovy
+#   #when: jenkins_install.changed
+#   register: security_setup

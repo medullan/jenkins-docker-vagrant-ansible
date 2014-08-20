@@ -21,7 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # override ansible vars here
     ansible.extra_vars = {
-      startup_delay_s: 40
+      startup_delay_s: 40,
+      local_files_dir: '../../../files'
     }
 
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))

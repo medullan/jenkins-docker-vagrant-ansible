@@ -1,5 +1,7 @@
 ---
 plugins:
+  # plugins in update center
+
   - 'ldap'
   - 'translation'
   - 'github'
@@ -20,6 +22,12 @@ plugins:
   - 'performance'
   - 'xvfb'
   - 'greenballs'
+  - 'nested-view'
+
+  # plugin files
+
+  - '/home/vagrant/tmp/plugins/rally-build-notifier.hpi'
+  
 jenkins_jobs:
 - 'DbSetupAndTearDownWorkflow'
 - 'DbSetupAndTearDownTearDownDbs'
