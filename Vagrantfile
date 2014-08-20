@@ -22,7 +22,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # override ansible vars here
     ansible.extra_vars = {
       startup_delay_s: 40,
-      local_files_dir: '../../../files'
+      local_files_dir: '../../../files',
+      enable_security: true,
+      git_email: 'noreply@gmail.com',
+      git_name: 'Jenkins Admin'
     }
 
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))

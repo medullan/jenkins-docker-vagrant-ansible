@@ -52,4 +52,6 @@ if(isValidString(orgName) && isValidString(clientId) && isValidString(clientSecr
   jenkins.model.Jenkins.instance.setAuthorizationStrategy(authorizationStrategy)
   jenkins.model.Jenkins.instance.save()
 
+}else{
+  println "echo 'required strings were not set. cannot setup security!'".execute().text
 }
