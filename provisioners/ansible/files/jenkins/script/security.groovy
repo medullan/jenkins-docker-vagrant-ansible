@@ -3,31 +3,53 @@
 * Date: Aug 19, 2014
 **/
 
-def orgName = "medullan"
-def clientId = "02320dbdc3b20a428642"
-def clientSecret = "1a1c672cb765aa89b2c2296551adbd0a9635284d"
+def orgName = ""
+def clientId = ""
+def clientSecret = ""
 // comma delimited usernames
-def admins = "lwhiteley,carepass-ci"
+def admins = ""
 
-def githubSecurityRealm = new org.jenkinsci.plugins.GithubSecurityRealm("https://github.com", "https://api.github.com", clientId, clientSecret)
+def isValidString(value){
+  if(value != null && value instanceof String && value != ""){
+    return true
+  }
+  return false
+}
 
-/**
-* GithubAuthorizationStrategy constructor params
-* source: https://github.com/jenkinsci/github-oauth-plugin/blob/master/src/main/java/org/jenkinsci/plugins/GithubAuthorizationStrategy.java
-* ==============================================
-* String adminUserNames,
-* boolean authenticatedUserReadPermission,
-* boolean useRepositoryPermissions,
-* boolean authenticatedUserCreateJobPermission,
-* String organizationNames,
-* boolean allowGithubWebHookPermission,
-* boolean allowCcTrayPermission,
-* boolean allowAnonymousReadPermission
-* ==============================================
-* Please see source for latest code if this throws errors
-**/
-def authorizationStrategy = new org.jenkinsci.plugins.GithubAuthorizationStrategy(admins,true, true, true,orgName,true,false,false)
+if(isValidString(orgName) && isValidString(clientId) && isValidString(clientSecret) && isValidString(admins)){
+  def githubSecurityRealm = new org.jenkinsci.plugins.GithubSecurityRealm(
+    "https://github.com",
+    "https://api.github.com",
+    clientId,
+    clientSecret)
 
-jenkins.model.Jenkins.instance.setSecurityRealm(githubSecurityRealm)
-jenkins.model.Jenkins.instance.setAuthorizationStrategy(authorizationStrategy)
-jenkins.model.Jenkins.instance.save()
+  /**
+  * GithubAuthorizationStrategy constructor params
+  * source: https://github.com/jenkinsci/github-oauth-plugin/blob/master/src/main/java/org/jenkinsci/plugins/GithubAuthorizationStrategy.java
+  * ==============================================
+  * String adminUserNames,
+  * boolean authenticatedUserReadPermission,
+  * boolean useRepositoryPermissions,
+  * boolean authenticatedUserCreateJobPermission,
+  * String organizationNames,
+  * boolean allowGithubWebHookPermission,
+  * boolean allowCcTrayPermission,
+  * boolean allowAnonymousReadPermission
+  * ==============================================
+  * Please see source for latest code if this throws errors
+  **/
+  def authorizationStrategy = new org.jenkinsci.plugins.GithubAuthorizationStrategy(
+    admins, /*adminUserNames*/
+    true, /*authenticatedUserReadPermission*/
+    true, /*useRepositoryPermissions*/
+    false, /*authenticatedUserCreateJobPermission*/
+    orgName, /*organizationNames*/
+    true, /*allowGithubWebHookPermission*/
+    false, /*allowCcTrayPermission*/
+    true) /*allowAnonymousReadPermission*/
+
+  jenkins.model.Jenkins.instance.setSecurityRealm(githubSecurityRealm)
+  jenkins.model.Jenkins.instance.setAuthorizationStrategy(authorizationStrategy)
+  jenkins.model.Jenkins.instance.save()
+
+}
