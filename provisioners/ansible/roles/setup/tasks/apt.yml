@@ -1,4 +1,4 @@
-
+---
 - name: Install libxml2-dev
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=libxml2-dev state=installed"
@@ -14,3 +14,6 @@
 - name: Install jmeter
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=jmeter state=installed"
+
+- include: groovy.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

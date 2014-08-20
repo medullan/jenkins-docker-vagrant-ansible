@@ -1,0 +1,13 @@
+---
+# sudo apt-add-repository ppa:groovy-dev/groovy
+# sudo apt-get update
+# sudo apt-get install groovy
+
+
+- name: Add gvm
+  sudo: yes
+  shell: 'curl -s get.gvmtool.net | bash'
+
+- name: Install groovy
+  sudo: yes
+  shell: "gvm install groovy"

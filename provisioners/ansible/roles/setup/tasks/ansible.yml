@@ -1,3 +1,4 @@
+---
 # Provides add-apt-repository
 - name: Install software-properties-common
   sudo: yes
