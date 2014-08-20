@@ -38,7 +38,7 @@ ansible.extra_vars = {
   startup_delay_s: 40
 }
 ```
-- To setup jenkins security please edit the `security.groovy` script 
+- To setup jenkins security please edit the `security.groovy` script
 
 
 ## What's already Inside?
@@ -54,3 +54,4 @@ ansible.extra_vars = {
 - Add docker build flow
 - Configure Security
 - Add AWS integration
+- login via cli to run commands
