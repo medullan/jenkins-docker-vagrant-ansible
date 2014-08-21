@@ -1,37 +1,61 @@
+import java.text.*
 /**
-* compiled by: Layton Whiteley
-* Date: Aug 20, 2014
+* This script replaces a value in a singular xml node
+* @author Layton Whiteley
+* @date Aug 20, 2014
 **/
 
-def fileName = '/var/lib/jenkins/config.xml'
-File file = new File(fileName)
+def changeValue(fileName,node, newValue, header){
 
-if(file.exists()){
-  println "found config file. Proceeding!"
-  def fileContents = file.text
-  def config = new XmlParser().parseText(fileContents)
+  if(fileName.indexOf('.xml') == -1){
+    println "nothing done"
+    println "not an xml file. Cannot Proceed!"
+    return
+  }
+  File file = new File(fileName)
+  if(file.exists()){
+    println "found xml file. Proceeding!"
+    def fileContents = file.text
+    def config = new XmlParser().parseText(fileContents)
 
-  if(config.useSecurity){
-    println "found useSecurity node. Turning security off!"
-    config.useSecurity[0].value = false
-    println config.useSecurity
-    def header = "<?xml version='1.0' encoding='UTF-8'?>"
+    if(config[node]){
+      println "found ${node} node. Changing value!"
+      println "Value Before => ${config[node]}"
+      config[node][0].value = newValue
+      println "Value After => ${config[node]}"
 
-    new File( fileName ).withWriter { out ->
-      printWriter = new PrintWriter(out)
-      printWriter.println(header)
-      printer = new XmlNodePrinter( printWriter )
-      printer.preserveWhitespace = true
-      printer.print( config )
-      printWriter.close()
-      println "process success"
-      println "Turning security off => Completed!"
+      new File( fileName ).withWriter { out ->
+        printWriter = new PrintWriter(out)
+        printWriter.println(header)
+        printer = new XmlNodePrinter( printWriter )
+        printer.preserveWhitespace = true
+        printer.print( config )
+        printWriter.close()
+        println "process success"
+        println "Changing value => Completed!"
+      }
+    }else{
+      println "nothing done"
+      println "Could not find ${node} node. Cannot change value!"
     }
   }else{
     println "nothing done"
-    println "Could not find useSecurity node. Cannot turn security off!"
+    println "file does not exist!"
   }
-}else{
-  println "nothing done"
-  println "file does not exist!"
 }
+
+/**
+* Closure that
+* runs the CLI (command line interface) Logic
+*/
+def runCli = { args ->
+  //default file location
+  def fileName = '/var/lib/jenkins/config.xml'
+  def node = 'useSecurity'
+  def newValue = false
+  def header = "<?xml version='1.0' encoding='UTF-8'?>"
+
+  changeValue(fileName,node, newValue, header)
+}
+
+runCli(args)
