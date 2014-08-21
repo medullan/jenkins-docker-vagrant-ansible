@@ -1,4 +1,7 @@
 ---
 # Add Jenkins repository
-- include: jenkins.yml tags=jenkins
+- include: jenkins.yml tags=post-install
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- include: configs.yml tags=post-install
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
