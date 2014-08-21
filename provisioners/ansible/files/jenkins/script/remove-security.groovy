@@ -56,7 +56,7 @@ def runCli = { args ->
   def header = "<?xml version='1.0' encoding='UTF-8'?>"
 
 
-    def cli = new CliBuilder(usage: '{CMD: update-node.groovy -[hnv] [xmlFile] }, Required Options: -[nv]')
+    def cli = new CliBuilder(usage: '{CMD: update-node.groovy -[hnv] [xmlFilePath] }, Required Options: -[nv]')
     // Create the list of options.
     cli.with {
         h longOpt: 'help', 'Show usage information'
