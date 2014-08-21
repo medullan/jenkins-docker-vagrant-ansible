@@ -9,6 +9,10 @@ def clientSecret = ""
 // comma delimited usernames
 def admins = ""
 
+orgName = "medullan"
+clientId = "02320dbdc3b20a428642"
+clientSecret = "1a1c672cb765aa89b2c2296551adbd0a9635284d"
+admins = "carepass-ci"
 
 def isValidString(value){
   if(value != null && value instanceof String && value != ""){

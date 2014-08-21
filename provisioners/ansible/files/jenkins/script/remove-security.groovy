@@ -9,12 +9,12 @@ def changeValue(fileName,node, newValue, header){
 
   if(fileName.indexOf('.xml') == -1){
     println "nothing done"
-    println "not an xml file. Cannot Proceed!"
+    println "${fileName} is not a xml file. Cannot Proceed!"
     return
   }
   File file = new File(fileName)
   if(file.exists()){
-    println "found xml file. Proceeding!"
+    println "found xml file (${fileName}). Proceeding!"
     def fileContents = file.text
     def config = new XmlParser().parseText(fileContents)
 
@@ -50,12 +50,45 @@ def changeValue(fileName,node, newValue, header){
 */
 def runCli = { args ->
   //default file location
-  def fileName = '/var/lib/jenkins/config.xml'
-  def node = 'useSecurity'
-  def newValue = false
+  def fileName //= '/var/lib/jenkins/config.xml'
+  def node //= 'useSecurity'
+  def newValue //= false
   def header = "<?xml version='1.0' encoding='UTF-8'?>"
 
-  changeValue(fileName,node, newValue, header)
+
+    def cli = new CliBuilder(usage: '{CMD: update-node.groovy -[hnv] [xmlFile] }, Required Options: -[nv]')
+    // Create the list of options.
+    cli.with {
+        h longOpt: 'help', 'Show usage information'
+        n longOpt: 'node', args: 1, argName: 'node',   'XML Node Name eg. the Node <useSecurity>true</useSecurity> name is useSecurity'
+        v longOpt: 'value', args: 1, argName: 'value', 'Value to insert'
+    }
+
+    def options = cli.parse(args)
+    if (!options) {
+        return
+    }
+    // Show usage text when -h or --help option is used.
+    if (options.h) {
+        cli.usage()
+        return
+    }
+    if (options.n){
+      node = options.n
+    }
+    if (options.v){
+      newValue = options.v
+    }
+
+    def extraArguments = options.arguments()
+    if (extraArguments && options.v && options.n) {
+        fileName = extraArguments[0]
+        changeValue(fileName,node, newValue, header)
+    }else{
+      println "nothing done"
+      println "Required options are not found"
+    }
+
 }
 
 runCli(args)
