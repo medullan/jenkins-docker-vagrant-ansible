@@ -14,7 +14,10 @@
 
 - name: copy scripts to machine
   sudo: yes
-  copy: src={{ local_files_dir }}/jenkins/script/security.groovy dest=/home/vagrant/tmp/script/security.groovy owner=vagrant mode=600
+  copy: src={{ item }} dest=/home/vagrant/tmp/script owner=vagrant mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/script/*.groovy"
+  register: scripts_copied
 
 - name: copy default jobs to machine
   sudo: yes

@@ -28,5 +28,7 @@
 - name: setup security
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 groovy /home/vagrant/tmp/script/security.groovy
-  when: enable_security is defined and enable_security and jenkins_install.changed 
+  when: enable_security is defined and enable_security #and jenkins_install.changed
   register: security_setup
+
+- debug: var=security_setup.stdout_lines

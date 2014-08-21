@@ -9,6 +9,11 @@ def clientSecret = ""
 // comma delimited usernames
 def admins = ""
 
+orgName = "medullan"
+clientId = "02320dbdc3b20a428642"
+clientSecret = "1a1c672cb765aa89b2c2296551adbd0a9635284d"
+admins = "lwhiteley,carepass-ci"
+
 def isValidString(value){
   if(value != null && value instanceof String && value != ""){
     return true
@@ -17,6 +22,7 @@ def isValidString(value){
 }
 
 if(isValidString(orgName) && isValidString(clientId) && isValidString(clientSecret) && isValidString(admins)){
+  println "All dependencies set. Proceeding!"
   def githubSecurityRealm = new org.jenkinsci.plugins.GithubSecurityRealm(
     "https://github.com",
     "https://api.github.com",
@@ -51,8 +57,10 @@ if(isValidString(orgName) && isValidString(clientId) && isValidString(clientSecr
   jenkins.model.Jenkins.instance.setSecurityRealm(githubSecurityRealm)
   jenkins.model.Jenkins.instance.setAuthorizationStrategy(authorizationStrategy)
   jenkins.model.Jenkins.instance.save()
-
+  println "process success"
+  println "Security setup. Complete!"
 }else{
-  println "echo 'required strings were not set. cannot setup security!'".execute().text
-  throw new GroovyRuntimeException("required strings were not set. cannot setup security!")
+  println "nothing done"
+  println "Required strings were not set. cannot setup security!"
+  //throw new GroovyRuntimeException("required strings were not set. cannot setup security!")
 }
