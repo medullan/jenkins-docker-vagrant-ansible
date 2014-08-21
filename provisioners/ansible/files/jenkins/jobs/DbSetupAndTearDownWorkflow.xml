@@ -83,7 +83,7 @@
           <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
         </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
         <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>Db_setup_and_tear_down_create_or_update_template_dbs</jobName>
+          <jobName>DbSetupAndTearDownCreateOrUpdateTemplateDbs</jobName>
           <currParams>true</currParams>
           <exposedSCM>false</exposedSCM>
           <disableJob>false</disableJob>
@@ -97,7 +97,7 @@
       <phaseName>Create and load test databases</phaseName>
       <phaseJobs>
         <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>Db_setup_and_tear_down_create_and_load_dbs</jobName>
+          <jobName>DbSetupAndTearDownCreateAndLoadDbs</jobName>
           <currParams>true</currParams>
           <exposedSCM>false</exposedSCM>
           <disableJob>false</disableJob>
@@ -111,7 +111,7 @@
       <phaseName>Teardown created databases</phaseName>
       <phaseJobs>
         <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>Db_setup_and_tear_down_tear_down_created_dbs</jobName>
+          <jobName>DbSetupAndTearDownTearDownDbs</jobName>
           <currParams>true</currParams>
           <exposedSCM>false</exposedSCM>
           <disableJob>false</disableJob>
