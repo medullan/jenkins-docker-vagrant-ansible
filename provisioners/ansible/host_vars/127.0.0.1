@@ -13,6 +13,7 @@ plugins:
   - 'jenkins-multijob-plugin'
   - 'docker-build-step'
   - 'dockerhub'
+  - 'docker-plugin'
   - 'docker-build-publish'
   - 'deploy'
   - 'gravatar'
@@ -23,11 +24,14 @@ plugins:
   - 'greenballs'
   - 'nested-view'
   - 'robot'
+  - 'findbugs'
+  - 'shared-workspace'
 
   # extras - remove # below to enable installation
 
   #- 'slack'
   #- 'hipchat'
+  #- 'heavy-job'
   #- 'TwilioNotifier'
 
   # plugin files
@@ -39,3 +43,5 @@ jenkins_jobs:
 - 'DbSetupAndTearDownTearDownDbs'
 - 'DbSetupAndTearDownCreateOrUpdateTemplateDbs'
 - 'DbSetupAndTearDownCreateAndLoadDbs'
+- 'GenerateAutoJobs'
+- 'CarePassTest4'

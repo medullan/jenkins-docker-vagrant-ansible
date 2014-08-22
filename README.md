@@ -1,8 +1,7 @@
 Readme
 =======================
 
-
-to pull this repository and submodules
+To pull this repository and submodules
 
 `git clone https://github.com/lwhiteley/vagrant-ansible-jenkins.git --recursive`
 
@@ -35,7 +34,7 @@ to pull this repository and submodules
 ```yaml
 # override ansible vars here
 ansible.extra_vars = {
-  startup_delay_s: 40
+  startup_delay_s: 50
 }
 ```
 - To setup jenkins security please edit the `security.groovy` script
@@ -51,7 +50,5 @@ ansible.extra_vars = {
 
 
 ## TODOs
-- Add docker build flow
-- Configure Security
 - Add AWS integration
-- login via cli to run commands
+- default config for plugins

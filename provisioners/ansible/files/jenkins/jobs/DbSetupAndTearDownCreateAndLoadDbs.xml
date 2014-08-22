@@ -43,7 +43,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>${SHAREDSPACE_SCM_URL}</url>
+        <url>https://github.com/medullan/ConsumerPlatform</url>
         <credentialsId>56c76726-4a8b-4852-a88c-c5378213b878</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>

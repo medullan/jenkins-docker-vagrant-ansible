@@ -15,3 +15,7 @@
 - name: Install jenkins-autojobs
   sudo: yes
   command: "pip install jenkins-autojobs"
+
+- name: Install robotframework-selenium2library
+  sudo: yes
+  command: "pip install robotframework-selenium2library"
