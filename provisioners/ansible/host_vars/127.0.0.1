@@ -13,6 +13,7 @@ plugins:
   - 'jenkins-multijob-plugin'
   - 'docker-build-step'
   - 'dockerhub'
+  - 'docker-plugin'
   - 'docker-build-publish'
   - 'deploy'
   - 'gravatar'
@@ -23,6 +24,9 @@ plugins:
   - 'greenballs'
   - 'nested-view'
   - 'robot'
+  - 'findbugs'
+  - 'shared-workspace'
+  - 'heavy-job'
 
   # extras - remove # below to enable installation
 
@@ -39,3 +43,4 @@ jenkins_jobs:
 - 'DbSetupAndTearDownTearDownDbs'
 - 'DbSetupAndTearDownCreateOrUpdateTemplateDbs'
 - 'DbSetupAndTearDownCreateAndLoadDbs'
+- 'GenerateAutoJobs'

@@ -42,7 +42,7 @@ if(isValidString(orgName) && isValidString(clientId) && isValidString(clientSecr
   def authorizationStrategy = new org.jenkinsci.plugins.GithubAuthorizationStrategy(
     admins, /*adminUserNames*/
     false, /*authenticatedUserReadPermission*/
-    false, /*useRepositoryPermissions*/
+    true, /*useRepositoryPermissions*/
     true, /*authenticatedUserCreateJobPermission*/
     orgName, /*organizationNames*/
     true, /*allowGithubWebHookPermission*/
