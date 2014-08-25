@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "provisioners/ansible/jenkins.yml"
+    ansible.playbook = "provisioners/ansible/jenkins-playbook.yml"
     ansible.inventory_path = "provisioners/ansible/ansible.host"
     ansible.limit = 'all'
     # ansible.sudo = 'true'
@@ -22,7 +22,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # override/set ansible vars here
     ansible.extra_vars = {
       startup_delay_s: 50,
-      local_files_dir: '../../../files',
       git_email: 'noreply@gmail.com',
       git_name: 'Jenkins CI',
       enable_security: true,
@@ -35,7 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))
     # ansible.verbose = 'v'
   end
-  
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.

@@ -37,9 +37,9 @@ ansible.extra_vars = {
 
 #### Settings:
 
-- `enable_security`: This flag tells the playbook to enable security for the jenkins instance. If false, the playbook will skip enabling security.
-- `jenkins_admins`: This is a list of github usernames that will have admin right in the Jenkins instance
-- `github_orgNames`: This is a list of organisations that will have access to the jenkins instance, including non-admin users. If omitted then only admins will have access.
+- `enable_security`: This flag tells the playbook to enable security for the Jenkins instance. If false, the playbook will skip enabling security.
+- `jenkins_admins`: This is a list of github usernames that will have admin rights in the Jenkins instance
+- `github_orgNames`: This is a list of organisations that will have access to the Jenkins instance, including non-admin users. If omitted then only admins will have access.
 - `github_clientId`: This is a github application Client ID
 - `github_clientSecret`: This is a github application Client Secret
 
@@ -65,7 +65,7 @@ ansible.extra_vars = {
 - run `vagrant up` to get the environment going
 - Get a drink, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
 
-#### Provision with AWS
+#### Provision with AWS (Amazon Web Service)
 To provision with AWS please view the following repository:
 
 https://github.com/mitchellh/vagrant-aws
