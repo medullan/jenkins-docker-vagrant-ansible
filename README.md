@@ -25,8 +25,14 @@ To pull this repository and submodules
 To edit the list of plugins to install and jobs to create when provisioning, look for the following file
 `provisioners/ansible/host_vars/127.0.0.1`
 
-If the jobs list is edited then a corresponding xml file, with the same name as the file, should be placed in the following directory:
+If the jobs list is edited then a corresponding xml file, with the same name as the job, should be placed in the following directory:
 `provisioners/ansible/files/jenkins/jobs`
+
+eg. 
+`- 'ExampleJob'` 
+goes with
+`provisioners/ansible/files/jenkins/jobs/ExampleJob.xml`
+
 
 If there are extra files needed to be shared from Ansible to Jenkins, place them in the following folder:
 `provisioners/ansible/files/jenkins/shared`. This will create and copy these files to a folder in Jenkins home:
