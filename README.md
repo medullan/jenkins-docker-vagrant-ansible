@@ -19,11 +19,7 @@ To pull this repository and submodules
 
 ## How to use
 
-### Setup
-- run `vagrant up` to get the environment going
-- Get a drink, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
-
-### Configure
+### Step 1: Configure
 - To edit the list of plugins to install and jobs to create when provisioning, look for the following file
 `provisioners/ansible/host_vars/127.0.0.1`
 
@@ -63,6 +59,17 @@ ansible.extra_vars = {
 }
 ```
 
+### Step 2: Run Playbook
+
+#### Normal provisioning
+- run `vagrant up` to get the environment going
+- Get a drink, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
+
+#### Provision with AWS
+To provision with AWS please view the following repository:
+
+https://github.com/mitchellh/vagrant-aws
+
 ## What's already Inside?
 
 ### Major Apt Packages
@@ -73,5 +80,4 @@ ansible.extra_vars = {
 
 
 ## TODOs
-- Add AWS integration
 - default config for plugins
