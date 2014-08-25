@@ -103,7 +103,7 @@ ansible.extra_vars = {
 
 #### Normal provisioning
 - run `vagrant up` to get the environment going
-- Get a drink, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
+- Get a drink :tropical_drink:, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
 
 #### Provision with AWS (Amazon Web Service)
 To provision with AWS please view the following repository:
@@ -131,3 +131,7 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 This repository was inspired and designed around ansible-jenkins:
 
 https://github.com/ICTO/ansible-jenkins
+
+
+=============================
+made with :sparkling_heart: by the Medullan Automation Team
