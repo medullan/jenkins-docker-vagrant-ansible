@@ -26,10 +26,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       git_email: 'noreply@gmail.com',
       git_name: 'Jenkins CI',
       enable_security: true,
-      jenkins_admins: "carepass-ci", #comma delimited list
-      github_orgNames: "medullan", #comma delimited list
-      github_clientId: "02320dbdc3b20a428642",
-      github_clientSecret: "1a1c672cb765aa89b2c2296551adbd0a9635284d"
+      jenkins_admins: "", #comma delimited list
+      github_orgNames: "", #comma delimited list
+      github_clientId: "",
+      github_clientSecret: ""
     }
 
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))
