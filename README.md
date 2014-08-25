@@ -20,22 +20,29 @@ To pull this repository and submodules
 ## How to use
 
 ### Step 1: Configure
-- To edit the list of plugins to install and jobs to create when provisioning, look for the following file
+
+#### 1.1: Check/Edit Plugin/Jobs to be Installed
+To edit the list of plugins to install and jobs to create when provisioning, look for the following file
 `provisioners/ansible/host_vars/127.0.0.1`
 
-- If the jobs list is edited then a corresponding xml file, with the same name as the file, should be placed in the following directory:
+If the jobs list is edited then a corresponding xml file, with the same name as the file, should be placed in the following directory:
 `provisioners/ansible/files/jenkins/jobs`
 
-- To override the time it waits (seconds) for jenkins to start please edit the `Vagrantfile`
+#### 1.2: Check/Update Waiting time for jenkins restarts
+To override the time it waits (in seconds) for Jenkins to start please edit the `Vagrantfile`
 ```yaml
 # override/set ansible vars here
 ansible.extra_vars = {
   startup_delay_s: 50
 }
 ```
-- Set Git Credentials
+#### 1.3: Set Git Credentials
 
 Update the git name and email to the credentials specific to your Jenkins setup
+##### Settings:
+
+- `git_email`: This is the email of the Jenkins git user, will be used when the ci makes commits to git repositories
+- `git_name`: This is the full name of the Jenkins git user, will be used when the ci makes commits to git repositories
 
 eg.
 ```yaml
@@ -45,7 +52,13 @@ ansible.extra_vars = {
   git_name: 'Jenkins CI',
 }
 ```
-- Set Rally Variables to Preconfigure Plugin
+#### 1.4: Set Rally Variables to Preconfigure Plugin
+
+##### Settings:
+
+- `rally_server`: This is rally's website address
+- `rally_email`: Email (username) registered with rally
+- `jenkins_machine`: This is the domain name and port of the Jenkins server
 
 eg.
 ```yaml
@@ -58,9 +71,11 @@ ansible.extra_vars = {
 ```
 Please note that this step does not fully configure the rally plugin. You will have to navigate to `configure system` when Jenkins goes live and enter the password for the rally user/email
 
-- To setup Jenkins security please edit the `Vagrantfile` with the necessary variables
 
-#### Settings:
+#### 1.5: Edit GitHub Security Settings
+To setup Jenkins security please edit the `Vagrantfile` with the necessary variables
+
+##### Settings:
 
 - `enable_security`: This flag tells the playbook to enable security for the Jenkins instance. If false, the playbook will skip enabling security.
 - `jenkins_admins`: This is a list of github usernames that will have admin rights in the Jenkins instance
