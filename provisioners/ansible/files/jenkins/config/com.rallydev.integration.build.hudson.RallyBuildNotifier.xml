@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.rallydev.integration.build.hudson.RallyBuildNotifier_-DescriptorImpl plugin="rally-build-notifier@2.4">
+  <rallyServer></rallyServer>
+  <username></username>
+  <password></password>
+  <hudsonServer></hudsonServer>
+  <hudsonContext>hudson</hudsonContext>
+  <proxyServer></proxyServer>
+  <proxyPort></proxyPort>
+  <proxyUsername></proxyUsername>
+  <proxyPassword></proxyPassword>
+</com.rallydev.integration.build.hudson.RallyBuildNotifier_-DescriptorImpl>

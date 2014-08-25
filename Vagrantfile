@@ -28,7 +28,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       jenkins_admins: "", #comma delimited list eg. "admin1,admin2"
       github_orgNames: "", #comma delimited list eg. "medullan,google"
       github_clientId: "",
-      github_clientSecret: ""
+      github_clientSecret: "",
+      rally_server:"rally1.rallydev.com",
+      rally_email: "",
+      jenkins_machine: "localhost:8080"
     }
 
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))

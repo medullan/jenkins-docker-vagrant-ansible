@@ -13,7 +13,7 @@ To pull this repository and submodules
 - Setup jenkins
 - Setup jenkins security (github strategy)
 - Install/Update Plugins
-- Pre Configured Plugins (git, GitHub Webhook)
+- Pre Configured Plugins eg. git, GitHub Webhook, Rally (Some plugins such as rally cannot be fully configured in the playbook due to password encryptions)
 - Create defined list of jobs from xml
 - Restarts jenkins if needed after provisioning
 
