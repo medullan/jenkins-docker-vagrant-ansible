@@ -5,6 +5,9 @@
 * @usage:  This is designed to work with the groovy command of the Jenkins CLI
 *          There is no guarantee that this script works without the Jenkins CLI
 * @example: java -jar jenkins-cli.jar -s http://localhost:8080 groovy security.groovy admins={jenkins_admins} orgs={github_orgNames} clientid={github_clientId} clientsecret={github_clientSecret}
+* @note: Please note in the example above {jenkins_admins} is a string to be replaced with the actual value
+*        the actual implementation will look like 'admins=admin1,admin2'
+*        Comma delimited lists must have no space between them
 * @see runCli below to see the flow of execution
 **/
 def isValidString ={ value ->

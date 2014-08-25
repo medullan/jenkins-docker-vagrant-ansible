@@ -26,8 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       git_email: 'noreply@gmail.com',
       git_name: 'Jenkins CI',
       enable_security: true,
-      jenkins_admins: "", #comma delimited list
-      github_orgNames: "", #comma delimited list
+      jenkins_admins: "", #comma delimited list (no spaces) eg. "admin1,admin2"
+      github_orgNames: "", #comma delimited list (no spaces) eg. "medullan,google"
       github_clientId: "",
       github_clientSecret: ""
     }
