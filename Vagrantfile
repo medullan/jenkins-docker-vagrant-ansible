@@ -23,15 +23,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.extra_vars = {
       startup_delay_s: 50,
       local_files_dir: '../../../files',
-      enable_security: true,
       git_email: 'noreply@gmail.com',
-      git_name: 'Jenkins CI'
+      git_name: 'Jenkins CI',
+      enable_security: true,
+      jenkins_admins: "carepass-ci", #comma delimited list
+      github_orgNames: "medullan", #comma delimited list
+      github_clientId: "02320dbdc3b20a428642",
+      github_clientSecret: "1a1c672cb765aa89b2c2296551adbd0a9635284d"
     }
 
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))
     # ansible.verbose = 'v'
   end
-  # config.vm.provision "shell", path: "provisioners/shell/langpack.sh"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

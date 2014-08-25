@@ -20,14 +20,14 @@
 
 - name: create default jobs
   sudo: yes
-  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < /home/vagrant/tmp/jobs/{{ item }}.xml
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/{{ item }}.xml
   with_items: jenkins_jobs
   when: "existing_jobs.changed and jenkins_jobs is defined and existing_jobs.stdout.find('{{ item }}') == -1"
   register: jobs_created
 
 - name: setup security
   sudo: yes
-  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 groovy /home/vagrant/tmp/script/security.groovy
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 groovy {{ remote_tmp_folder }}/script/security.groovy  admins={{ jenkins_admins }} orgs={{ github_orgNames }} clientid={{ github_clientId }} clientsecret={{ github_clientSecret }}
   when: enable_security is defined and enable_security
   register: security_setup
 
