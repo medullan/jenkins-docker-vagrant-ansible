@@ -103,7 +103,7 @@ ansible.extra_vars = {
 
 #### Normal provisioning
 - run `vagrant up` to get the environment going
-- Get a drink, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
+- Get a drink :tropical_drink:, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
 
 #### Provision with AWS (Amazon Web Service)
 To provision with AWS please view the following repository:
