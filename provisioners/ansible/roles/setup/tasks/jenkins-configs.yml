@@ -1,6 +1,6 @@
 ---
 # Copy config files to jenkins home
-- name: copy config xml's to jenkins home
+- name: copy config XML's to jenkins home
   sudo: yes
   copy: src={{ item }} dest={{ jenkins_home }} owner=jenkins mode=600
   with_fileglob:

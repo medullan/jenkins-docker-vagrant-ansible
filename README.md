@@ -45,7 +45,20 @@ ansible.extra_vars = {
   git_name: 'Jenkins CI',
 }
 ```
-- To setup Jenkins security please edit the `Vagrantfile`
+- Set Rally Variables to Preconfigure Plugin
+
+eg.
+```yaml
+# override/set ansible vars here
+ansible.extra_vars = {
+  rally_server:"rally1.rallydev.com",
+  rally_email: "user@medullan.com",
+  jenkins_machine: "localhost:8080"
+}
+```
+Please note that this step does not fully configure the rally plugin. You will have to navigate to `configure system` when Jenkins goes live and enter the password for the rally user/email
+
+- To setup Jenkins security please edit the `Vagrantfile` with the necessary variables
 
 #### Settings:
 
