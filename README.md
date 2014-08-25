@@ -41,11 +41,11 @@ ansible.extra_vars = {
 
 #### Settings:
 
-`enable_security`: This flag tells the playbook to enable security for the jenkins instance. If false, the playbook will skip enabling security.
-`jenkins_admins`: This is a list of github usernames that will have admin right in the Jenkins instance
-`github_orgNames`: This is a list of organisations that will have access to the jenkins instance, including non-admin users. If omitted then only admins will have access.
-`github_clientId`: This is a github application Client ID
-`github_clientSecret`: This is a github application Client Secret
+- `enable_security`: This flag tells the playbook to enable security for the jenkins instance. If false, the playbook will skip enabling security.
+- `jenkins_admins`: This is a list of github usernames that will have admin right in the Jenkins instance
+- `github_orgNames`: This is a list of organisations that will have access to the jenkins instance, including non-admin users. If omitted then only admins will have access.
+- `github_clientId`: This is a github application Client ID
+- `github_clientSecret`: This is a github application Client Secret
 
 To get the information from github:
 - [create an application](https://github.com/settings/applications/new) that will provide the `clientid` and `clientsecret`.
