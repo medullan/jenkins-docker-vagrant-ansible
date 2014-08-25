@@ -38,3 +38,6 @@
   with_fileglob:
         - "{{ local_files_dir }}/jenkins/plugins/**/*.hpi"
   register: plugins_copied
+
+- include: jenkins-configs.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

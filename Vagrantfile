@@ -14,20 +14,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "provisioners/ansible/jenkins.yml"
+    ansible.playbook = "provisioners/ansible/jenkins-playbook.yml"
     ansible.inventory_path = "provisioners/ansible/ansible.host"
     ansible.limit = 'all'
     # ansible.sudo = 'true'
 
-    # override ansible vars here
+    # override/set ansible vars here
     ansible.extra_vars = {
       startup_delay_s: 50,
-      local_files_dir: '../../../files',
       git_email: 'noreply@gmail.com',
       git_name: 'Jenkins CI',
       enable_security: true,
-      jenkins_admins: "", #comma delimited list (no spaces) eg. "admin1,admin2"
-      github_orgNames: "", #comma delimited list (no spaces) eg. "medullan,google"
+      jenkins_admins: "", #comma delimited list eg. "admin1,admin2"
+      github_orgNames: "", #comma delimited list eg. "medullan,google"
       github_clientId: "",
       github_clientSecret: ""
     }

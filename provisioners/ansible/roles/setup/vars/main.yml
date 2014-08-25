@@ -1,2 +1,3 @@
 ---
 remote_tmp_folder: /home/vagrant/tmp
+local_files_dir: '../../../files'
