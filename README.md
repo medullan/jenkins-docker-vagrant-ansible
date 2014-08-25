@@ -45,7 +45,7 @@ ansible.extra_vars = {
   git_name: 'Jenkins CI',
 }
 ```
-- To setup Jenkins security please edit the `Vagrantfile` script
+- To setup Jenkins security please edit the `Vagrantfile`
 
 #### Settings:
 
@@ -89,7 +89,3 @@ https://github.com/mitchellh/vagrant-aws
 
 ### Major pip Packages
 `jenkins-autojobs`, `dotcloud`, `robotframework-selenium2library`
-
-
-## TODOs
-- default config for plugins
