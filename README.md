@@ -32,13 +32,26 @@ To pull this repository and submodules
 
 - To override the time it waits (seconds) for jenkins to start please edit the `Vagrantfile`
 ```yaml
-# override ansible vars here
+# override/set ansible vars here
 ansible.extra_vars = {
   startup_delay_s: 50
 }
 ```
-- To setup jenkins security please edit the `security.groovy` script
+- To setup jenkins security please edit the `Vagrantfile` script
+eg.
+```yaml
+# override/set ansible vars here
+ansible.extra_vars = {
+  enable_security: true,
+  jenkins_admins: "admin1,admin2", #comma delimited list (no spaces) eg. "admin1,admin2"
+  github_orgNames: "medullan", #comma delimited list (no spaces) eg. "medullan,google"
+  github_clientId: "532534253fw3245",
+  github_clientSecret: "32refwdfs324rewf343q4rwqr32qr"
+}
+```
+To get the information from github, [create an application](https://github.com/settings/applications/new) that will provide the `clientid` and `clientsecret`.
 
+Authorization Callback URL: `http://<jenkins-server>:<port>/securityRealm/finishLogin`
 
 ## What's already Inside?
 
@@ -46,7 +59,7 @@ ansible.extra_vars = {
 `jenkins`, `ansible`, `docker`, `jmeter`, `python-setuptools`, `git`, `jre-7`, `jdk-7`, `curl`
 
 ### Major pip Packages
-`jenkins-autojobs`, `dotcloud`
+`jenkins-autojobs`, `dotcloud`, `robotframework-selenium2library`
 
 
 ## TODOs

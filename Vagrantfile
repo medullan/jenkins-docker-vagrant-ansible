@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.limit = 'all'
     # ansible.sudo = 'true'
 
-    # override ansible vars here
+    # override/set ansible vars here
     ansible.extra_vars = {
       startup_delay_s: 50,
       local_files_dir: '../../../files',
