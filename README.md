@@ -128,5 +128,6 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 
 ## Credits
 
-This repository was inspired and designed around ansible-jenkins
+This repository was inspired and designed around ansible-jenkins:
+
 https://github.com/ICTO/ansible-jenkins
