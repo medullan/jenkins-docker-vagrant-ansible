@@ -13,7 +13,7 @@ To pull this repository and submodules
 - Setup jenkins
 - Setup jenkins security (github strategy)
 - Install/Update Plugins
-- Pre Configured Plugins (git, GitHub Webhook)
+- Pre Configured Plugins eg. git, GitHub Webhook, Rally (Some plugins such as rally cannot be fully configured in the playbook due to password encryptions)
 - Create defined list of jobs from xml
 - Restarts jenkins if needed after provisioning
 
@@ -45,7 +45,20 @@ ansible.extra_vars = {
   git_name: 'Jenkins CI',
 }
 ```
-- To setup Jenkins security please edit the `Vagrantfile`
+- Set Rally Variables to Preconfigure Plugin
+
+eg.
+```yaml
+# override/set ansible vars here
+ansible.extra_vars = {
+  rally_server:"rally1.rallydev.com",
+  rally_email: "user@medullan.com",
+  jenkins_machine: "localhost:8080"
+}
+```
+Please note that this step does not fully configure the rally plugin. You will have to navigate to `configure system` when Jenkins goes live and enter the password for the rally user/email
+
+- To setup Jenkins security please edit the `Vagrantfile` with the necessary variables
 
 #### Settings:
 
@@ -89,3 +102,11 @@ https://github.com/mitchellh/vagrant-aws
 
 ### Major pip Packages
 `jenkins-autojobs`, `dotcloud`, `robotframework-selenium2library`
+
+## Known Issues
+
+- Issue 1:
+
+The github-oauth@0.19 plugin doesnt play well with the shared-workspace plugin.
+At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used.
+This variable is null until a job is executed, hence the github-oauth plugin will throw a fit. Just avoid using that variable and everything will be ok.

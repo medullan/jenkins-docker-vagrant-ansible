@@ -1,0 +1,18 @@
+---
+# Modify config file
+- name: Set rally server in Rally Plugin Config
+  sudo: yes
+  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n rallyServer -v '{{ rally_server }}' {{ jenkins_home }}/com.rallydev.integration.build.hudson.RallyBuildNotifier.xml"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- name: Set username/email in Rally Plugin Config
+  sudo: yes
+  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n username -v '{{ rally_email }}' {{ jenkins_home }}/com.rallydev.integration.build.hudson.RallyBuildNotifier.xml"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  register: set_git_email
+
+- name: Set jenkins machine name in Rally Plugin Config
+  sudo: yes
+  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n hudsonServer -v '{{ jenkins_machine }}' {{ jenkins_home }}/com.rallydev.integration.build.hudson.RallyBuildNotifier.xml"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  register: set_git_email

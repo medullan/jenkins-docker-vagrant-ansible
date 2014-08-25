@@ -1,30 +1,14 @@
 ---
 # Copy config files to jenkins home
-- name: copy config xml's to jenkins home
+- name: copy config XML's to jenkins home
   sudo: yes
   copy: src={{ item }} dest={{ jenkins_home }} owner=jenkins mode=600
   with_fileglob:
         - "{{ local_files_dir }}/jenkins/config/*.xml"
   register: configs_copied
 
-# Modify any config files
-# set useSecurity to false
-- name: Set Git Name in Git Plugin Config
-  sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n globalConfigName -v '{{ git_name }}' {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
+- include: plugin-configs/git.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-  register: set_git_name
 
-- name: Set Git Name Results
-  debug: var=set_git_name.stdout_lines
-  when: set_git_name.stdout_lines
-
-- name: Set Git Email in Git Plugin Config
-  sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n globalConfigEmail -v '{{ git_email }}' {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
+- include: plugin-configs/rally.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-  register: set_git_email
-
-- name: Set Git Email Results
-  debug: var=set_git_email.stdout_lines
-  when: set_git_email.stdout_lines
