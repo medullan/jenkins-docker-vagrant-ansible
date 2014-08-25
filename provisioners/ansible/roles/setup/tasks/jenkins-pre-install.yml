@@ -18,26 +18,14 @@
   notify:
     - 'Delete Remote Temporary Folder'
 
-- name: copy scripts to machine
+# This will be a place to copy any files that your jenkins setup may need
+# such as key files etc
+- name: make shared folder between jenkins and ansible
   sudo: yes
-  copy: src={{ item }} dest={{ remote_tmp_folder }}/script owner=vagrant mode=600
-  with_fileglob:
-        - "{{ local_files_dir }}/jenkins/script/*.groovy"
-  register: scripts_copied
+  shell: mkdir -p {{ jenkins_home }}/shared_ansible
 
-- name: copy default jobs to machine
-  sudo: yes
-  copy: src={{ item }} dest={{ remote_tmp_folder }}/jobs owner=vagrant mode=600
-  with_fileglob:
-        - "{{ local_files_dir }}/jenkins/jobs/*.xml"
-  register: jobs_copied
-
-- name: copy plugins to machine
-  sudo: yes
-  copy: src={{ item }} dest={{ remote_tmp_folder }}/plugins owner=vagrant mode=600
-  with_fileglob:
-        - "{{ local_files_dir }}/jenkins/plugins/**/*.hpi"
-  register: plugins_copied
+- include: copy-files.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
 
 - include: jenkins-configs.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
