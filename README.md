@@ -120,8 +120,8 @@ https://github.com/mitchellh/vagrant-aws
 
 ## Known Issues
 
-- Issue 1:
+####Issue 1:
 
-The github-oauth@0.19 plugin doesnt play well with the shared-workspace plugin.
-At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used.
+> The github-oauth@0.19 plugin doesnt play well with the shared-workspace plugin.
+> At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used.
 This variable is null until a job is executed, hence the github-oauth plugin will throw a fit. Just avoid using that variable and everything will be ok.
