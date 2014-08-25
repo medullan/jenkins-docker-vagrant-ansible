@@ -28,6 +28,10 @@ To edit the list of plugins to install and jobs to create when provisioning, loo
 If the jobs list is edited then a corresponding xml file, with the same name as the file, should be placed in the following directory:
 `provisioners/ansible/files/jenkins/jobs`
 
+If there are extra files needed to be shared between Jenkins  and Ansible, place them in the following folder:
+`provisioners/ansible/files/jenkins/shared`. This will create and copy these files to a folder in Jenkins home:
+`{jenkins_home}/shared_ansible`. The jenkins user will be the owner of these files once copied over.
+
 #### 1.2: Check/Update Waiting time for jenkins restarts
 To override the time it waits (in seconds) for Jenkins to start please edit the `Vagrantfile`
 ```yaml

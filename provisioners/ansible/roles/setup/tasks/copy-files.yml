@@ -1,0 +1,28 @@
+---
+- name: copy shared files to jenkins home
+  sudo: yes
+  copy: src={{ item }} dest={{ jenkins_home }}/shared_ansible owner=jenkins mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/shared/*"
+  register: shared_copied
+
+- name: copy scripts to machine
+  sudo: yes
+  copy: src={{ item }} dest={{ remote_tmp_folder }}/script owner=vagrant mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/script/*.groovy"
+  register: scripts_copied
+
+- name: copy default jobs to machine
+  sudo: yes
+  copy: src={{ item }} dest={{ remote_tmp_folder }}/jobs owner=vagrant mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/jobs/*.xml"
+  register: jobs_copied
+
+- name: copy plugins to machine
+  sudo: yes
+  copy: src={{ item }} dest={{ remote_tmp_folder }}/plugins owner=vagrant mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/plugins/**/*.hpi"
+  register: plugins_copied
