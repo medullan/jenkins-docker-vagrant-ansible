@@ -12,8 +12,8 @@ To pull this repository and submodules
 ### Features
 - Setup jenkins
 - Setup jenkins security (github strategy)
-- Install plugins
-- Update plugins
+- Install/Update Plugins
+- Pre Configured Plugins (git, GitHub Webhook)
 - Create defined list of jobs from xml
 - Restarts jenkins if needed after provisioning
 
@@ -33,7 +33,19 @@ ansible.extra_vars = {
   startup_delay_s: 50
 }
 ```
-- To setup jenkins security please edit the `Vagrantfile` script
+- Set Git Credentials
+
+Update the git name and email to the credentials specific to your Jenkins setup
+
+eg.
+```yaml
+# override/set ansible vars here
+ansible.extra_vars = {
+  git_email: 'noreply@gmail.com',
+  git_name: 'Jenkins CI',
+}
+```
+- To setup Jenkins security please edit the `Vagrantfile` script
 
 #### Settings:
 
@@ -52,8 +64,8 @@ eg.
 # override/set ansible vars here
 ansible.extra_vars = {
   enable_security: true,
-  jenkins_admins: "admin1,admin2", #comma delimited list (no spaces) eg. "admin1,admin2"
-  github_orgNames: "medullan", #comma delimited list (no spaces) eg. "medullan,google"
+  jenkins_admins: "admin1,admin2", #comma delimited list eg. "admin1,admin2"
+  github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
   github_clientId: "532534253fw3245",
   github_clientSecret: "32refwdfs324rewf343q4rwqr32qr"
 }

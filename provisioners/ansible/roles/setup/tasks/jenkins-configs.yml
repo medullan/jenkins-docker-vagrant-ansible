@@ -21,7 +21,7 @@
 
 - name: Set Git Email in Git Plugin Config
   sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n globalConfigEmail -v {{ git_email }} {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
+  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n globalConfigEmail -v '{{ git_email }}' {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
   register: set_git_email
 
