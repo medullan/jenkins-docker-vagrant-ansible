@@ -8,7 +8,7 @@
   register: configs_copied
 
 - include: plugin-configs/git.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and git.enable_configure
 
 - include: plugin-configs/rally.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and rally.enable_configure
