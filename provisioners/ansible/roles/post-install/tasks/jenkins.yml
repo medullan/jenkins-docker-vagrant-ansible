@@ -27,8 +27,8 @@
 
 - name: setup security
   sudo: yes
-  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 groovy {{ remote_tmp_folder }}/script/security.groovy  admins='{{ jenkins_admins }}' orgs='{{ github_orgNames }}' clientid='{{ github_clientId }}' clientsecret='{{ github_clientSecret }}'
-  when: enable_security is defined and enable_security
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 groovy {{ remote_tmp_folder }}/script/security.groovy  admins='{{ security.jenkins_admins }}' orgs='{{ security.github_orgNames }}' clientid='{{ security.github_clientId }}' clientsecret='{{ security.github_clientSecret }}'
+  when: security.enable_security is defined and security.enable_security
   register: security_setup
 
 - debug: var=security_setup.stdout_lines

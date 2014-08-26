@@ -14,6 +14,9 @@
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
   register: jenkins_install
 
+- include: jenkins-configs.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
 # Remove Jenkins Security
 - include: remove-security.yml
 

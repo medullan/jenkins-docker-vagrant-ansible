@@ -121,7 +121,8 @@ https://github.com/mitchellh/vagrant-aws
 ## What's already Inside?
 
 ### Major Apt Packages
-`jenkins`, `ansible`, `docker`, `jmeter`, `python-setuptools`, `git`, `jre-7`, `jdk-7`, `curl`
+`jenkins`, `ansible`, `docker`, `jmeter`, `python-setuptools`, `git`, `jre-7`, `jdk-7`, `curl`,
+`groovy`
 
 ### Major pip Packages
 `jenkins-autojobs`, `dotcloud`, `robotframework-selenium2library`
@@ -140,6 +141,7 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 - Please do not push to the master branch of this repository with code/tasks that has not been reviewed.
 - Please branch from master and make pull requests to submit changes
 - A conversation/pull request needs to happen before anything is merged into master
+- Always do a `vagrant destroy` then `vagrant up` for a final test to ensure that additions work properly end to end
 
 ##### Happy hacking away!
 

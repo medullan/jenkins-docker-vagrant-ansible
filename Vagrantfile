@@ -22,16 +22,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # override/set ansible vars here
     ansible.extra_vars = {
       startup_delay_s: 50,
-      git_email: 'noreply@gmail.com',
-      git_name: 'Jenkins CI',
-      enable_security: true,
-      jenkins_admins: "", #comma delimited list eg. "admin1,admin2"
-      github_orgNames: "", #comma delimited list eg. "medullan,google"
-      github_clientId: "",
-      github_clientSecret: "",
-      rally_server:"rally1.rallydev.com",
-      rally_email: "",
-      jenkins_machine: "localhost:8080"
+      security:{
+        enable_security: true,
+        jenkins_admins: "carepass-ci, lwhiteley", #comma delimited list eg. "admin1,admin2"
+        github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
+        github_clientId: "02320dbdc3b20a428642",
+        github_clientSecret: "1a1c672cb765aa89b2c2296551adbd0a9635284d",
+      },
+      git:{
+        enable_configure: true,
+        email: 'noreply@gmail.com',
+        name: 'Jenkins CI',
+      },
+      rally:{
+        enable_configure: true,
+        server:"rally1.rallydev.com",
+        email: "",
+        jenkins_machine: "localhost:8080"
+      }
     }
 
     # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))

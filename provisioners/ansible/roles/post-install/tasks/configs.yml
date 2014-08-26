@@ -2,13 +2,13 @@
 # Set configurations for tools
 - name: Set Git Global Name
   sudo: yes
-  shell: git config --global user.name "{{ git_name }}"
-  when: git_name is defined
+  shell: git config --global user.name "{{ git.name }}"
+  when: git.name is defined
 
 - name: Set Git Global Email
   sudo: yes
-  shell: git config --global user.email "{{ git_email }}"
-  when: git_email is defined
+  shell: git config --global user.email "{{ git.email }}"
+  when: git.email is defined
 
 - name: Set Git Default Push Method
   sudo: yes

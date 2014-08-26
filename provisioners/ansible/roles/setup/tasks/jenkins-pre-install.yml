@@ -26,6 +26,3 @@
 
 - include: copy-files.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-
-- include: jenkins-configs.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
