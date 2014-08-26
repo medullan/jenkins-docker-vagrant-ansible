@@ -48,7 +48,7 @@ ansible.extra_vars = {
 
 Update the git name and email to the credentials specific to your Jenkins setup
 ##### Settings:
-- `enable_configure`: This enables the configuration of this plugin. When true will skip the configuration
+- `enable_configure`: This enables the configuration of this plugin. When `false` will skip the configuration
 - `email`: This is the email of the Jenkins git user, will be used when the ci makes commits to git repositories
 - `name`: This is the full name of the Jenkins git user, will be used when the ci makes commits to git repositories
 
@@ -66,7 +66,7 @@ ansible.extra_vars = {
 #### 1.4: Set Rally Variables to Preconfigure Plugin
 
 ##### Settings:
-- `enable_configure`: This enables the configuration of this plugin. When true will skip the configuration
+- `enable_configure`: This enables the configuration of this plugin. When `false` will skip the configuration
 - `server`: This is rally's website address
 - `email`: Email (username) registered with rally
 - `jenkins_machine`: This is the domain name and port of the Jenkins server
@@ -155,6 +155,11 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 - Always do a `vagrant destroy` then `vagrant up` for a final test to ensure that additions work properly end to end
 
 ##### Happy hacking away!
+
+## TODOs
+
+- Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simple update the required XMl nodes.
+
 
 ## Credits
 
