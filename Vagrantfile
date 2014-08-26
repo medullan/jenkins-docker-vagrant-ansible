@@ -24,10 +24,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       startup_delay_s: 50,
       security:{
         enable_security: true,
-        jenkins_admins: "carepass-ci, lwhiteley", #comma delimited list eg. "admin1,admin2"
-        github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
-        github_clientId: "02320dbdc3b20a428642",
-        github_clientSecret: "1a1c672cb765aa89b2c2296551adbd0a9635284d",
+        jenkins_admins: "", #comma delimited list eg. "admin1,admin2"
+        github_orgNames: "", #comma delimited list eg. "medullan,google"
+        github_clientId: "",
+        github_clientSecret: "",
       },
       git:{
         enable_configure: true,
