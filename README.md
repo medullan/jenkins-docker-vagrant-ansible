@@ -1,9 +1,7 @@
 Readme
 =======================
 
-To pull this repository and submodules
-
-`git clone --recursive https://github.com/{user}/vagrant-ansible-jenkins.git `
+If interested in pushing to this Repository please see the `Development` section below.
 
 ### Requirements:
 - `Vagrant - latest`
@@ -28,8 +26,8 @@ To edit the list of plugins to install and jobs to create when provisioning, loo
 If the jobs list is edited then a corresponding xml file, with the same name as the job, should be placed in the following directory:
 `provisioners/ansible/files/jenkins/jobs`
 
-eg. 
-`- 'ExampleJob'` 
+eg.
+`- 'ExampleJob'`
 goes with
 `provisioners/ansible/files/jenkins/jobs/ExampleJob.xml`
 
@@ -136,12 +134,20 @@ https://github.com/mitchellh/vagrant-aws
 > At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used.
 This variable is null until a job is executed, hence the github-oauth plugin will throw a fit. Just avoid using that variable and everything will be ok.
 
+## Development
+
+#### Rules
+- Please do not push to the master branch of this repository with code/tasks that has not been reviewed.
+- Please branch from master and make pull requests to submit changes
+- A conversation/pull request needs to happen before anything is merged into master
+
+##### Happy hacking away!
+
 ## Credits
 
 This repository was inspired and designed around ansible-jenkins:
 
 https://github.com/ICTO/ansible-jenkins
-
 
 =============================
 made with :sparkling_heart: by the Medullan Automation Team
