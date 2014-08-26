@@ -156,6 +156,11 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 
 ##### Happy hacking away!
 
+## TODOs
+
+- Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simple update the required XMl nodes.
+
+
 ## Credits
 
 This repository was inspired and designed around ansible-jenkins:
