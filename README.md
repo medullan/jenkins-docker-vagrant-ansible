@@ -48,33 +48,39 @@ ansible.extra_vars = {
 
 Update the git name and email to the credentials specific to your Jenkins setup
 ##### Settings:
-
-- `git_email`: This is the email of the Jenkins git user, will be used when the ci makes commits to git repositories
-- `git_name`: This is the full name of the Jenkins git user, will be used when the ci makes commits to git repositories
+- `enable_configure`: This enables the configuration of this plugin. When true will skip the configuration
+- `email`: This is the email of the Jenkins git user, will be used when the ci makes commits to git repositories
+- `name`: This is the full name of the Jenkins git user, will be used when the ci makes commits to git repositories
 
 eg.
 ```yaml
 # override/set ansible vars here
 ansible.extra_vars = {
-  git_email: 'noreply@gmail.com',
-  git_name: 'Jenkins CI',
+  git:{
+    enable_configure: true,
+    email: 'noreply@gmail.com',
+    name: 'Jenkins CI',
+  }
 }
 ```
 #### 1.4: Set Rally Variables to Preconfigure Plugin
 
 ##### Settings:
-
-- `rally_server`: This is rally's website address
-- `rally_email`: Email (username) registered with rally
+- `enable_configure`: This enables the configuration of this plugin. When true will skip the configuration
+- `server`: This is rally's website address
+- `email`: Email (username) registered with rally
 - `jenkins_machine`: This is the domain name and port of the Jenkins server
 
 eg.
 ```yaml
 # override/set ansible vars here
 ansible.extra_vars = {
-  rally_server:"rally1.rallydev.com",
-  rally_email: "user@medullan.com",
-  jenkins_machine: "localhost:8080"
+  rally:{
+    enable_configure: true,
+    server:"rally1.rallydev.com",
+    email: "",
+    jenkins_machine: "localhost:8080"
+  }
 }
 ```
 Please note that this step does not fully configure the rally plugin. You will have to navigate to `configure system` when Jenkins goes live and enter the password for the rally user/email
@@ -99,13 +105,18 @@ eg.
 ```yaml
 # override/set ansible vars here
 ansible.extra_vars = {
-  enable_security: true,
-  jenkins_admins: "admin1,admin2", #comma delimited list eg. "admin1,admin2"
-  github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
-  github_clientId: "532534253fw3245",
-  github_clientSecret: "32refwdfs324rewf343q4rwqr32qr"
+  security:{
+    enable_security: true,
+    jenkins_admins: "admin1,admin2", #comma delimited list eg. "admin1,admin2"
+    github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
+    github_clientId: "532534253fw3245",
+    github_clientSecret: "32refwdfs324rewf343q4rwqr32qr"
+  }  
 }
 ```
+#### Things to Note:
+If there are raw xml config files that you want to be copied to Jenkins. Then simply adding them to the `provisioners/ansible/files/jenkins/config` will get them to jenkins for pre-configuration.
+
 
 ### Step 2: Run Playbook
 
