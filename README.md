@@ -149,7 +149,7 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 ## Development
 
 #### Rules
-- Please do not push to the master branch of this repository with code/tasks that has not been reviewed.
+- Please do not push to the master branch of this repository with code/tasks that have not been peer reviewed.
 - Please branch from master and make pull requests to submit changes
 - A conversation/pull request needs to happen before anything is merged into master
 - Always do a `vagrant destroy` then `vagrant up` for a final test to ensure that additions work properly end to end
