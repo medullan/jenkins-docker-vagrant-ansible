@@ -158,7 +158,7 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 
 ## TODOs
 
-- Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simply update the required XMl nodes.
+- Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simply update the required XML nodes.
 
 
 ## Credits
