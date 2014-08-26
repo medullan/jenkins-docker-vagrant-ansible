@@ -137,8 +137,8 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 ## Development
 
 #### Rules
-- Please do not push to the master branch of this repository with untested or reviewed code/tasks.
-- Please branch from the develop branch and make pull requests to that branch
+- Please do not push to the master branch of this repository with code/tasks that has not been reviewed.
+- Please branch from master and make pull requests to submit changes
 - A conversation/pull request needs to happen before anything is merged into master
 
 ##### Happy hacking away!
