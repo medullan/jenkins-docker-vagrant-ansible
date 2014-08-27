@@ -133,7 +133,7 @@ https://github.com/mitchellh/vagrant-aws
 
 ### Major Apt Packages
 `jenkins`, `ansible`, `docker`, `jmeter`, `python-setuptools`, `git`, `jre-7`, `jdk-7`, `curl`,
-`groovy`, `nodejs`, `nodejs-legacy`, `npm`
+`groovy`, `nodejs-legacy`, `npm`
 
 ### Pip Packages
 `jenkins-autojobs`, `dotcloud`, `robotframework-selenium2library`
