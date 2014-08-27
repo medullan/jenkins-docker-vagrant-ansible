@@ -24,20 +24,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       startup_delay_s: 50,
       security:{
         enable_security: true,
-        jenkins_admins: "", #comma delimited list eg. "admin1,admin2"
-        github_orgNames: "", #comma delimited list eg. "medullan,google"
-        github_clientId: "",
-        github_clientSecret: "",
+        jenkins_admins: "lwhiteley", #comma delimited list eg. "admin1,admin2"
+        github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
+        github_clientId: "02320dbdc3b20a428642",
+        github_clientSecret: "1a1c672cb765aa89b2c2296551adbd0a9635284d",
       },
       git:{
         enable_configure: true,
-        email: 'noreply@gmail.com',
+        email: 'layton@gmail.com',
         name: 'Jenkins CI',
       },
       rally:{
         enable_configure: true,
         server:"rally1.rallydev.com",
-        email: "",
+        email: "lwhiteley@medullan.com",
         jenkins_machine: "localhost:8080"
       }
     }
@@ -86,7 +86,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # vb.gui = true
 
     # Use VBoxManage to customize the VM. For example to change memory:
-    # vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
   #
   # View the documentation for the provider you're using for more
