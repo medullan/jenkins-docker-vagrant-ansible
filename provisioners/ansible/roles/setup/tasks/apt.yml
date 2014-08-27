@@ -18,3 +18,10 @@
 - name: Install jmeter
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=jmeter state=installed"
+
+- name: Install nodejs-legacy
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=nodejs-legacy state=installed"
+- name: Install npm
+  sudo: yes
+  action: "{{ ansible_pkg_mgr }} pkg=npm state=installed"
