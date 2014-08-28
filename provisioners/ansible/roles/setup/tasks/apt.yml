@@ -25,3 +25,6 @@
 - name: Install npm
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg=npm state=installed"
+
+- include: apt-packages/mongo.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and mongo.install

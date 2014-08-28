@@ -1,3 +1,7 @@
 ---
 remote_tmp_folder: /home/vagrant/tmp
 local_files_dir: '../../../files'
+mongodb:
+  deb:
+    repo: 'deb http://pkg.jenkins-ci.org/debian binary/' # Jenkins repository
+    key: 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key' # Jenkins key

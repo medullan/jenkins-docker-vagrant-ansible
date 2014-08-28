@@ -117,6 +117,9 @@ ansible.extra_vars = {
 #### Things to Note:
 If there are raw xml config files that you want to be copied to Jenkins. Then simply adding them to the `provisioners/ansible/files/jenkins/config` directory will get them to jenkins for pre-configuration.
 
+#### 1.6 Optional Installs
+
+* ansible.extra_vars.mongo.install (Boolean): `Default: false`
 
 ### Step 2: Run Playbook
 

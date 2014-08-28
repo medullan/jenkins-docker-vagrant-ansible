@@ -39,6 +39,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         server:"rally1.rallydev.com",
         email: "noreply@gmail.com",
         jenkins_machine: "localhost:8080"
+      },
+      mongo:{
+        install: false
       }
     }
 
