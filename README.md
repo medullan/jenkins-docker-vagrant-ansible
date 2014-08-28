@@ -143,11 +143,35 @@ https://github.com/mitchellh/vagrant-aws
 
 ## Known Issues
 
-####Issue 1:
+#### Issue 1
 
 > The github-oauth@0.19 plugin doesnt play well with the shared-workspace plugin.
 > At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used.
-This variable is null until a job is executed, hence the github-oauth plugin will throw a fit. Just avoid using that variable and everything will be ok.
+This variable is null until a job is executed, hence the github-oauth plugin will throw a fit.
+
+>***Resolution***
+
+>Just avoid using that variable and everything will be ok.
+
+#### Issue 2
+> With `VirtualBox v4.3.14`, when doing `vagrant up`, an error (or similar error) sometimes occurs saying:
+
+> ***Exception:***
+
+> The guest machine entered an invalid state while waiting for it
+> to boot. Valid states are 'starting, running'. The machine is in the
+> 'poweroff' state. Please verify everything is configured
+> properly and try again.
+
+> If the provider you're using has a GUI that comes with it,
+> it is often helpful to open that and watch the machine, since the
+> GUI often has more helpful error messages than Vagrant can retrieve.
+> For example, if you're using VirtualBox, run `vagrant up` while the
+> VirtualBox GUI is open.
+
+> ***Resolution***:
+
+> To resolve the issue, downgrading to version `VirtualBox v4.3.12` worked
 
 ## Development
 
