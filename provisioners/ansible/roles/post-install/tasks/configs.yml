@@ -13,7 +13,3 @@
 - name: Set Git Default Push Method
   sudo: yes
   shell: git config --global push.default simple
-
-- name: Install bower and grunt globally
-  sudo: yes
-  shell: sudo npm install -g bower grunt-cli

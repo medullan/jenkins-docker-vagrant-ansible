@@ -1,0 +1,6 @@
+---
+
+- name: Install npm packages globally
+  sudo: yes
+  shell: sudo npm install -g {{ npm.global_packages }}
+  when: npm and npm.global_packages
