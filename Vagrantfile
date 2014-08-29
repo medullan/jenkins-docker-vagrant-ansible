@@ -49,8 +49,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         memory: 1024
       },
       npm:{
-        # packages are space delimited list eg. 'bower grunt-cli'
-        global_packages: "bower grunt-cli"
+        # packages is a space delimited list eg. 'bower grunt-cli'
+        # bower, grunt-cli and istanbul are installed by default
+        global_packages: ""
       }
     }
 

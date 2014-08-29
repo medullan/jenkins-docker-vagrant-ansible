@@ -1,6 +1,5 @@
 ---
 
-- name: Install npm packages globally
+- name: Install NPM packages globally
   sudo: yes
-  shell: sudo npm install -g {{ npm.global_packages }}
-  when: npm and npm.global_packages
+  shell: sudo npm install -g istanbul bower grunt-cli {{ npm.global_packages }}
