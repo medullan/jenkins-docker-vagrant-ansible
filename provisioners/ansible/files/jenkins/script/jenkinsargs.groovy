@@ -22,8 +22,8 @@ def changeValue(fileName, memory, _perm){
       }else{
         println "either no memory set or size is less than 256"
       }
-      if(_perm && isValidString(memory) && _perm.trim().isInteger() && _perm.trim().toInteger() >= 512){
-        memory = memory.trim()
+      if(_perm && isValidString(_perm) && _perm.trim().isInteger() && _perm.trim().toInteger() >= 512){
+        _perm = _perm.trim()
         _maxPermSizeString = "-XX:MaxPermSize=${_perm}m"
       }else{
         println "either no permSize set or size is less than 512"

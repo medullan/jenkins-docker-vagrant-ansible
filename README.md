@@ -1,9 +1,9 @@
 README!
 =======================
 
-If interested in pushing to this Repository please see the `Development` section below.
-Please check `known issues` below if problems occur.
-Most Instructions and problem resolutions below are for Mac OS X.
+* If interested in pushing to this Repository please see the `Development` section below.
+* Please check `known issues` below if problems occur.
+* Most Instructions and problem resolutions below are for Mac OS X.
 
 ### Requirements:
 - `Vagrant - latest`
