@@ -1,11 +1,13 @@
-Readme
+README!
 =======================
 
 If interested in pushing to this Repository please see the `Development` section below.
+Please check `known issues` below if problems occur.
+Most Instructions and problem resolutions below are for Mac OS X. 
 
 ### Requirements:
 - `Vagrant - latest`
-- `Ansible >= v1.7.1`
+- `Ansible >= v1.7.1` (will most likely get errors if version is lower)
 
 ### Features
 - Setup jenkins
@@ -214,6 +216,18 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 > ***Resolution***:
 
 > To resolve the issue, downgrading to version `VirtualBox v4.3.12` worked
+
+#### Issue 3
+> Sometime pulling the repository will make the `ansible.host` file an executable file and will produce the following error:
+> ***Exception:***
+
+> ERROR: The file provisioners/ansible/ansible.host is marked as executable,
+> but failed to execute correctly. If this is not supposed to be an executable script,
+> correct this with `chmod -x provisioners/ansible/ansible.host`.
+
+> ***Resolution***:
+
+> To resolve the issue, run `chmod -x provisioners/ansible/ansible.host`
 
 ## Development
 

@@ -7,8 +7,8 @@
 - name: Install NPM packages globally
   sudo: yes
   shell: "groovy {{ remote_tmp_folder }}/script/npm.groovy -p '{{ npm.global_packages }}'"
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and npm is defined and npm.global_packages is defined
   register: custom_npm_packages
 
-- name: Results - Install global npm packages 
+- name: Results - Install global npm packages
   debug: var=custom_npm_packages.stdout_lines
