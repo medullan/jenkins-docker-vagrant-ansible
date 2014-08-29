@@ -1,11 +1,13 @@
-Readme
+README!
 =======================
 
 If interested in pushing to this Repository please see the `Development` section below.
+Please check `known issues` below if problems occur.
+Most Instructions and problem resolutions below are for Mac OS X.
 
 ### Requirements:
 - `Vagrant - latest`
-- `Ansible >= v1.7.1`
+- `Ansible >= v1.7.1` (will most likely get errors if version is lower)
 
 ### Features
 - Setup jenkins
@@ -117,7 +119,46 @@ ansible.extra_vars = {
 #### Things to Note:
 If there are raw xml config files that you want to be copied to Jenkins. Then simply adding them to the `provisioners/ansible/files/jenkins/config` directory will get them to jenkins for pre-configuration.
 
-#### 1.6 Optional Installs
+#### 1.6 Configure Jenkins Memory
+
+Configure the heap size Jenkins will be assigned on startup.
+
+- `enable_configure`: This flag tells the playbook to enable security for the Jenkins instance. If false, the playbook will skip enabling security.
+- `maxPermSize`: Assign the MaxPermSize that jenkins will be assigned ("-XX:MaxPermSize=512m")
+- `memory`: sets the heap size assigned to jenkins ('-Xmx1024m')
+
+eg.
+
+```yaml
+# override/set ansible vars here
+ansible.extra_vars = {
+  jenkins_opts:{
+    enable_configure: true,
+    maxPermSize: 512, # cannot be less than 512
+    memory: 1024 # cannot be less than 256
+  }
+}
+```
+
+#### 1.7 Install global npm packages
+
+- `global_packages`: This is a space delimited list of npm packges eg. 'bower grunt-cli'
+
+
+eg.
+
+```yaml
+# override/set ansible vars here
+ansible.extra_vars = {
+  npm:{
+    # packages is a space delimited list eg. 'bower grunt-cli'
+    # bower, grunt-cli and istanbul are installed by default
+    global_packages: "doxx npm-check-updates"
+  }
+}
+```
+
+#### 1.8 Optional Installs
 
 * ansible.extra_vars.mongo.install (Boolean): `Default: false`
 
@@ -142,7 +183,7 @@ https://github.com/mitchellh/vagrant-aws
 `jenkins-autojobs`, `dotcloud`, `robotframework-selenium2library`
 
 ### NPM Global Packages
-`bower`, `grunt-cli`
+`istanbul`, `bower`, `grunt-cli`
 
 ## Known Issues
 
@@ -175,6 +216,19 @@ This variable is null until a job is executed, hence the github-oauth plugin wil
 > ***Resolution***:
 
 > To resolve the issue, downgrading to version `VirtualBox v4.3.12` worked
+
+#### Issue 3
+> Sometimes pulling the repository down will make `ansible.host` an executable file and will produce the following error:
+
+> ***Exception:***
+
+> ERROR: The file provisioners/ansible/ansible.host is marked as executable,
+> but failed to execute correctly. If this is not supposed to be an executable script,
+> correct this with `chmod -x provisioners/ansible/ansible.host`.
+
+> ***Resolution***:
+
+> To resolve the issue, run `chmod -x provisioners/ansible/ansible.host`
 
 ## Development
 

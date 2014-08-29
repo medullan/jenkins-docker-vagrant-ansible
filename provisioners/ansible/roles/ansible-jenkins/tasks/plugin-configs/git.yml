@@ -2,12 +2,12 @@
 # Modify config file
 - name: Set Git Name in Git Plugin Config
   sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n globalConfigName -v '{{ git.name }}' {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
+  shell: "groovy {{ remote_tmp_folder }}/script/updatenode.groovy -n globalConfigName -v '{{ git.name }}' {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
   register: set_git_name
 
 - name: Set Git Email in Git Plugin Config
   sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n globalConfigEmail -v '{{ git.email }}' {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
+  shell: "groovy {{ remote_tmp_folder }}/script/updatenode.groovy -n globalConfigEmail -v '{{ git.email }}' {{ jenkins_home }}/hudson.plugins.git.GitSCM.xml"
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
   register: set_git_email

@@ -3,19 +3,20 @@
 # set useSecurity to false
 - name: Disable Jenkins Security
   sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n useSecurity -v false {{ jenkins_home }}/config.xml"
+  shell: "groovy {{ remote_tmp_folder }}/script/updatenode.groovy -n useSecurity -v false {{ jenkins_home }}/config.xml"
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
   register: disable_security
 
-- debug: var=disable_security.stdout_lines
+- name: Results - Disable Jenkins Security
+  debug: var=disable_security.stdout_lines
 
-# Restart jenkins service if security was turned off 
+# Restart jenkins service if security was turned off
 # or a new version of jenkins was installed
 # to get the latest jenkins-cli.jar
 - name: Restarting jenkins service
   sudo: yes
   shell: "service jenkins restart"
-  when: "disable_security.stdout.find('Value Before => [useSecurity[attributes={}; value=[true]]]') != -1 or jenkins_install.changed"
+  when: "disable_security.stdout.find('Value Before => [useSecurity[attributes={}; value=[true]]]') != -1 or jenkins_install.changed or update_default_jenkins_opts.changed"
   register: restart_jenkins_service
 
 # Wait for jenkins to start

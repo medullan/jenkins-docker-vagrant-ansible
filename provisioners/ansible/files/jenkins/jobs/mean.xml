@@ -52,7 +52,9 @@
 <concurrentBuild>false</concurrentBuild>
 <builders>
 <hudson.tasks.Shell>
-<command>cd $WORKSPACE npm install grunt test:ui</command>
+<command>
+cd $WORKSPACE npm install grunt test:ui grunt test:server grunt docs
+</command>
 </hudson.tasks.Shell>
 </builders>
 <publishers>
@@ -60,7 +62,7 @@
 <reportTargets>
 <htmlpublisher.HtmlPublisherTarget>
 <reportName>UI Code Coverage (Istanbul)</reportName>
-<reportDir>coverage/phantomjs</reportDir>
+<reportDir>.reports/coverage/ui/phantomjs/lcov-report</reportDir>
 <reportFiles>index.html</reportFiles>
 <keepAll>false</keepAll>
 <allowMissing>false</allowMissing>
@@ -68,7 +70,7 @@
 </htmlpublisher.HtmlPublisherTarget>
 <htmlpublisher.HtmlPublisherTarget>
 <reportName>NG Docs</reportName>
-<reportDir>docs/ngdocs</reportDir>
+<reportDir>.reports/docs/ngdocs</reportDir>
 <reportFiles>index.html</reportFiles>
 <keepAll>false</keepAll>
 <allowMissing>false</allowMissing>
@@ -76,15 +78,31 @@
 </htmlpublisher.HtmlPublisherTarget>
 <htmlpublisher.HtmlPublisherTarget>
 <reportName>NodeJS Docs</reportName>
-<reportDir>docs/doxx</reportDir>
+<reportDir>.reports/docs/doxx</reportDir>
 <reportFiles>index.html</reportFiles>
 <keepAll>false</keepAll>
 <allowMissing>false</allowMissing>
 <wrapperName>htmlpublisher-wrapper.html</wrapperName>
 </htmlpublisher.HtmlPublisherTarget>
 <htmlpublisher.HtmlPublisherTarget>
-<reportName>Server Code Coverage (Covershot)</reportName>
-<reportDir>covershot</reportDir>
+<reportName>Server Code Coverage (Istanbul)</reportName>
+<reportDir>.reports/coverage/server/lcov-report</reportDir>
+<reportFiles>index.html</reportFiles>
+<keepAll>false</keepAll>
+<allowMissing>false</allowMissing>
+<wrapperName>htmlpublisher-wrapper.html</wrapperName>
+</htmlpublisher.HtmlPublisherTarget>
+<htmlpublisher.HtmlPublisherTarget>
+<reportName>Server Metrics Report</reportName>
+<reportDir>.reports/plato/server</reportDir>
+<reportFiles>index.html</reportFiles>
+<keepAll>false</keepAll>
+<allowMissing>false</allowMissing>
+<wrapperName>htmlpublisher-wrapper.html</wrapperName>
+</htmlpublisher.HtmlPublisherTarget>
+<htmlpublisher.HtmlPublisherTarget>
+<reportName>UI Metrics Report</reportName>
+<reportDir>.reports/plato/ui</reportDir>
 <reportFiles>index.html</reportFiles>
 <keepAll>false</keepAll>
 <allowMissing>false</allowMissing>
@@ -93,7 +111,7 @@
 </reportTargets>
 </htmlpublisher.HtmlPublisher>
 <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1.1">
-<testResults>coverage/junit/test-results.xml</testResults>
+<testResults>.reports/junit/*.xml</testResults>
 <keepLongStdio>false</keepLongStdio>
 <testDataPublishers/>
 <healthScaleFactor>1.0</healthScaleFactor>

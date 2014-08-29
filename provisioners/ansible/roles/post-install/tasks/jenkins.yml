@@ -31,4 +31,5 @@
   when: security.enable_security is defined and security.enable_security
   register: security_setup
 
-- debug: var=security_setup.stdout_lines
+- name: Results - Setup Jenkins Security
+  debug: var=security_setup.stdout_lines

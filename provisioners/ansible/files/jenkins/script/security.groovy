@@ -10,7 +10,7 @@
 * @see runCli() below to see the flow of execution
 **/
 def isValidString ={ value ->
-  if(value != null && value instanceof String && value != ""){
+  if(value != null && value instanceof String && value.trim() != ""){
     return true
   }
   return false
