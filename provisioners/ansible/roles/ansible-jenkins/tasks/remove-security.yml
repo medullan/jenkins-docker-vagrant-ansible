@@ -3,7 +3,7 @@
 # set useSecurity to false
 - name: Disable Jenkins Security
   sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/update-node.groovy -n useSecurity -v false {{ jenkins_home }}/config.xml"
+  shell: "groovy {{ remote_tmp_folder }}/script/updatenode.groovy -n useSecurity -v false {{ jenkins_home }}/config.xml"
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
   register: disable_security
 

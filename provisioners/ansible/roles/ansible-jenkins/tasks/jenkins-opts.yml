@@ -2,9 +2,9 @@
 # update defaults JAVA_OPTS for jenkins
 - name: Update defaults JAVA_OPTS for jenkins
   sudo: yes
-  shell: "groovy {{ remote_tmp_folder }}/script/jenkins-args.groovy -m {{ jenkins_opts.memory }} -p {{ jenkins_opts.maxPermSize }} /etc/default/jenkins"
+  shell: "groovy {{ remote_tmp_folder }}/script/jenkinsargs.groovy -m {{ jenkins_opts.memory }} -p {{ jenkins_opts.maxPermSize }} /etc/default/jenkins"
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and jenkins_opts.enable_configure
   register: update_default_jenkins_opts
 
-- name: Results - Update defaults JAVA_OPTS 
+- name: Results - Update defaults JAVA_OPTS
   debug: var=update_default_jenkins_opts.stdout_lines

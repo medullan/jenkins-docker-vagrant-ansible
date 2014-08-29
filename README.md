@@ -151,7 +151,7 @@ ansible.extra_vars = {
   npm:{
     # packages is a space delimited list eg. 'bower grunt-cli'
     # bower, grunt-cli and istanbul are installed by default
-    global_packages: ""
+    global_packages: "doxx npm-check-updates"
   }
 }
 ```

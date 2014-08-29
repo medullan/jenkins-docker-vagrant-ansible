@@ -4,7 +4,11 @@
   sudo: yes
   shell: sudo npm install -g istanbul bower grunt-cli
 
-- name: Install Custom npm packages globally
+- name: Install NPM packages globally
   sudo: yes
-  shell: sudo npm install -g {{ npm.global_packages }}
-  when: npm and npm.global_packages and npm.global_packages != ""
+  shell: "groovy {{ remote_tmp_folder }}/script/npm.groovy -p '{{ npm.global_packages }}'"
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  register: custom_npm_packages
+
+- name: Results - Install global npm packages 
+  debug: var=custom_npm_packages.stdout_lines
