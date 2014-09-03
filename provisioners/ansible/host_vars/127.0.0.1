@@ -10,11 +10,6 @@ plugins:
   - 'preSCMbuildstep'
   - 'publish-over-ssh'
   - 'nodejs'
-  - 'jenkins-multijob-plugin'
-  - 'docker-build-step'
-  - 'dockerhub'
-  - 'docker-plugin'
-  - 'docker-build-publish'
   - 'deploy'
   - 'gravatar'
   - 'disk-usage'
@@ -28,6 +23,8 @@ plugins:
   - 'shared-workspace'
   - 'heavy-job'
   - 'htmlpublisher'
+  - 'jenkins-multijob-plugin'
+  - 'multi-branch-project-plugin'
 
   # extras - remove # below to enable installation
 
@@ -35,8 +32,12 @@ plugins:
   #- 'hipchat'
   #- 'TwilioNotifier'
   #- 'cobertura'
+  #- 'docker-build-step'
+  #- 'dockerhub'
+  #- 'docker-plugin'
+  #- 'docker-build-publish'
 
-  # plugin files
+  # install plugins via files
 
   - '/home/vagrant/tmp/plugins/rally-build-notifier.hpi'
 
