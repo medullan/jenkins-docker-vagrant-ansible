@@ -22,6 +22,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # override/set ansible vars here
     ansible.extra_vars = {
       startup_delay_s: 50,
+      # for compat with the jenkins 'docker-pugin'.
+      # removing defaults to latest version of docker
+      docker_package: 'lxc-docker-1.1.2',
       security:{
         enable_security: true,
         jenkins_admins: "", #comma delimited list eg. "admin1,admin2"
