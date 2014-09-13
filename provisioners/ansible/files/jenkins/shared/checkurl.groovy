@@ -1,7 +1,6 @@
 import java.text.*
 import java.util.concurrent.locks.ReentrantLock
 import groovy.time.*
-import java.util.regex.Pattern
 
 /**
 * This scripts checks a url using curl to see if the website is ready to be used
@@ -13,6 +12,8 @@ import java.util.regex.Pattern
         -s,--sleep <sleep>        time in seconds before next retry, Default: 10
         -t,--tries <tries>        number of tries before exit, Default: 3
 *
+* @author Layton Whiteley
+* @date Sept 12 2014
 */
 
 def runCommand(options, url){
