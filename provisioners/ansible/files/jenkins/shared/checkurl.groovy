@@ -67,33 +67,46 @@ def runCommand(options, url){
     def worker = { threadNum ->
       tries.times { count ->
         lock.withLock {
-            def result = command.execute().text.split()
-            def response = result[result.length - 1].replaceAll("\"", "")
-            if(response.isInteger()){
-              responseCode = response.toInteger()
-              def now = new Date()
-              long diff = now - start;
-              TimeDuration duration = TimeCategory.minus(now, start)
-              def seconds = duration.getSeconds()
-              def badResponse = (responseCode >= 400 && responseCode <= 600) || responseCode < 100
-              def goodResponse = responseCode < 400 && responseCode >= 100
 
-              if(goodResponse){
-                println "\n(0) Final Response is ${response}: site is ready!"
-                println "elapsed time: ${duration} \n"
-                System.exit(0)
-              }
-              if(badResponse && tries == (count+1)){
-                println "\n(1) Final Response is ${response}: checkurl FAILED to see if the site is ready!"
-                println "elapsed time: ${duration} \n"
-                System.exit(1)
-              }
-              if((count+1) < tries ){
-                println "Response is ${response}: not satisfactory... executing retry (${tries - (count+1)} left)"
-                Thread.sleep(retrySleep);
-              }
+          def now = new Date()
+          long diff = now - start;
+          TimeDuration duration = TimeCategory.minus(now, start)
+          def seconds = duration.getSeconds()
+          def result = command.execute().text.split()
+          def response = result[result.length - 1].replaceAll("\"", "")
+          if(response.isInteger()){
+            responseCode = response.toInteger()
+            def badResponse = (responseCode >= 400 && responseCode <= 600) || responseCode < 100
+            def goodResponse = responseCode < 400 && responseCode >= 100
+            def subMsg = (responseCode < 100)? "cannot resolve" : "not satisfactory"
 
+            if(goodResponse){
+              println "\n(0) Final Response is ${response}: site is ready!"
+              println "elapsed time: ${duration} \n"
+              System.exit(0)
             }
+            if(badResponse && tries == (count+1)){
+              println "\n(1) Final Response is ${response}: checkurl FAILED to see if the site is ready!"
+              println "elapsed time: ${duration} \n"
+              System.exit(1)
+            }
+            if((count+1) < tries ){
+              println "Response is ${response}: ${subMsg} ... executing retry (${tries - (count+1)} left)"
+              Thread.sleep(retrySleep);
+            }
+
+          }else{
+
+            if(tries == (count+1)){
+              println "\n(1) Final Response is not valid: checkurl FAILED to see if the site is ready!"
+              println "elapsed time: ${duration} \n"
+              System.exit(1)
+            }else{
+              println "Response is not valid: cannot resolve ... executing retry (${tries - (count+1)} left)"
+              Thread.sleep(retrySleep);
+            }
+
+          }
         }
 
       }
@@ -105,7 +118,7 @@ def runCommand(options, url){
       if(tries > 0){
         println "\nLETS ROCK!"
       }else{
-        println "\nTHIS TRAIN WONT MOVE ON EMPTY FUEL! - tries = ${options.t}\n"
+        println "\nTHIS TRAIN WON'T MOVE ON EMPTY FUEL! - tries = ${options.t}\n"
       }
 
     }
@@ -141,9 +154,10 @@ def runCli = { args ->
         def url = extraArguments[0]
         runCommand(options, url)
     }else{
-      println "nothing done"
-      println "url is required to continue!"
+      println "\nnothing done"
+      println "url is required to continue!\n"
       cli.usage()
+      println ""
       System.exit(1) //fail the build
     }
 }
