@@ -9,48 +9,81 @@ import groovy.time.*
 *   groovy checkurl.groovy -[hmst] [url]
         -h,--help                 Show usage information
         -m,--max-time <maxTime>   max time in seconds before killing a curl command, Default: 20
-        -s,--sleep <sleep>        time in seconds before next retry, Default: 10
+        -s,--sleep <sleep>        time in seconds before next retry, Default: 4
         -t,--tries <tries>        number of tries before exit, Default: 3
 *
 * @author Layton Whiteley
 * @date Sept 12 2014
 */
 
+
+def getIntegerOption(value, defaultValue, descriptor){
+  def result = defaultValue
+  if(value && value.isInteger()){
+    result = value.toInteger()
+    println "   ${result} ${descriptor} "
+  }else{
+    println "   ${result} ${descriptor} (Default)"
+  }
+  return result
+}
+
+def getSleepOption(value, defaultValue, descriptor){
+  long secondInMillis = 1000;
+  def result
+  if(value && value.isInteger()){
+    result = value.toInteger() * secondInMillis
+    println "   ${value} ${descriptor} "
+  }else{
+    result = defaultValue * secondInMillis
+    println "   ${defaultValue} ${descriptor} (Default)"
+  }
+  return result
+}
+
+def handleValidResponse(response, tries, retrySleep, count, duration){
+  responseCode = response.toInteger()
+  def badResponse = (responseCode >= 400 && responseCode <= 600) || responseCode < 100
+  def goodResponse = responseCode < 400 && responseCode >= 100
+  def subMsg = (responseCode < 100)? "cannot resolve" : "not satisfactory"
+
+  if(goodResponse){
+    println "\n(0) Final Response is ${response}: site is ready!"
+    println "elapsed time: ${duration} \n"
+    System.exit(0)
+  }
+  if(badResponse && tries == (count+1)){
+    println "\n(1) Final Response is ${response}: checkurl FAILED to see if the site is ready!"
+    println "elapsed time: ${duration} \n"
+    System.exit(1)
+  }
+  if((count+1) < tries ){
+    println "Response is ${response}: ${subMsg} ... executing retry (${tries - (count+1)} left)"
+    Thread.sleep(retrySleep);
+  }
+}
+
+def handleInvalidResponse(response, tries, retrySleep, count, duration){
+  if(tries == (count+1)){
+    println "\n(1) Final Response is not valid ('${response}'): checkurl FAILED to see if the site is ready!"
+    println "elapsed time: ${duration} \n"
+    System.exit(1)
+  }else{
+    println "Response is not valid ('${response}'): cannot resolve ... executing retry (${tries - (count+1)} left)"
+    Thread.sleep(retrySleep);
+  }
+}
+
 def runCommand(options, url){
 
-  // if(true){
     def start = new Date()
-    long secondInMillis = 1000;
-    def defaultString = "(Default)"
+
     println "\nChecking '${url}' with: "
+    def tries = getIntegerOption(options.t, 3, "tries")
+    def timeout = getIntegerOption(options.m, 20, "seconds timeout per try")
+    def retrySleep = getSleepOption(options.s, 4, "seconds interval before next try")
 
-    def tries = 3
-    if(options.t && options.t.isInteger()){
-      tries = options.t.toInteger()
-      println "   ${tries} tries "
-    }else{
-      println "   ${tries} tries ${defaultString}"
-    }
-
-    def timeout = 20
-    if(options.m && options.m.isInteger()){
-      timeout = options.m.toInteger()
-      println "   ${timeout} seconds timeout per try "
-    }else{
-      println "   ${timeout} seconds timeout per try ${defaultString}"
-    }
-
-    def sleepSeconds = 10;
-    def retrySleep
-    if(options.s && options.s.isInteger()){
-      retrySleep = options.s.toInteger() * secondInMillis
-      println "   ${options.s} seconds interval before next try "
-    }else{
-      retrySleep = sleepSeconds * secondInMillis
-      println "   ${sleepSeconds} seconds interval before next try ${defaultString}"
-    }
-
-    def command = "curl -sL -I --max-time ${timeout} -w \"%{http_code}\" ${url}"
+    def command = "curl -sL -I --max-time ${timeout} --connect-timeout ${timeout} -w \"%{http_code}\" ${url}"
 
   ReentrantLock.metaClass.withLock = {
       lock()
@@ -67,48 +100,17 @@ def runCommand(options, url){
     def worker = { threadNum ->
       tries.times { count ->
         lock.withLock {
-
-
           def result = command.execute().text.split()
           def response = result[result.length - 1].replaceAll("\"", "")
 
           def now = new Date()
           long diff = now - start;
           TimeDuration duration = TimeCategory.minus(now, start)
-          def seconds = duration.getSeconds()
 
           if(response.isInteger()){
-            responseCode = response.toInteger()
-            def badResponse = (responseCode >= 400 && responseCode <= 600) || responseCode < 100
-            def goodResponse = responseCode < 400 && responseCode >= 100
-            def subMsg = (responseCode < 100)? "cannot resolve" : "not satisfactory"
-
-            if(goodResponse){
-              println "\n(0) Final Response is ${response}: site is ready!"
-              println "elapsed time: ${duration} \n"
-              System.exit(0)
-            }
-            if(badResponse && tries == (count+1)){
-              println "\n(1) Final Response is ${response}: checkurl FAILED to see if the site is ready!"
-              println "elapsed time: ${duration} \n"
-              System.exit(1)
-            }
-            if((count+1) < tries ){
-              println "Response is ${response}: ${subMsg} ... executing retry (${tries - (count+1)} left)"
-              Thread.sleep(retrySleep);
-            }
-
+            handleValidResponse(response, tries, retrySleep, count, duration)
           }else{
-
-            if(tries == (count+1)){
-              println "\n(1) Final Response is not valid ('${response}'): checkurl FAILED to see if the site is ready!"
-              println "elapsed time: ${duration} \n"
-              System.exit(1)
-            }else{
-              println "Response is not valid ('${response}'): cannot resolve ... executing retry (${tries - (count+1)} left)"
-              Thread.sleep(retrySleep);
-            }
-
+            handleInvalidResponse(response, tries, retrySleep, count, duration)
           }
         }
 
@@ -138,7 +140,7 @@ def runCli = { args ->
     cli.with {
         h longOpt: 'help', 'Show usage information'
         t longOpt: 'tries', args: 1, argName: 'tries', 'number of tries before exit, Default: 3'
-        s longOpt: 'sleep', args: 1, argName: 'sleep', 'time in seconds before next retry, Default: 10'
+        s longOpt: 'sleep', args: 1, argName: 'sleep', 'time in seconds before next retry, Default: 4'
         m longOpt: 'max-time', args: 1, argName: 'maxTime', 'max time in seconds before killing a curl command, Default: 20'
     }
 
