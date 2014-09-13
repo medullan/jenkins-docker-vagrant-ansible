@@ -118,16 +118,14 @@ def runCommand(options, url){
     }
 
     // kick off worker
-    1.times {
-      Thread.start worker.curry(it)
-      if(tries > 0){
-        println "\nLETS ROCK!"
-      }else{
-        println "\nTHIS TRAIN WON'T MOVE ON EMPTY FUEL! - tries = ${tries}\n"
+    if(tries > 0){
+      1.times {
+        Thread.start worker.curry(it)
       }
-
+      println "\nLETS ROCK!"
+    }else{
+      println "\nTHIS TRAIN WON'T MOVE ON EMPTY FUEL! - tries = ${tries}\n"
     }
-
   }
 
 /**
