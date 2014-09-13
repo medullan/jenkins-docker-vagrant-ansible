@@ -123,7 +123,7 @@ def runCommand(options, url){
       if(tries > 0){
         println "\nLETS ROCK!"
       }else{
-        println "\nTHIS TRAIN WON'T MOVE ON EMPTY FUEL! - tries = ${options.t}\n"
+        println "\nTHIS TRAIN WON'T MOVE ON EMPTY FUEL! - tries = ${tries}\n"
       }
 
     }
