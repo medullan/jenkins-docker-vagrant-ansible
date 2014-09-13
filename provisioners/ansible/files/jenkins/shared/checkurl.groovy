@@ -68,12 +68,15 @@ def runCommand(options, url){
       tries.times { count ->
         lock.withLock {
 
+
+          def result = command.execute().text.split()
+          def response = result[result.length - 1].replaceAll("\"", "")
+
           def now = new Date()
           long diff = now - start;
           TimeDuration duration = TimeCategory.minus(now, start)
           def seconds = duration.getSeconds()
-          def result = command.execute().text.split()
-          def response = result[result.length - 1].replaceAll("\"", "")
+
           if(response.isInteger()){
             responseCode = response.toInteger()
             def badResponse = (responseCode >= 400 && responseCode <= 600) || responseCode < 100
@@ -98,11 +101,11 @@ def runCommand(options, url){
           }else{
 
             if(tries == (count+1)){
-              println "\n(1) Final Response is not valid: checkurl FAILED to see if the site is ready!"
+              println "\n(1) Final Response is not valid ('${response}'): checkurl FAILED to see if the site is ready!"
               println "elapsed time: ${duration} \n"
               System.exit(1)
             }else{
-              println "Response is not valid: cannot resolve ... executing retry (${tries - (count+1)} left)"
+              println "Response is not valid ('${response}'): cannot resolve ... executing retry (${tries - (count+1)} left)"
               Thread.sleep(retrySleep);
             }
 
