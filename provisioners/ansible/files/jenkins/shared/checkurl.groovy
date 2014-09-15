@@ -85,7 +85,7 @@ def runCommand(options, url){
     def timeout = getIntegerOption(options.m, 20, "seconds timeout per try")
     def retrySleep = getSleepOption(options.s, 4, "seconds interval before next try")
 
-    def command = "curl -sL -I --max-time ${timeout} --connect-timeout ${timeout} -w \"%{http_code}\" ${url}"
+    def command = "curl -sL --max-time ${timeout} --connect-timeout ${timeout} -w \"%{http_code}\" ${url}"
 
   ReentrantLock.metaClass.withLock = {
       lock()
