@@ -59,6 +59,7 @@ def handleValidResponse(response, tries, retrySleep, count, duration){
   }
   if((count+1) < tries ){
     println "Response is ${response}: ${subMsg} ... executing retry (${tries - (count+1)} left)"
+    println "elapsed time: ${duration} \n"
     Thread.sleep(retrySleep);
   }
 }
@@ -70,6 +71,7 @@ def handleInvalidResponse(response, tries, retrySleep, count, duration){
     System.exit(1)
   }else{
     println "Response is not valid ('${response}'): cannot resolve ... executing retry (${tries - (count+1)} left)"
+    println "elapsed time: ${duration} \n"
     Thread.sleep(retrySleep);
   }
 }
