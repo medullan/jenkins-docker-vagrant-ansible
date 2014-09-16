@@ -1,30 +1,9 @@
 ---
-- name: Install libxml2-dev
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=libxml2-dev state=installed"
-
-- name: Install libxslt1-dev
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=libxslt1-dev state=installed"
-
-- name: Install python-lxml
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=python-lxml state=installed"
-
-- name: Install groovy
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=groovy state=installed"
-
-- name: Install jmeter
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=jmeter state=installed"
-
-- name: Install nodejs-legacy
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=nodejs-legacy state=installed"
-- name: Install npm
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=npm state=installed"
+- include: apt-packages/nodejs.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
 
 - include: apt-packages/mongo.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and mongo.install
+
+- include: apt-packages/docker.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

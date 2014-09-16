@@ -1,20 +1,8 @@
 ---
-# Copy Job xml and plugins to be used in virtual machine
-- name: make tmp directory to place job files
-  sudo: yes
-  shell: mkdir -p tmp/jobs
-  notify:
-    - 'Delete Remote Temporary Folder'
-
-- name: make tmp directory to place plugin files
-  sudo: yes
-  shell: mkdir -p tmp/plugins
-  notify:
-    - 'Delete Remote Temporary Folder'
-
+#Create directories for groovy scripts and utility files
 - name: make tmp directory to place script files
   sudo: yes
-  shell: mkdir -p tmp/script
+  shell: mkdir -p {{ remote_tmp_folder }}/script
   notify:
     - 'Delete Remote Temporary Folder'
 

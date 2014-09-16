@@ -1,0 +1,10 @@
+---
+# Add Setup task files
+# Include all sub task files here
+# Tasks will be executed in the order they appear here
+
+- include: bashprofile.yml tags=presetupcommon
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- include: jenkins-common-install.yml tags=presetupcommon
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

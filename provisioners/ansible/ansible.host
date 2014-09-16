@@ -1,2 +1,3 @@
 [jenkins]
-127.0.0.1 ansible_ssh_port=2222
+#127.0.0.1 ansible_ssh_port=2222
+54.69.58.64

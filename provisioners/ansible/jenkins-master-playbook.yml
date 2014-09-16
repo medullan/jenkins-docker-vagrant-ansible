@@ -1,0 +1,9 @@
+- name: Jenkins Master Playbook
+  hosts: jenkins
+  roles:
+    - shared
+    - pre-install-master
+    - pre-install-common
+    - setup
+    - ansible-jenkins
+    - post-install-master

@@ -1,0 +1,125 @@
+---
+remote_tmp_folder: /home/vagrant/tmp
+local_files_dir: '../../../files'
+machine_path: /usr/local/bin
+install_postgres: true
+install_redis: false
+slave:
+  pip:
+    packages:
+      #- 'dotcloud'
+      - 'jenkins-autojobs'
+      - 'robotframework-selenium2library'
+  # these are apt packges that dont require any extra repositories to be installed
+  apt:
+    redis:
+      - 'libjemalloc1'
+    devtools:
+      - 'groovy'
+      - 'jmeter'
+    pip:
+      - 'libxml2-dev'
+      - 'libxslt1-dev'
+      - 'python-lxml'
+      - 'python-setuptools'
+    postgres:
+      - 'postgresql'
+      - 'libpq-dev'
+      - 'postgresql-contrib'
+    base:
+      - 'build-essential'
+      - 'dkms'
+      - 'nfs-common'
+      - 'curl'
+      - 'wget'
+      - 'git'
+      - 'tmux'
+      - 'firefox'
+      - 'xvfb'
+      - 'vim'
+      - 'openjdk-7-jre'
+      - 'openjdk-7-jdk'
+    ruby:
+      - 'gawk'
+      - 'libreadline6-dev'
+      - 'zlib1g-dev'
+      - 'libssl-dev'
+      - 'libyaml-dev'
+      - 'libsqlite3-dev'
+      - 'sqlite3'
+      - 'autoconf'
+      - 'libgdbm-dev'
+      - 'libncurses5-dev'
+      - 'automake'
+      - 'libtool'
+      - 'bison'
+      - 'pkg-config'
+      - 'libffi-dev'
+      - 'libxslt-dev'
+      - 'libxml2'
+
+
+jenkins_jobs:
+  - 'DbSetupAndTearDownWorkflow'
+  - 'DbSetupAndTearDownTearDownDbs'
+  - 'DbSetupAndTearDownCreateOrUpdateTemplateDbs'
+  - 'DbSetupAndTearDownCreateAndLoadDbs'
+  - 'GenerateAutoJobs'
+  - 'mean'
+
+
+# install jenkins plugins
+plugins:
+  # plugins in update center
+
+  - 'ldap'
+  - 'translation'
+  - 'github'
+  - 'github-oauth'
+  - 'ghprb'
+  - 'preSCMbuildstep'
+  - 'publish-over-ssh'
+  - 'nodejs'
+  - 'deploy'
+  - 'gravatar'
+  - 'disk-usage'
+  - 'metrics-diskusage'
+  - 'performance'
+  - 'xvfb'
+  - 'greenballs'
+  - 'nested-view'
+  - 'robot'
+  - 'findbugs'
+  - 'heavy-job'
+  - 'htmlpublisher'
+  - 'jenkins-multijob-plugin'
+  - 'ws-cleanup'
+  - 'jobConfigHistory'
+  - 'groovy'
+  - 'groovy-postbuild'
+  - 'docker-plugin'
+  - 'build-pipeline-plugin'
+  - 'throttle-concurrents'
+  - 'simple-theme-plugin'
+  - 'build-name-setter'
+  - 'postbuild-task'
+  - 'ec2'
+
+  # extras - remove # below to enable installation
+
+  #- 'slack'
+  #- 'hipchat'
+  #- 'TwilioNotifier'
+  #- 'cobertura'
+  #- 'docker-build-step'
+  #- 'dockerhub'
+  #- 'docker-build-publish'
+  #- 'multi-branch-project-plugin'
+  #- 'doxygen'
+  #- 'shared-workspace'
+
+  # install plugins using files:
+  # - stored on local machine
+  # - downloaded via public urls (recommended)
+
+  - 'https://dl.dropboxusercontent.com/s/tfdple8sxnpe4sw/rally-build-notifier.hpi?dl=0'

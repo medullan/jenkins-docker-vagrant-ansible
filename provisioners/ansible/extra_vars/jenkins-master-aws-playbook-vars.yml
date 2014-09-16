@@ -1,0 +1,40 @@
+---
+startup_delay_s: 70
+
+user_home:  /home/ubuntu
+user_name: ubuntu
+vagrant_home: /home/ubuntu
+
+# for compat with the jenkins 'docker-pugin'.
+# removing defaults to latest version of docker
+docker_package: "lxc-docker-1.1.2"
+security:
+  enable_security: true
+  jenkins_admins: "" #comma delimited list eg. "admin1,admin2"
+  github_orgNames: "" #comma delimited list eg. "medullan,google"
+  github_clientId: ""
+  github_clientSecret: ""
+
+git:
+  enable_configure: true
+  email: "noreply@gmail.com"
+  name: "Jenkins CI"
+
+rally:
+  enable_configure: true
+  server: "rally1.rallydev.com"
+  email: "noreply@gmail.com"
+  jenkins_machine: "localhost:8080"
+
+mongo:
+  install: false
+
+jenkins_opts:
+  enable_configure: true
+  maxPermSize: 512
+  memory: 1024
+
+# packages is a space delimited list eg. 'bower grunt-cli'
+# bower, grunt-cli and istanbul are installed by default
+npm:
+  global_packages: ""

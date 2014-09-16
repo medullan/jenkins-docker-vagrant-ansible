@@ -3,10 +3,6 @@
 - include: repo.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
 
-# Install dependencies
-- include: dependencies_deb.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-
 # Install Jenkins
 - name: Install Jenkins
   sudo: yes
