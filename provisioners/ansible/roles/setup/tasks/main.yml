@@ -8,7 +8,7 @@
 
 - include: jenkins-pre-install.yml tags=setup
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-  
+
 - include: ansible.yml tags=setup
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
 
