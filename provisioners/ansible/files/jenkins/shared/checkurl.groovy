@@ -102,8 +102,9 @@ def runCommand(options, url){
     def worker = { threadNum ->
       tries.times { count ->
         lock.withLock {
-          def result = command.execute().text.split()
-          def response = result[result.length - 1].replaceAll("\"", "")
+          def commandText = command.execute().text
+          def result = commandText[-5..-1]
+          def response = result.replaceAll("\"", "")
 
           def now = new Date()
           long diff = now - start;
