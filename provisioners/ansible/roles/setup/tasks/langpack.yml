@@ -1,5 +1,0 @@
-# Configure Language Pack
-
-- name: copy bash profile
-  sudo: yes
-  copy: src={{ local_files_dir }}/shell/.bash_profile dest=/home/vagrant/.bash_profile owner=vagrant

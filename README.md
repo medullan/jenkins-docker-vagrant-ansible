@@ -8,6 +8,13 @@ README!
 ### Requirements:
 - `Vagrant - latest`
 - `Ansible >= v1.7.1` (will most likely get errors if version is lower)
+- `Packer - latest`
+
+Two vagrant plugins are required. To install these plugins, please run:
+```shell
+vagrant plugin install vagrant-vbguest
+vagrant plugin install vagrant-aws
+```
 
 ### Features
 - Setup jenkins
@@ -21,9 +28,9 @@ README!
 
 ### Step 1: Configure
 
-#### 1.1: Check/Edit Plugin/Jobs to be Installed
+#### 1.1: Verify list of Jenkins plugins and jobs to be installed
 To edit the list of plugins to install and jobs to create when provisioning, look for the following file
-`provisioners/ansible/host_vars/127.0.0.1`
+`provisioners/ansible/roles/shared/vars/main.yml`
 
 If the jobs list is edited then a corresponding xml file, with the same name as the job, should be placed in the following directory:
 `provisioners/ansible/files/jenkins/jobs`
@@ -39,12 +46,10 @@ If there are extra files needed to be shared from Ansible to Jenkins, place them
 `{jenkins_home}/shared_ansible`. The jenkins user will be the owner of these files once copied over.
 
 #### 1.2: Check/Update Waiting time for jenkins restarts
-To override the time it waits (in seconds) for Jenkins to start please edit the `Vagrantfile`
+To override the time it waits (in seconds) for Jenkins to start please edit the respective file in the `provisioners/ansible/extra_vars` folder
 ```yaml
 # override/set ansible vars here
-ansible.extra_vars = {
-  startup_delay_s: 50
-}
+startup_delay_s: 50
 ```
 #### 1.3: Set Git Credentials
 
@@ -57,13 +62,11 @@ Update the git name and email to the credentials specific to your Jenkins setup
 eg.
 ```yaml
 # override/set ansible vars here
-ansible.extra_vars = {
-  git:{
-    enable_configure: true,
-    email: 'noreply@gmail.com',
-    name: 'Jenkins CI',
-  }
-}
+git:
+  enable_configure: true
+  email: 'noreply@gmail.com'
+  name: 'Jenkins CI'
+
 ```
 #### 1.4: Set Rally Variables to Preconfigure Plugin
 
@@ -76,20 +79,18 @@ ansible.extra_vars = {
 eg.
 ```yaml
 # override/set ansible vars here
-ansible.extra_vars = {
-  rally:{
-    enable_configure: true,
-    server:"rally1.rallydev.com",
-    email: "",
-    jenkins_machine: "localhost:8080"
-  }
-}
+rally:
+  enable_configure: true
+  server: "rally1.rallydev.com"
+  email: ""
+  jenkins_machine: "localhost:8080"
+
 ```
 Please note that this step does not fully configure the rally plugin. You will have to navigate to `configure system` when Jenkins goes live and enter the password for the rally user/email
 
 
 #### 1.5: Edit GitHub Security Settings
-To setup Jenkins security please edit the `Vagrantfile` with the necessary variables
+To setup Jenkins security please edit the respective file in the `provisioners/ansible/extra_vars` folder with the necessary variables
 
 ##### Settings:
 
@@ -106,15 +107,13 @@ To get the information from github:
 eg.
 ```yaml
 # override/set ansible vars here
-ansible.extra_vars = {
-  security:{
-    enable_security: true,
-    jenkins_admins: "admin1,admin2", #comma delimited list eg. "admin1,admin2"
-    github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
-    github_clientId: "532534253fw3245",
-    github_clientSecret: "32refwdfs324rewf343q4rwqr32qr"
-  }  
-}
+security:
+  enable_security: true,
+  jenkins_admins: "admin1,admin2", #comma delimited list eg. "admin1,admin2"
+  github_orgNames: "medullan", #comma delimited list eg. "medullan,google"
+  github_clientId: "532534253fw3245",
+  github_clientSecret: "32refwdfs324rewf343q4rwqr32qr"
+
 ```
 #### Things to Note:
 If there are raw xml config files that you want to be copied to Jenkins. Then simply adding them to the `provisioners/ansible/files/jenkins/config` directory will get them to jenkins for pre-configuration.
@@ -131,13 +130,10 @@ eg.
 
 ```yaml
 # override/set ansible vars here
-ansible.extra_vars = {
-  jenkins_opts:{
-    enable_configure: true,
-    maxPermSize: 512, # cannot be less than 512
-    memory: 1024 # cannot be less than 256
-  }
-}
+jenkins_opts:
+  enable_configure: true,
+  maxPermSize: 512, # cannot be less than 512
+  memory: 1024 # cannot be less than 256
 ```
 
 #### 1.7 Install global npm packages
@@ -149,13 +145,10 @@ eg.
 
 ```yaml
 # override/set ansible vars here
-ansible.extra_vars = {
-  npm:{
-    # packages is a space delimited list eg. 'bower grunt-cli'
-    # bower, grunt-cli and istanbul are installed by default
-    global_packages: "doxx npm-check-updates"
-  }
-}
+npm:
+  # packages is a space delimited list eg. 'bower grunt-cli'
+  # bower, grunt-cli and istanbul are installed by default
+  global_packages: "doxx npm-check-updates"
 ```
 
 #### 1.8 Optional Installs
@@ -164,7 +157,7 @@ ansible.extra_vars = {
 
 ### Step 2: Run Playbook
 
-#### Normal provisioning
+#### Local provisioning
 - run `vagrant up` to get the environment going
 - Get a drink :tropical_drink:, this will take approx. 30 mins for the first time you do `vagrant up` (excluding the time to retrieve the base box image)
 

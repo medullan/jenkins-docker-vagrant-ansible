@@ -10,88 +10,71 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
 
+  # box built by packer to provision with AWS
+  config.vm.box = "packer_amazon-ebs_aws.box"
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "provisioners/ansible/jenkins-playbook.yml"
-    ansible.inventory_path = "provisioners/ansible/ansible.host"
-    ansible.limit = 'all'
-    # ansible.sudo = 'true'
+  # box built by packer to provision with VirtualBox
+  # config.vm.box = "vagrant_machine"
 
-    # override/set ansible vars here
-    ansible.extra_vars = {
-      startup_delay_s: 50,
-      # for compat with the jenkins 'docker-pugin'.
-      # removing defaults to latest version of docker
-      docker_package: 'lxc-docker-1.1.2',
-      security:{
-        enable_security: true,
-        jenkins_admins: "", #comma delimited list eg. "admin1,admin2"
-        github_orgNames: "", #comma delimited list eg. "medullan,google"
-        github_clientId: "",
-        github_clientSecret: "",
-      },
-      git:{
-        enable_configure: true,
-        email: 'noreply@gmail.com',
-        name: 'Jenkins CI',
-      },
-      rally:{
-        enable_configure: true,
-        server:"rally1.rallydev.com",
-        email: "noreply@gmail.com",
-        jenkins_machine: "localhost:8080"
-      },
-      mongo:{
-        install: false
-      },
-      jenkins_opts:{
-        enable_configure: true,
-        maxPermSize: 512,
-        memory: 1024
-      },
-      npm:{
-        # packages is a space delimited list eg. 'bower grunt-cli'
-        # bower, grunt-cli and istanbul are installed by default
-        global_packages: ""
-      }
-    }
+  # box built by packer to provision with VirtualBox (clean ubuntu)
+  # config.vm.box = "ubuntu/trusty64"
 
-    # turn on verbose mode to see logging (can be up to four v's eg. ('vvvv'))
-    # ansible.verbose = 'v'
+  # Name for vagrant box to be created
+  config.vm.define "jenkinsMaster" do |jenkinsMaster|
   end
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  # Provisioning for jenkins master using Ansible
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provisioners/ansible/jenkins-master-playbook.yml"
+    ansible.inventory_path = "provisioners/ansible/ansible.host"
+    ansible.limit = 'all'
+
+    # can be used to skip reprovisioning dependencies
+    # ansible.skip_tags = ['setup']
+
+    # Ansible variables; select one for provision type:
+    # override/set ansible vars here for VirtualBox
+    # ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml"
+
+    # override/set ansible vars here for AWS
+    ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
+
+    # turn on verbose mode to see logging/debug (can be up to four v's eg. ('vvvv'))
+    # ansible.verbose = 'vvvv'
+  end
+
+  config.vm.provider :aws do |aws, override|
+      aws.access_key_id = "" # Your access key id here
+      aws.secret_access_key = "" # Your secret access key here
+      aws.keypair_name = ""
+
+      aws.ami = "ami-6f87c45f" # replace with AMI id generated with packer if necessary
+      aws.security_groups = ["launch-wizard-1"]
+      aws.region = "us-west-2"
+
+      override.ssh.username = "ubuntu"
+      override.ssh.private_key_path = "" # location of rsa private key file here
+  end
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  #config.vm.network "forwarded_port", guest: 80, host: 80
+  # accessing "localhost:8080" will access port 8080 on the guest machine.
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 5000, host: 5000
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
-
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  # config.ssh.forward_agent = true
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
+
+  #Shared Folder for Virtual box
   # config.vm.synced_folder "./shared", "/home/vagrant/vagrant_data"
+
+  #Shared Folder for AWS
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", :rsync_excludes => ['packer_cache/', 'http/', 'output-*/', '*.box', '*.pem']
+
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -104,71 +87,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
 
-  # Enable provisioning with CFEngine. CFEngine Community packages are
-  # automatically installed. For example, configure the host as a
-  # policy server and optionally a policy file to run:
-  #
-  # config.vm.provision "cfengine" do |cf|
-  #   cf.am_policy_hub = true
-  #   # cf.run_file = "motd.cf"
-  # end
-  #
-  # You can also configure and bootstrap a client to an existing
-  # policy server:
-  #
-  # config.vm.provision "cfengine" do |cf|
-  #   cf.policy_server_address = "10.0.2.15"
-  # end
-
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file default.pp in the manifests_path directory.
-  #
-  # config.vm.provision "puppet" do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "site.pp"
-  # end
-
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding
-  # some recipes and/or roles.
-  #
-  # config.vm.provision "chef_solo" do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { mysql_password: "foo" }
-  # end
-
-  # Enable provisioning with chef server, specifying the chef server URL,
-  # and the path to the validation key (relative to this Vagrantfile).
-  #
-  # The Opscode Platform uses HTTPS. Substitute your organization for
-  # ORGNAME in the URL and validation key.
-  #
-  # If you have your own Chef Server, use the appropriate URL, which may be
-  # HTTP instead of HTTPS depending on your configuration. Also change the
-  # validation key to validation.pem.
-  #
-  # config.vm.provision "chef_client" do |chef|
-  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-  #   chef.validation_key_path = "ORGNAME-validator.pem"
-  # end
-  #
-  # If you're using the Opscode platform, your validator client is
-  # ORGNAME-validator, replacing ORGNAME with your organization name.
-  #
-  # If you have your own Chef Server, the default validation client name is
-  # chef-validator, unless you changed the configuration.
-  #
-  #   chef.validation_client_name = "ORGNAME-validator"
 end

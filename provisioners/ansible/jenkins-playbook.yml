@@ -1,6 +1,0 @@
-- name: Jenkins Playbook
-  hosts: jenkins
-  roles:
-    - setup
-    - ansible-jenkins
-    - post-install

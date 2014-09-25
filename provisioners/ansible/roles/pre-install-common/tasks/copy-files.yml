@@ -1,0 +1,21 @@
+---
+- name: copy shared files to jenkins home
+  sudo: yes
+  copy: src={{ item }} dest={{ jenkins_home }}/shared_ansible owner={{ user_name  | default('vagrant') }} mode=666
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/shared/*"
+  register: shared_copied
+
+- name: copy groovy scripts to machine
+  sudo: yes
+  copy: src={{ item }} dest={{ remote_tmp_folder }}/script owner={{ user_name  | default('vagrant') }} mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/script/*.groovy"
+  register: scripts_copied
+
+- name: copy Sauce Labs python script to {{ machine_path }}
+  sudo: yes
+  copy: src={{ item }} dest={{ machine_path }} owner={{ user_name  | default('vagrant') }} mode=644
+  with_fileglob:
+        - "{{ local_files_dir }}/jenkins/script/SauceLabs.py"
+  register: saucelabs_copied

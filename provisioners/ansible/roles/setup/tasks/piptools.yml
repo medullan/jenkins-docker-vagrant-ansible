@@ -1,21 +1,12 @@
-
-- name: Install python-setuptools
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=python-setuptools state=installed"
-
+---
 # Requires python-setuptools
 - name: Install pip
   sudo: yes
   command: "easy_install pip"
 
-- name: Install dotcloud
+# Install pip packages
+- name: Install listed pip packages
   sudo: yes
-  command: "pip install dotcloud"
-
-- name: Install jenkins-autojobs
-  sudo: yes
-  command: "pip install jenkins-autojobs"
-
-- name: Install robotframework-selenium2library
-  sudo: yes
-  command: "pip install robotframework-selenium2library"
+  command: "pip install {{ item }}"
+  with_items: slave.pip.packages
+  when: slave is defined and slave.pip is defined and slave.pip.packages is defined
