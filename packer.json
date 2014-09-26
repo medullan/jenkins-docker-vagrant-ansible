@@ -9,7 +9,12 @@
       "instance_type": "t1.micro",
       "ssh_username": "ubuntu",
       "ami_name": "medullan-ubuntu-latest-{{timestamp}}-{{isotime \"02-Jan-06\"}}",
-      "ami_description": "Ubuntu Trusty 64bit Base Image for Jenkins slaves/Test environments with preinstalled tools. To see what these are, please see https://github.com/medullan/vagrant-ansible-jenkins/blob/master/provisioners/ansible/roles/shared/vars/main.yml"
+      "ami_description": "Ubuntu Trusty 64bit Base Image for Jenkins Slaves/Test/Dev/Prod environments with preinstalled tools. To see what these are, please see https://github.com/medullan/vagrant-ansible-jenkins/wiki/03.-Whats-Already-inside",
+      "tags": {
+        "OS_Version": "Ubuntu",
+        "Release": "Latest",
+        "Provisioner": "Medullan"
+      }
     },
     {
       "boot_command": [

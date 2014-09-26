@@ -10,6 +10,9 @@ slave:
       #- 'dotcloud'
       - 'jenkins-autojobs'
       - 'robotframework-selenium2library'
+      - 'simplejson'
+      - 'requests'
+
   # these are apt packges that dont require any extra repositories to be installed
   apt:
     redis:
@@ -39,6 +42,8 @@ slave:
       - 'vim'
       - 'openjdk-7-jre'
       - 'openjdk-7-jdk'
+      - 'python-software-properties'
+      # - 'python-pycurl'
     ruby:
       - 'gawk'
       - 'libreadline6-dev'
@@ -57,16 +62,6 @@ slave:
       - 'libffi-dev'
       - 'libxslt-dev'
       - 'libxml2'
-
-
-jenkins_jobs:
-  - 'DbSetupAndTearDownWorkflow'
-  - 'DbSetupAndTearDownTearDownDbs'
-  - 'DbSetupAndTearDownCreateOrUpdateTemplateDbs'
-  - 'DbSetupAndTearDownCreateAndLoadDbs'
-  - 'GenerateAutoJobs'
-  - 'mean'
-
 
 # install jenkins plugins
 plugins:
