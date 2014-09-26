@@ -9,16 +9,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of.
+  # Every Vagrant virtual environment requires a box to build off of. Choose one!
 
   # box built by packer to provision with AWS
-  config.vm.box = "packer_amazon-ebs_aws.box"
+  # config.vm.box = "packer_amazon-ebs_aws.box"
 
   # box built by packer to provision with VirtualBox
   # config.vm.box = "vagrant_machine"
 
   # box built by packer to provision with VirtualBox (clean ubuntu)
-  # config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/trusty64"
 
   # Name for vagrant box to be created
   config.vm.define "jenkinsMaster" do |jenkinsMaster|
@@ -35,10 +35,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Ansible variables; select one for provision type:
     # override/set ansible vars here for VirtualBox
-    # ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml"
+    ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml"
 
     # override/set ansible vars here for AWS
-    ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
+    # ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
 
     # turn on verbose mode to see logging/debug (can be up to four v's eg. ('vvvv'))
     # ansible.verbose = 'vvvv'
@@ -49,8 +49,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       aws.secret_access_key = "" # Your secret access key here
       aws.keypair_name = ""
 
-      aws.ami = "ami-6f87c45f" # replace with AMI id generated with packer if necessary
-      aws.security_groups = ["launch-wizard-1"]
+      aws.ami = "ami-8bda99bb" # replace with AMI id generated with packer if necessary
+      aws.security_groups = ["launch-wizard-1"] # replace with preferred security group, must have an ssh port
       aws.region = "us-west-2"
 
       override.ssh.username = "ubuntu"

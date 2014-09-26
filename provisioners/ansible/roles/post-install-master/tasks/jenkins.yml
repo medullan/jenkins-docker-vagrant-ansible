@@ -18,11 +18,16 @@
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 list-jobs All
   register: existing_jobs
 
+- name: list default jobs to be created
+  sudo: yes
+  shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs'
+  register: jobs_list
+
 - name: create default jobs
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/{{ item }}.xml
-  with_items: jenkins_jobs
-  when: "existing_jobs.changed and jenkins_jobs is defined and existing_jobs.stdout.find('{{ item }}') == -1"
+  with_items: jobs_list.stdout_lines
+  when: "existing_jobs.changed and jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1"
   register: jobs_created
 
 - name: setup security
