@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.box = "packer_amazon-ebs_aws.box"
 
   # box built by packer to provision with VirtualBox
-  # config.vm.box = "vagrant_machine"
+  # config.vm.box = "packer_virtualbox-iso_virtualbox.box"
 
   # box built by packer to provision with VirtualBox (clean ubuntu)
   config.vm.box = "ubuntu/trusty64"
