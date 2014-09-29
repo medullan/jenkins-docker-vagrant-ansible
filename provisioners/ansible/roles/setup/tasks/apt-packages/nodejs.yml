@@ -1,12 +1,12 @@
 ---
-# - name: Add nodejs ppa repository
-#   sudo: yes
-#   action: apt_repository repo='ppa:chris-lea/node.js' state=present
-
-- name: Install nodejs-legacy
+- name: Add nodejs ppa repository
   sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=nodejs-legacy state=installed update-cache=yes"
+  action: apt_repository repo='ppa:chris-lea/node.js' state=present
 
-- name: Install npm
+- name: Install nodejs
   sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg=npm state=installed update-cache=yes"
+  action: "{{ ansible_pkg_mgr }} pkg=nodejs state=installed update-cache=yes"
+
+- name: update npm
+  sudo: yes
+  shell: "npm install -g npm"
