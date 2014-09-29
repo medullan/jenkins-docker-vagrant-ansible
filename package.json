@@ -1,0 +1,33 @@
+{
+  "name": "vagrant-ansible-jenkins",
+  "version": "1.0.0",
+  "description": "README! =======================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/medullan/vagrant-ansible-jenkins.git"
+  },
+  "keywords": [
+    "vagrant",
+    "ansible",
+    "jenkins",
+    "template"
+  ],
+  "author": "Medullan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/medullan/vagrant-ansible-jenkins/issues"
+  },
+  "homepage": "https://github.com/medullan/vagrant-ansible-jenkins",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-beautiful-docs": "^0.1.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-gh-pages": "^0.9.1",
+    "grunt-git-them-all": "0.0.10",
+    "load-grunt-tasks": "^0.6.0"
+  }
+}

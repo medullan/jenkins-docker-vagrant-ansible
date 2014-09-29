@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # box built by packer to provision with VirtualBox
   # config.vm.box = "packer_virtualbox-iso_virtualbox.box"
 
-  # box built by packer to provision with VirtualBox (clean ubuntu)
+  # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
   config.vm.box = "ubuntu/trusty64"
 
   # Name for vagrant box to be created
@@ -45,16 +45,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider :aws do |aws, override|
+      override.ssh.username = "ubuntu"
+      override.ssh.private_key_path = "" # location of rsa private key file here
+
+      aws.keypair_name = ""
       aws.access_key_id = "" # Your access key id here
       aws.secret_access_key = "" # Your secret access key here
-      aws.keypair_name = ""
 
       aws.ami = "ami-8bda99bb" # replace with AMI id generated with packer if necessary
       aws.security_groups = ["launch-wizard-1"] # replace with preferred security group, must have an ssh port
       aws.region = "us-west-2"
-
-      override.ssh.username = "ubuntu"
-      override.ssh.private_key_path = "" # location of rsa private key file here
   end
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -70,10 +70,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
 
   #Shared Folder for Virtual box
-  # config.vm.synced_folder "./shared", "/home/vagrant/vagrant_data"
-
   #Shared Folder for AWS
-  config.vm.synced_folder ".", "/vagrant", type: "rsync", :rsync_excludes => ['packer_cache/', 'http/', 'output-*/', '*.box', '*.pem']
+  # config.vm.synced_folder ".", "/vagrant", type: "rsync", :rsync_excludes => ['packer_cache/', 'http/', 'output-*/', '*.box', '*.pem', 'vagrant-ansible-jenkins.wiki', 'docs', '*.cer', 'node_modules', '*.js', '*.json', '.grunt']
 
 
   # Provider-specific configuration so you can fine-tune various
