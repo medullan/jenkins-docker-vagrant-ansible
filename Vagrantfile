@@ -55,6 +55,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       aws.ami = "ami-8bda99bb" # replace with AMI id generated with packer if necessary
       aws.security_groups = ["launch-wizard-1"] # replace with preferred security group, must have an ssh port
       aws.region = "us-west-2"
+      aws.tags = {
+        'Name' => 'jenkins',
+        'Provisioner' => 'Medullan',
+        'OS_Version' => 'Ubuntu',
+        'Release' => 'Latest'
+      }
   end
 
   # Create a forwarded port mapping which allows access to a specific port
