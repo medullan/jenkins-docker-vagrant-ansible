@@ -2,7 +2,7 @@
 
 - name: Install Default NPM packages globally
   sudo: yes
-  shell: sudo npm install -g istanbul bower grunt-cli
+  shell: sudo npm install -g istanbul bower grunt-cli phantomjs
 
 - name: Install NPM packages globally
   sudo: yes
