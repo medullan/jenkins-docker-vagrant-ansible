@@ -43,7 +43,7 @@ slave:
       - 'openjdk-7-jre'
       - 'openjdk-7-jdk'
       - 'python-software-properties'
-      # - 'python-pycurl'
+      - 'unzip'
     ruby:
       - 'gawk'
       - 'libreadline6-dev'
@@ -95,7 +95,6 @@ plugins:
   - 'docker-plugin'
   - 'build-pipeline-plugin'
   - 'throttle-concurrents'
-  - 'simple-theme-plugin'
   - 'build-name-setter'
   - 'postbuild-task'
   - 'ec2'
@@ -112,6 +111,7 @@ plugins:
   #- 'multi-branch-project-plugin'
   #- 'doxygen'
   #- 'shared-workspace'
+  # - 'simple-theme-plugin'
 
   # install plugins using files:
   # - stored on local machine
