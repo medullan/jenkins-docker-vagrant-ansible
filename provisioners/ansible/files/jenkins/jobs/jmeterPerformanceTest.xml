@@ -2,7 +2,7 @@
 <project>
   <actions/>
   <description/>
-  <displayName>perf_test</displayName>
+  <displayName>jmeter-performance-test</displayName>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
