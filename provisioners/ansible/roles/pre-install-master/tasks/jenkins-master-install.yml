@@ -1,8 +1,14 @@
 ---
 # Copy Job xml to be used in virtual machine
-- name: make tmp directory to place job files
+- name: make tmp directory to place default job files
   sudo: yes
   shell: mkdir -p {{ remote_tmp_folder }}/jobs
+  notify:
+    - 'Delete Remote Temporary Folder'
+
+- name: make tmp directory to place java pipeline job files
+  sudo: yes
+  shell: mkdir -p {{ remote_tmp_folder }}/jobs/java_pipeline
   notify:
     - 'Delete Remote Temporary Folder'
 
