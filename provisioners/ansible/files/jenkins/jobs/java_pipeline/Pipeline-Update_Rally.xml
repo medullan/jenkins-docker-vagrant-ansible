@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+   <actions />
+   <description>This job utilizes a rally plugin to update test case results of tagged user stories (tags in robot test cases), user story changesets
+      and tasks status of stories (via commit message) in Rally. The plugin uses the output produced from robot framework to update test cases in Rally.
+      For more information see https://medullan.atlassian.net/wiki/display/QA/Rally+Update+Jenkins+Plugin+Configuration
+   </description>
+   <keepDependencies>false</keepDependencies>
+   <properties>
+      <com.nirima.jenkins.plugins.docker.DockerJobProperty plugin="docker-plugin@0.7">
+         <tagOnCompletion>false</tagOnCompletion>
+         <additionalTag />
+         <pushOnSuccess>false</pushOnSuccess>
+         <cleanImages>false</cleanImages>
+      </com.nirima.jenkins.plugins.docker.DockerJobProperty>
+      <jenkins.plugins.slack.SlackNotifier_-SlackJobProperty plugin="slack@1.2">
+         <room />
+         <startNotification>false</startNotification>
+         <notifySuccess>false</notifySuccess>
+         <notifyAborted>false</notifyAborted>
+         <notifyNotBuilt>false</notifyNotBuilt>
+         <notifyUnstable>false</notifyUnstable>
+         <notifyFailure>false</notifyFailure>
+         <notifyBackToNormal>false</notifyBackToNormal>
+      </jenkins.plugins.slack.SlackNotifier_-SlackJobProperty>
+      <hudson.plugins.heavy__job.HeavyJobProperty plugin="heavy-job@1.1">
+         <weight>1</weight>
+      </hudson.plugins.heavy__job.HeavyJobProperty>
+      <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.3">
+         <maxConcurrentPerNode>0</maxConcurrentPerNode>
+         <maxConcurrentTotal>0</maxConcurrentTotal>
+         <categories>
+            <string>false</string>
+         </categories>
+         <throttleEnabled>false</throttleEnabled>
+         <throttleOption>project</throttleOption>
+      </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.24" />
+   </properties>
+   <scm class="hudson.scm.NullSCM" />
+   <assignedNode>master</assignedNode>
+   <canRoam>false</canRoam>
+   <disabled>false</disabled>
+   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+   <triggers />
+   <concurrentBuild>false</concurrentBuild>
+   <customWorkspace>${FIXED_PATH_WS}</customWorkspace>
+   <builders>
+      <com.jenkins.plugins.rally.PostBuild plugin="rally-plugin@1.5-SNAPSHOT">
+         <userName>ahall@medullan.com</userName>
+         <password>Aneba3;Job</password>
+         <workspace>CPI</workspace>
+         <project>Automation</project>
+         <filePattern>**/output.xml</filePattern>
+         <testFolder>${UNESCAPED_FIXED_PATH_WS}/robot_tests/</testFolder>
+         <scmuri />
+         <scmRepoName />
+         <changesSince>changesSinceLastBuild</changesSince>
+         <startDate />
+         <endDate />
+         <debugOn>true</debugOn>
+         <proxy />
+      </com.jenkins.plugins.rally.PostBuild>
+   </builders>
+   <publishers />
+   <buildWrappers>
+      <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+         <template>#${BUILD_NUMBER}-${ENV,var="MASTER_BUILD_TAG"}</template>
+      </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+   </buildWrappers>
+</project>

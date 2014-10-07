@@ -7,14 +7,22 @@ import java.text.*
 * an ansible variable
 * @author Layton Whiteley
 * @date Sept 26, 2014
+* @lastModifiedBy Steven Chin Oct 7, 2014 - update closure for writing job names to stdout
+* from a given folder location
 */
 
+/**
+* Function that
+* processes a specified file location and outputs job names from filenames.
+* It ignores subdirectores of the given location.
+*/
 def createJobs(jobsLocation){
   def dir = new File(jobsLocation)
-  dir.eachFileRecurse (FileType.FILES) { file ->
+  //eachFile method only invokes the closure for files
+  dir.eachFile(FileType.FILES){ file ->
     def fileName = file.name
     def extension = ".xml"
-    if(fileName.indexOf(extension)){
+    if(fileName.indexOf(extension) != -1){
       def jobName = fileName.replace(extension, "")
       println jobName
     }

@@ -4,6 +4,7 @@ local_files_dir: '../../../files'
 machine_path: /usr/local/bin
 install_postgres: true
 install_redis: false
+target_jenkins_env: java
 slave:
   pip:
     packages:
@@ -111,7 +112,7 @@ plugins:
   #- 'multi-branch-project-plugin'
   #- 'doxygen'
   #- 'shared-workspace'
-  # - 'simple-theme-plugin'
+  #- 'simple-theme-plugin'
 
   # install plugins using files:
   # - stored on local machine
