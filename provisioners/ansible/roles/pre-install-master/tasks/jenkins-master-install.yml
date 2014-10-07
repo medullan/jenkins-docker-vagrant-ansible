@@ -1,5 +1,5 @@
 ---
-# Copy Job xml and plugins to be used in virtual machine
+# Copy Job xml to be used in virtual machine
 - name: make tmp directory to place job files
   sudo: yes
   shell: mkdir -p {{ remote_tmp_folder }}/jobs
