@@ -21,13 +21,26 @@
 - name: list default jobs to be created
   sudo: yes
   shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs'
-  register: jobs_list
+  register: default_jobs_list
 
 - name: create default jobs
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/{{ item }}.xml
-  with_items: jobs_list.stdout_lines
-  when: "existing_jobs.changed and jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1"
+  with_items: default_jobs_list.stdout_lines
+  when: "existing_jobs.changed and default_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1"
+  register: jobs_created
+
+- name: list java jobs to be created
+  sudo: yes
+  shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs/java_pipeline'
+  when: "target_jenkins_env == 'java'"
+  register: java_jobs_list
+
+- name: create jobs for java pipeline
+  sudo: yes
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/java_pipeline/{{ item }}.xml
+  with_items: java_jobs_list.stdout_lines
+  when: "existing_jobs.changed and java_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'java'"
   register: jobs_created
 
 - name: setup security
