@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+   <actions />
+   <description />
+   <logRotator class="hudson.tasks.LogRotator">
+      <daysToKeep>1</daysToKeep>
+      <numToKeep>1</numToKeep>
+      <artifactDaysToKeep>-1</artifactDaysToKeep>
+      <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+   <keepDependencies>false</keepDependencies>
+   <properties>
+      <com.nirima.jenkins.plugins.docker.DockerJobProperty plugin="docker-plugin@0.7">
+         <tagOnCompletion>false</tagOnCompletion>
+         <additionalTag />
+         <pushOnSuccess>false</pushOnSuccess>
+         <cleanImages>true</cleanImages>
+      </com.nirima.jenkins.plugins.docker.DockerJobProperty>
+      <jenkins.plugins.slack.SlackNotifier_-SlackJobProperty plugin="slack@1.2">
+         <room />
+         <startNotification>false</startNotification>
+         <notifySuccess>false</notifySuccess>
+         <notifyAborted>false</notifyAborted>
+         <notifyNotBuilt>false</notifyNotBuilt>
+         <notifyUnstable>false</notifyUnstable>
+         <notifyFailure>false</notifyFailure>
+         <notifyBackToNormal>false</notifyBackToNormal>
+      </jenkins.plugins.slack.SlackNotifier_-SlackJobProperty>
+      <hudson.plugins.heavy__job.HeavyJobProperty plugin="heavy-job@1.1">
+         <weight>1</weight>
+      </hudson.plugins.heavy__job.HeavyJobProperty>
+      <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.3">
+         <maxConcurrentPerNode>0</maxConcurrentPerNode>
+         <maxConcurrentTotal>0</maxConcurrentTotal>
+         <categories>
+            <string>false</string>
+         </categories>
+         <throttleEnabled>false</throttleEnabled>
+         <throttleOption>project</throttleOption>
+      </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.24" />
+   </properties>
+   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.5">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+         <hudson.plugins.git.UserRemoteConfig>
+            <url>https://github.com/medullan/autojobs-config</url>
+            <credentialsId>56c76726-4a8b-4852-a88c-c5378213b878</credentialsId>
+         </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+         <hudson.plugins.git.BranchSpec>
+            <name>*/sample-java-project</name>
+         </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="list" />
+      <extensions />
+   </scm>
+   <assignedNode>master</assignedNode>
+   <canRoam>false</canRoam>
+   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+   <triggers>
+      <hudson.triggers.TimerTrigger>
+         <spec>H * * * *</spec>
+      </hudson.triggers.TimerTrigger>
+   </triggers>
+   <concurrentBuild>false</concurrentBuild>
+   <builders>
+      <hudson.tasks.Shell>
+         <command>jenkins-makejobs-git -u lwhiteley -p 2951fa1a41693ca9b1d112637cb2c7a0 config.yaml</command>
+      </hudson.tasks.Shell>
+   </builders>
+   <publishers />
+   <buildWrappers />
+</project>

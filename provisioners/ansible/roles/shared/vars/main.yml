@@ -4,7 +4,7 @@ local_files_dir: '../../../files'
 machine_path: /usr/local/bin
 install_postgres: true
 install_redis: false
-target_jenkins_env: java
+target_jenkins_env: mean
 slave:
   pip:
     packages:
