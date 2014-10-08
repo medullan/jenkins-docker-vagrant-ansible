@@ -109,7 +109,7 @@
          <phaseName>Phase: Setup (pre-test)</phaseName>
          <phaseJobs>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Compile_project</jobName>
+               <jobName>Pipeline-Compile_project</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -122,7 +122,7 @@
                <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
             </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Update_Database_Templates</jobName>
+               <jobName>Pipeline-Update_Database_Templates</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -141,7 +141,7 @@
          <phaseName>Phase: Database loading</phaseName>
          <phaseJobs>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Create_and_Load_Database</jobName>
+               <jobName>Pipeline-Create_and_Load_Database</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -160,7 +160,7 @@
          <phaseName>Phase: Testing</phaseName>
          <phaseJobs>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Run_Static_Analysis_tests</jobName>
+               <jobName>Pipeline-Run_Static_Analysis_tests</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -173,7 +173,7 @@
                <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
             </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Run_Unit_Tests</jobName>
+               <jobName>Pipeline-Run_Unit_Tests</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -186,7 +186,7 @@
                <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
             </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Documentation</jobName>
+               <jobName>Pipeline-Documentation</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -205,7 +205,7 @@
          <phaseName>Phase: Integration Test</phaseName>
          <phaseJobs>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Run_Integration_Tests</jobName>
+               <jobName>Pipeline-Run_Integration_Tests</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -224,7 +224,7 @@
          <phaseName>Phase: Install and Archive artifacts</phaseName>
          <phaseJobs>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Install_and_Archive</jobName>
+               <jobName>Pipeline-Install_and_Archive</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -243,7 +243,7 @@
          <phaseName>Phase: Deploy and Run functional tests</phaseName>
          <phaseJobs>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Functional_Tests_Block</jobName>
+               <jobName>Pipeline-Functional_Tests_Block</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
@@ -253,16 +253,16 @@
                   </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
                   <hudson.plugins.parameterizedtrigger.NodeParameters plugin="parameterized-trigger@2.25" />
                </configs>
-               <killPhaseOnJobResultCondition>NEVER</killPhaseOnJobResultCondition>
+               <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
             </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
          </phaseJobs>
-         <continuationCondition>COMPLETED</continuationCondition>
+         <continuationCondition>SUCCESSFUL</continuationCondition>
       </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
       <com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
          <phaseName>Update Rally</phaseName>
          <phaseJobs>
             <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-               <jobName>Java_Pipeline-Update_Rally</jobName>
+               <jobName>Pipeline-Update_Rally</jobName>
                <currParams>true</currParams>
                <exposedSCM>false</exposedSCM>
                <disableJob>false</disableJob>
