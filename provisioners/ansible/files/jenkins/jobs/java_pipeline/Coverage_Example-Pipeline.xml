@@ -253,10 +253,10 @@
                   </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
                   <hudson.plugins.parameterizedtrigger.NodeParameters plugin="parameterized-trigger@2.25" />
                </configs>
-               <killPhaseOnJobResultCondition>NEVER</killPhaseOnJobResultCondition>
+               <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
             </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
          </phaseJobs>
-         <continuationCondition>COMPLETED</continuationCondition>
+         <continuationCondition>SUCCESSFUL</continuationCondition>
       </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
       <com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
          <phaseName>Update Rally</phaseName>
