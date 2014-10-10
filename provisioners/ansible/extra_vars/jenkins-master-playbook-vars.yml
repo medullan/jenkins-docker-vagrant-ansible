@@ -25,6 +25,9 @@ rally:
 mongo:
   install: false
 
+heroku:
+  install: false
+
 jenkins_opts:
   enable_configure: true
   maxPermSize: 512

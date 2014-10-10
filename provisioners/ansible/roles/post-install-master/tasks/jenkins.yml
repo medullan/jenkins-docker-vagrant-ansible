@@ -28,7 +28,7 @@
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/{{ item }}.xml
   with_items: default_jobs_list.stdout_lines
   when: "existing_jobs.changed and default_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1"
-  register: jobs_created
+  register: default_jobs_created
 
 - name: list java jobs to be created
   sudo: yes
@@ -41,8 +41,23 @@
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/java_pipeline/{{ item }}.xml
   with_items: java_jobs_list.stdout_lines
   when: "existing_jobs.changed and java_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'java'"
-  register: jobs_created
+  register: java_jobs_created
 
+# meanjs
+- name: list mean jobs to be created
+  sudo: yes
+  shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs/mean_pipeline'
+  when: "target_jenkins_env == 'mean'"
+  register: mean_jobs_list
+
+- name: create jobs for mean pipeline
+  sudo: yes
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/mean_pipeline/{{ item }}.xml
+  with_items: mean_jobs_list.stdout_lines
+  when: "existing_jobs.changed and mean_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'mean'"
+  register: mean_jobs_created
+
+# Setup Security
 - name: setup security
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 groovy {{ remote_tmp_folder }}/script/security.groovy  admins='{{ security.jenkins_admins }}' orgs='{{ security.github_orgNames }}' clientid='{{ security.github_clientId }}' clientsecret='{{ security.github_clientSecret }}'

@@ -12,5 +12,11 @@
   notify:
     - 'Delete Remote Temporary Folder'
 
+- name: make tmp directory to place mean pipeline job files
+  sudo: yes
+  shell: mkdir -p {{ remote_tmp_folder }}/jobs/mean_pipeline
+  notify:
+    - 'Delete Remote Temporary Folder'
+
 - include: copy-files.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

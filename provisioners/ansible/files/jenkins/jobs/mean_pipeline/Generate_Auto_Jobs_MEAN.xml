@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+<actions/>
+<description/>
+<logRotator class="hudson.tasks.LogRotator">
+<daysToKeep>1</daysToKeep>
+<numToKeep>1</numToKeep>
+<artifactDaysToKeep>-1</artifactDaysToKeep>
+<artifactNumToKeep>-1</artifactNumToKeep>
+</logRotator>
+<keepDependencies>false</keepDependencies>
+<properties>
+<com.nirima.jenkins.plugins.docker.DockerJobProperty plugin="docker-plugin@0.8">
+<tagOnCompletion>false</tagOnCompletion>
+<additionalTag/>
+<pushOnSuccess>false</pushOnSuccess>
+<cleanImages>true</cleanImages>
+</com.nirima.jenkins.plugins.docker.DockerJobProperty>
+<hudson.plugins.heavy__job.HeavyJobProperty plugin="heavy-job@1.1">
+<weight>1</weight>
+</hudson.plugins.heavy__job.HeavyJobProperty>
+<hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.3">
+<maxConcurrentPerNode>0</maxConcurrentPerNode>
+<maxConcurrentTotal>0</maxConcurrentTotal>
+<throttleEnabled>false</throttleEnabled>
+<throttleOption>project</throttleOption>
+</hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+<hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.24"/>
+</properties>
+<scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.6">
+<configVersion>2</configVersion>
+<userRemoteConfigs>
+<hudson.plugins.git.UserRemoteConfig>
+<url>https://github.com/medullan/autojobs-config</url>
+<credentialsId>0234745e-bfb5-492f-8332-c3ad65c219e9</credentialsId>
+</hudson.plugins.git.UserRemoteConfig>
+</userRemoteConfigs>
+<branches>
+<hudson.plugins.git.BranchSpec>
+<name>*/meanjs-sample</name>
+</hudson.plugins.git.BranchSpec>
+</branches>
+<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+<submoduleCfg class="list"/>
+<extensions/>
+</scm>
+<canRoam>true</canRoam>
+<disabled>true</disabled>
+<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+<triggers>
+<hudson.triggers.TimerTrigger>
+<spec>H/5 * * * *</spec>
+</hudson.triggers.TimerTrigger>
+</triggers>
+<concurrentBuild>false</concurrentBuild>
+<builders>
+<hudson.tasks.Shell>
+<command>jenkins-makejobs-git config.yaml</command>
+</hudson.tasks.Shell>
+</builders>
+<publishers/>
+<buildWrappers/>
+</project>

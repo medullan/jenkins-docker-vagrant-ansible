@@ -86,7 +86,6 @@ plugins:
   - 'nested-view'
   - 'robot'
   - 'findbugs'
-  - 'heavy-job'
   - 'htmlpublisher'
   - 'jenkins-multijob-plugin'
   - 'ws-cleanup'
@@ -99,6 +98,8 @@ plugins:
   - 'build-name-setter'
   - 'postbuild-task'
   - 'ec2'
+  - 'port-allocator'
+  - 'artifactory'
 
   # extras - remove # below to enable installation
 
@@ -113,9 +114,10 @@ plugins:
   #- 'doxygen'
   #- 'shared-workspace'
   #- 'simple-theme-plugin'
+  #- 'heavy-job'
 
   # install plugins using files:
   # - stored on local machine
   # - downloaded via public urls (recommended)
 
-  - 'https://dl.dropboxusercontent.com/s/tfdple8sxnpe4sw/rally-build-notifier.hpi?dl=0'
+  - 'https://dl.dropboxusercontent.com/s/n5lmlponr8w4c22/rally-build-notifier.hpi?dl=0'
