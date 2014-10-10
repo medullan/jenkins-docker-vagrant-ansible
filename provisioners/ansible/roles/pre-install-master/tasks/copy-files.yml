@@ -12,7 +12,7 @@
   with_fileglob:
         - "{{ local_files_dir }}/jenkins/jobs/java_pipeline/*.xml"
   when: "target_jenkins_env == 'java'"
-  register: mean_pipeline_jobs_copied
+  register: java_pipeline_jobs_copied
 
 - name: copy mean pipeline jobs to machine
   sudo: yes
