@@ -26,7 +26,7 @@ mongo:
   install: false
 
 heroku:
-  install: true
+  install: false
 
 jenkins_opts:
   enable_configure: true

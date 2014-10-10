@@ -4,7 +4,7 @@
 # Tasks will be executed in the order they appear here
 
 - include: basedep.yml tags=setup
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and slave is defined and slave.apt is defined
 
 - include: apt.yml tags=setup
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
