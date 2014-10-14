@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.plugins.nodejs.NodeJSPlugin plugin="nodejs@0.2.1">
+  <installations>
+    <jenkins.plugins.nodejs.tools.NodeJSInstallation>
+      <name>node-10-32</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <jenkins.plugins.nodejs.tools.NodeJSInstaller>
+              <id>0.10.32</id>
+              <npmPackages></npmPackages>
+              <npmPackagesRefreshHours>72</npmPackagesRefreshHours>
+            </jenkins.plugins.nodejs.tools.NodeJSInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+      <nodeJSHome></nodeJSHome>
+    </jenkins.plugins.nodejs.tools.NodeJSInstallation>
+  </installations>
+</jenkins.plugins.nodejs.NodeJSPlugin>
