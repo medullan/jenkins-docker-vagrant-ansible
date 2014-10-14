@@ -35,11 +35,18 @@
   <customWorkspace>${FIXED_PATH_WS}</customWorkspace>
   <builders>
     <hudson.tasks.Shell>
-      <command>grunt test --dbname=$MASTER_BUILD_TAG</command>
+      <command>grunt test --port=$HTTP_TEST_PORT --dbname=$MASTER_BUILD_TAG</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers>
+    <org.jvnet.hudson.plugins.port__allocator.PortAllocator plugin="port-allocator@1.8">
+      <ports>
+        <org.jvnet.hudson.plugins.port__allocator.DefaultPortType>
+          <name>HTTP_TEST_PORT</name>
+        </org.jvnet.hudson.plugins.port__allocator.DefaultPortType>
+      </ports>
+    </org.jvnet.hudson.plugins.port__allocator.PortAllocator>
     <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
       <template>#${BUILD_NUMBER}-${ENV,var=&quot;MASTER_BUILD_TAG&quot;}</template>
     </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
