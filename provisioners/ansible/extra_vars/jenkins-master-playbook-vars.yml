@@ -1,5 +1,5 @@
 ---
-startup_delay_s: 50
+startup_delay_s: 60
 
 # for compat with the jenkins 'docker-pugin'.
 # removing defaults to latest version of docker
@@ -23,7 +23,7 @@ rally:
   jenkins_machine: "localhost:8080"
 
 mongo:
-  install: false
+  install: true
 
 heroku:
   install: false
