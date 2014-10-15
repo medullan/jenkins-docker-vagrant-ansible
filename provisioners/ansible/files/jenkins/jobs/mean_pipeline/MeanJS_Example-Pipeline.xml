@@ -53,6 +53,7 @@
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <url>https://github.com/medullan/mean.git</url>
+        <credentialsId>fe060f74-5422-4772-a2fd-43cb67b09d5d</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -301,9 +302,5 @@ MASTER_BUILD_TAG = ${BUILD_TAG}</properties>
       <externalDelete></externalDelete>
     </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
-  <buildWrappers>
-    <jenkins.plugins.nodejs.tools.NpmPackagesBuildWrapper plugin="nodejs@0.2.1">
-      <nodeJSInstallationName>node-10-32</nodeJSInstallationName>
-    </jenkins.plugins.nodejs.tools.NpmPackagesBuildWrapper>
-  </buildWrappers>
+  <buildWrappers/>
 </com.tikal.jenkins.plugins.multijob.MultiJobProject>

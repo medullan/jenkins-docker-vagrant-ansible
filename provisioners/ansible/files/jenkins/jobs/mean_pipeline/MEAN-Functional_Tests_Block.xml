@@ -52,7 +52,7 @@
       </ports>
     </org.jvnet.hudson.plugins.port__allocator.PortAllocator>
     <jenkins.plugins.nodejs.tools.NpmPackagesBuildWrapper plugin="nodejs@0.2.1">
-      <nodeJSInstallationName>node</nodeJSInstallationName>
+      <nodeJSInstallationName>node-10-31</nodeJSInstallationName>
     </jenkins.plugins.nodejs.tools.NpmPackagesBuildWrapper>
     <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
       <template>#${BUILD_NUMBER}-${ENV,var=&quot;MASTER_BUILD_TAG&quot;}</template>
