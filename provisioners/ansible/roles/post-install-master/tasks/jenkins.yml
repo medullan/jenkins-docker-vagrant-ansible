@@ -30,32 +30,18 @@
   when: "existing_jobs.changed and default_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1"
   register: default_jobs_created
 
-- name: list java jobs to be created
+- name: list docker jobs to be created
   sudo: yes
-  shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs/java_pipeline'
-  when: "target_jenkins_env == 'java'"
-  register: java_jobs_list
+  shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs/docker_pipeline'
+  when: "target_jenkins_env == 'docker'"
+  register: docker_jobs_list
 
-- name: create jobs for java pipeline
+- name: create jobs for docker pipeline
   sudo: yes
-  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/java_pipeline/{{ item }}.xml
-  with_items: java_jobs_list.stdout_lines
-  when: "existing_jobs.changed and java_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'java'"
-  register: java_jobs_created
-
-# meanjs
-- name: list mean jobs to be created
-  sudo: yes
-  shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs/mean_pipeline'
-  when: "target_jenkins_env == 'mean'"
-  register: mean_jobs_list
-
-- name: create jobs for mean pipeline
-  sudo: yes
-  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/mean_pipeline/{{ item }}.xml
-  with_items: mean_jobs_list.stdout_lines
-  when: "existing_jobs.changed and mean_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'mean'"
-  register: mean_jobs_created
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/docker_pipeline/{{ item }}.xml
+  with_items: docker_jobs_list.stdout_lines
+  when: "existing_jobs.changed and docker_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'docker'"
+  register: docker_jobs_created
 
 # Setup Security
 - name: setup security
