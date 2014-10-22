@@ -30,6 +30,7 @@
   when: "existing_jobs.changed and default_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1"
   register: default_jobs_created
 
+# Setup Docker Jobs
 - name: list docker jobs to be created
   sudo: yes
   shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs/docker_pipeline'
@@ -42,6 +43,19 @@
   with_items: docker_jobs_list.stdout_lines
   when: "existing_jobs.changed and docker_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'docker'"
   register: docker_jobs_created
+
+# Create Build Pipeline View
+# - name: list pipeline views to be created
+#   sudo: yes
+#   shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/views'
+#   when: "target_jenkins_env == 'docker'"
+#   register: docker_views_list
+
+- name: create build pipeline view
+  sudo: yes
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-view < {{ remote_tmp_folder }}/views/build_pipeline_view.xml
+  when: "target_jenkins_env == 'docker'"
+  register: docker_views_created
 
 # Setup Security
 - name: setup security

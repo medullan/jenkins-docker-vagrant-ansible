@@ -32,13 +32,13 @@
   when: slave.apt.redis is defined and install_redis
 
 # Install apt dependencies for postgres
-- name: Install base apt dependencies for postgres
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=latest"
-  with_items: slave.apt.postgres
-  when: slave.apt.postgres is defined and install_postgres
-
-- name: set postgres password
-  sudo: yes
-  shell: sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'enter';"
-  when: install_postgres
+# - name: Install base apt dependencies for postgres
+#   sudo: yes
+#   action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=latest"
+#   with_items: slave.apt.postgres
+#   when: slave.apt.postgres is defined and install_postgres
+#TO DELETE
+# - name: set postgres password
+#   sudo: yes
+#   shell: sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'enter';"
+#   when: install_postgres
