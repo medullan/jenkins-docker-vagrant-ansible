@@ -6,13 +6,6 @@ install_postgres: false
 install_redis: false
 target_jenkins_env: docker #Make this a param
 slave:
-  # pip:
-  #   packages:
-  #     #- 'dotcloud'
-      # - 'jenkins-autojobs' TO DELETE
-      # - 'robotframework-selenium2library'
-      # - 'simplejson'
-      # - 'requests'
 
   # these are apt packges that dont require any extra repositories to be installed
   apt:
@@ -20,48 +13,19 @@ slave:
       - 'libjemalloc1'
     devtools:
       - 'groovy'
-      # - 'jmeter'
     pip:
       - 'libxml2-dev'
       - 'libxslt1-dev'
       - 'python-lxml'
       - 'python-setuptools'
-    # postgres: TO DELETE
-    #   - 'postgresql'
-    #   - 'libpq-dev'
-    #   - 'postgresql-contrib'
     base:
       - 'build-essential'
       - 'dkms'
       - 'nfs-common'
       - 'curl'
-      # - 'wget'
-      # - 'git'
-      # - 'xvfb'
-      # - 'vim'
       - 'openjdk-7-jre'
       - 'openjdk-7-jdk'
-      # - 'python-software-properties'
-      # - 'unzip'
       - 'bash'
-    # ruby:  TO DELETE
-    #   - 'gawk'
-    #   - 'libreadline6-dev'
-    #   - 'zlib1g-dev'
-    #   - 'libssl-dev'
-    #   - 'libyaml-dev'
-    #   - 'libsqlite3-dev'
-    #   - 'sqlite3'
-    #   - 'autoconf'
-    #   - 'libgdbm-dev'
-    #   - 'libncurses5-dev'
-    #   - 'automake'
-    #   - 'libtool'
-    #   - 'bison'
-    #   - 'pkg-config'
-    #   - 'libffi-dev'
-    #   - 'libxslt-dev'
-    #   - 'libxml2'
 
 # install jenkins plugins
 plugins:
@@ -76,15 +40,12 @@ plugins:
   - 'publish-over-ssh'
   - 'nodejs'
   - 'deploy'
-  # - 'gravatar'
   - 'disk-usage'
   - 'metrics-diskusage'
   - 'performance'
   - 'xvfb'
   - 'greenballs'
-  # - 'nested-view'
   - 'robot'
-  # - 'findbugs'
   - 'htmlpublisher'
   - 'jenkins-multijob-plugin'
   - 'ws-cleanup'
@@ -97,7 +58,6 @@ plugins:
   - 'postbuild-task'
   - 'ec2'
   - 'port-allocator'
-  # - 'artifactory'
   - 'copy-to-slave'
   - 'docker-plugin'
   - 'docker-build-publish'
