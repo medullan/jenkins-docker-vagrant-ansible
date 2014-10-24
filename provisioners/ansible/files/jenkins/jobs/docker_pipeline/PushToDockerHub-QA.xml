@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>3</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.nirima.jenkins.plugins.docker.DockerJobProperty plugin="docker-plugin@0.7">
+      <tagOnCompletion>false</tagOnCompletion>
+      <additionalTag></additionalTag>
+      <pushOnSuccess>false</pushOnSuccess>
+      <cleanImages>true</cleanImages>
+    </com.nirima.jenkins.plugins.docker.DockerJobProperty>
+    <com.suryagaddipati.jenkins.SlaveUtilizationProperty plugin="slave-utilization-plugin@1.8">
+      <needsExclusiveAccessToNode>false</needsExclusiveAccessToNode>
+      <singleInstancePerSlave>false</singleInstancePerSlave>
+      <slaveUtilizationPercentage>0</slaveUtilizationPercentage>
+    </com.suryagaddipati.jenkins.SlaveUtilizationProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.3">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+  </properties>
+  <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.6">
+    <parentJobName>IntegrationTesting</parentJobName>
+    <criteria>Any</criteria>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <com.cloudbees.dockerpublish.DockerBuilder plugin="docker-build-publish@0.8">
+      <repoName>medullan/ionic-nodejs-qa</repoName>
+      <noCache>false</noCache>
+      <dockerfilePath>$WORKSPACE</dockerfilePath>
+      <skipBuild>false</skipBuild>
+      <repoTag>latest</repoTag>
+      <skipPush>false</skipPush>
+    </com.cloudbees.dockerpublish.DockerBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>GIT_BRANCH=$GIT_BRANCH
+GIT_COMMIT=$GIT_COMMIT
+DB_NAME=$DB_NAME
+CI_DB_URL=$CI_DB_URL
+CI_DB_PORT=$CI_DB_PORT
+QA_DB_URL=$QA_DB_URL
+QA_DB_PORT=$QA_DB_PORT
+APP_VERSION_TAG=$APP_VERSION_TAG
+APP_SERVER=$APP_SERVER
+FLEET_TUNNEL=$FLEET_TUNNEL</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>DeployToQA, </projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers/>
+</project>

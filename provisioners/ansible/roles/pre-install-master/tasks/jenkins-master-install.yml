@@ -6,15 +6,15 @@
   notify:
     - 'Delete Remote Temporary Folder'
 
-- name: make tmp directory to place java pipeline job files
+- name: make tmp directory to place docker pipeline job files
   sudo: yes
-  shell: mkdir -p {{ remote_tmp_folder }}/jobs/java_pipeline
+  shell: mkdir -p {{ remote_tmp_folder }}/jobs/docker_pipeline
   notify:
     - 'Delete Remote Temporary Folder'
 
-- name: make tmp directory to place mean pipeline job files
+- name: make tmp directory to place docker pipeline view files
   sudo: yes
-  shell: mkdir -p {{ remote_tmp_folder }}/jobs/mean_pipeline
+  shell: mkdir -p {{ remote_tmp_folder }}/views
   notify:
     - 'Delete Remote Temporary Folder'
 

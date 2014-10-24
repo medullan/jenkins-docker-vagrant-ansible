@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>5</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.nirima.jenkins.plugins.docker.DockerJobProperty plugin="docker-plugin@0.7">
+      <tagOnCompletion>false</tagOnCompletion>
+      <additionalTag></additionalTag>
+      <pushOnSuccess>false</pushOnSuccess>
+      <cleanImages>true</cleanImages>
+    </com.nirima.jenkins.plugins.docker.DockerJobProperty>
+    <com.suryagaddipati.jenkins.SlaveUtilizationProperty plugin="slave-utilization-plugin@1.8">
+      <needsExclusiveAccessToNode>false</needsExclusiveAccessToNode>
+      <singleInstancePerSlave>false</singleInstancePerSlave>
+      <slaveUtilizationPercentage>0</slaveUtilizationPercentage>
+    </com.suryagaddipati.jenkins.SlaveUtilizationProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.3">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.5">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/horaceheaven/directory-ionic-nodejs.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>**</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.SubmoduleOption>
+        <disableSubmodules>false</disableSubmodules>
+        <recursiveSubmodules>true</recursiveSubmodules>
+        <trackingSubmodules>true</trackingSubmodules>
+      </hudson.plugins.git.extensions.impl.SubmoduleOption>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>* * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.plugins.groovy.SystemGroovy plugin="groovy@1.21">
+      <scriptSource class="hudson.plugins.groovy.StringScriptSource">
+        <command>import hudson.model.*
+
+def env = build.getEnvironment()
+def gitCommit = env[&apos;GIT_COMMIT&apos;]
+def shortGitCommit = gitCommit[0..8]
+
+def httpPortOffset = new Integer(5000)
+def ciHttpPort = env[&apos;BUILD_NUMBER&apos;].toInteger()
+
+ciHttpPort = ciHttpPort + httpPortOffset
+
+def pa = new ParametersAction([
+  new StringParameterValue(&quot;SHORT_GIT_COMMIT&quot;, shortGitCommit),
+  new StringParameterValue(&quot;CI_HTTP_PORT&quot;, ciHttpPort.toString())
+])
+
+// add variables to current job
+build.addAction(pa)</command>
+      </scriptSource>
+      <bindings></bindings>
+      <classpath></classpath>
+    </hudson.plugins.groovy.SystemGroovy>
+    <hudson.tasks.Shell>
+      <command>echo $CI_HTTP_PORT</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.cloneworkspace.CloneWorkspacePublisher plugin="clone-workspace-scm@0.6">
+      <workspaceGlob></workspaceGlob>
+      <criteria>Any</criteria>
+      <archiveMethod>TAR</archiveMethod>
+      <overrideDefaultExcludes>false</overrideDefaultExcludes>
+    </hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>GIT_BRANCH=$GIT_BRANCH
+GIT_COMMIT=$SHORT_GIT_COMMIT
+DB_NAME=test_db_$SHORT_GIT_COMMIT
+CI_DB_DOMAIN=ec2-54-81-110-249.compute-1.amazonaws.com
+CI_DB_URL=mongodb://ec2-54-81-110-249.compute-1.amazonaws.com
+CI_DB_PORT=27017
+QA_DB_URL=ec2-54-92-192-175.compute-1.amazonaws.com
+QA_DB_PORT=27017
+APP_VERSION_TAG=$BUILD_NUMBER-$SHORT_GIT_COMMIT
+APP_SERVER=54.82.47.209
+FLEET_TUNNEL=54.92.231.142
+CI_HTTP_PORT=$CI_HTTP_PORT</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>UnitTesting,IntegrationTesting</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${GIT_BRANCH}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+</project>

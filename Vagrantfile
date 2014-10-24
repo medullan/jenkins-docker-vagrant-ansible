@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "provisioners/ansible/jenkins-master-playbook.yml"
     ansible.inventory_path = "provisioners/ansible/ansible.host"
-    ansible.limit = 'all'
+    ansible.limit = 'jenkins'
 
     # can be used to skip reprovisioning dependencies
     # ansible.skip_tags = ['setup']
