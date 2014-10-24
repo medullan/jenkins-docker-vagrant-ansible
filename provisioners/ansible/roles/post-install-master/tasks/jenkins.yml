@@ -55,7 +55,7 @@
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-view < {{ remote_tmp_folder }}/views/build_pipeline_view.xml
   when: "target_jenkins_env == 'docker'"
-  register: docker_views_created
+  ignore_errors: yes #TODO: should update this
 
 # Setup Security
 - name: setup security

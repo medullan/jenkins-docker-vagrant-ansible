@@ -3,6 +3,4 @@
   sudo: True
   user: vagrant
   roles:
-    - shared
-    - pre-install-common
-    - setup
+    - jenkins-slave
