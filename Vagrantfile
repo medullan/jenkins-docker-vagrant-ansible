@@ -30,12 +30,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 8080 on the guest machine.
     jenkinsMaster.vm.network "forwarded_port", guest: 8080, host: 8080
+    jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 2200
 
     # Provisioning for jenkins master using Ansible
     jenkinsMaster.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioners/ansible/jenkins-master-playbook.yml"
       ansible.inventory_path = "provisioners/ansible/ansible.host"
-      ansible.limit = 'jenkins'
 
       # can be used to skip reprovisioning dependencies
       # ansible.skip_tags = ['setup']
@@ -62,12 +62,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     jenkinsSlave.vm.hostname="jenkinsSlave"
 
     jenkinsSlave.vm.network "forwarded_port", guest: 8080, host: 8081
+    jenkinsSlave.vm.network "forwarded_port", guest: 22, host: 2201
 
     # Provisioning for jenkins master using Ansible
     jenkinsSlave.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioners/ansible/jenkins-slave-playbook.yml"
       ansible.inventory_path = "provisioners/ansible/ansible.host"
-      ansible.limit = 'jenkins_slave'
 
       # can be used to skip reprovisioning dependencies
       # ansible.skip_tags = ['setup']

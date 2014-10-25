@@ -1,3 +1,3 @@
 [jenkins]
-jenkinsMaster ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
-jenkinsSlave ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222
+jenkinsMaster ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200
+jenkinsSlave ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201
