@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>3</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.nirima.jenkins.plugins.docker.DockerJobProperty plugin="docker-plugin@0.7">
+      <tagOnCompletion>false</tagOnCompletion>
+      <additionalTag></additionalTag>
+      <pushOnSuccess>false</pushOnSuccess>
+      <cleanImages>true</cleanImages>
+    </com.nirima.jenkins.plugins.docker.DockerJobProperty>
+    <com.suryagaddipati.jenkins.SlaveUtilizationProperty plugin="slave-utilization-plugin@1.8">
+      <needsExclusiveAccessToNode>false</needsExclusiveAccessToNode>
+      <singleInstancePerSlave>false</singleInstancePerSlave>
+      <slaveUtilizationPercentage>0</slaveUtilizationPercentage>
+    </com.suryagaddipati.jenkins.SlaveUtilizationProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.3">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+  </properties>
+  <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.6">
+    <parentJobName>IntegrationTesting</parentJobName>
+    <criteria>Any</criteria>
+  </scm>
+  <assignedNode>docker-slave-functional-test</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>echo &quot;test value&quot;
+echo $CI_HTTP_PORT
+export FLEETCTL_TUNNEL=$FLEET_TUNNEL
+eval `ssh-agent -s`
+ssh-add $WORKSPACE/Automation.cer
+
+fleetctl --strict-host-key-checking=false stop $APP_VERSION_TAG@$CI_HTTP_PORT.service
+
+fleetctl --strict-host-key-checking=false destroy $APP_VERSION_TAG@$CI_HTTP_PORT.service</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>ln -s $WORKSPACE/deploy/qa-functional-test.service $APP_VERSION_TAG@$CI_HTTP_PORT.service
+
+export FLEETCTL_TUNNEL=$FLEET_TUNNEL
+eval `ssh-agent -s`
+ssh-add $WORKSPACE/Automation.cer
+
+fleetctl --strict-host-key-checking=false start $APP_VERSION_TAG@$CI_HTTP_PORT.service
+
+groovy $WORKSPACE/robot/check_url.groovy -m 60 -s 60 -t 10 http://54.205.85.64/$APP_VERSION_TAG/
+
+pybot -v APP_URL:http://54.205.85.64 -v QA_VERSION:$APP_VERSION_TAG -v REMOTE_URL:http://horaceheaven:ac673bca-4442-43c5-bd17-541540a6d064@ondemand.saucelabs.com:80/wd/hub -v DESIRED_CAPABILITIES:&quot;build:$BUILD_NUMBER,platform:OS X 10.9,browserName:CHROME,version:35&quot; robot/test/simple_test_suite.robot
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.robot.RobotPublisher plugin="robot@1.5.0">
+      <outputPath>.</outputPath>
+      <reportFileName>report.html</reportFileName>
+      <logFileName>log.html</logFileName>
+      <outputFileName>output.xml</outputFileName>
+      <disableArchiveOutput>false</disableArchiveOutput>
+      <passThreshold>0.0</passThreshold>
+      <unstableThreshold>0.0</unstableThreshold>
+      <otherFiles>
+        <string></string>
+      </otherFiles>
+      <onlyCritical>false</onlyCritical>
+    </hudson.plugins.robot.RobotPublisher>
+    <org.jenkinsci.plugins.postbuildscript.PostBuildScript plugin="postbuildscript@0.16">
+      <buildSteps>
+        <hudson.tasks.Shell>
+          <command>export FLEETCTL_TUNNEL=$FLEET_TUNNEL
+eval `ssh-agent -s`
+ssh-add $WORKSPACE/Automation.cer
+
+fleetctl --strict-host-key-checking=false stop $APP_VERSION_TAG@$CI_HTTP_PORT.service
+
+fleetctl --strict-host-key-checking=false destroy $APP_VERSION_TAG@$CI_HTTP_PORT.service</command>
+        </hudson.tasks.Shell>
+      </buildSteps>
+      <scriptOnlyIfSuccess>false</scriptOnlyIfSuccess>
+      <scriptOnlyIfFailure>false</scriptOnlyIfFailure>
+    </org.jenkinsci.plugins.postbuildscript.PostBuildScript>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>GIT_BRANCH=$GIT_BRANCH
+GIT_COMMIT=$GIT_COMMIT
+DB_NAME=$DB_NAME
+CI_DB_URL=$CI_DB_URL
+CI_DB_PORT=$CI_DB_PORT
+QA_DB_URL=$QA_DB_URL
+QA_DB_PORT=$QA_DB_PORT
+APP_VERSION_TAG=$APP_VERSION_TAG
+APP_SERVER=$APP_SERVER
+FLEET_TUNNEL=$FLEET_TUNNEL
+CI_HTTP_PORT=$CI_HTTP_PORT</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>PushToDockerHub-QA, </projects>
+          <condition>ALWAYS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <org.jvnet.hudson.plugins.port__allocator.PortAllocator plugin="port-allocator@1.8">
+      <ports>
+        <org.jvnet.hudson.plugins.port__allocator.DefaultPortType>
+          <name>HTTP_PORT</name>
+        </org.jvnet.hudson.plugins.port__allocator.DefaultPortType>
+      </ports>
+    </org.jvnet.hudson.plugins.port__allocator.PortAllocator>
+    <com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper plugin="copy-to-slave@1.4.3">
+      <includes>Automation.cer</includes>
+      <excludes></excludes>
+      <flatten>false</flatten>
+      <includeAntExcludes>false</includeAntExcludes>
+      <hudsonHomeRelative>false</hudsonHomeRelative>
+      <relativeTo>userContent</relativeTo>
+    </com.michelin.cio.hudson.plugins.copytoslave.CopyToSlaveBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>${GIT_BRANCH}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+</project>

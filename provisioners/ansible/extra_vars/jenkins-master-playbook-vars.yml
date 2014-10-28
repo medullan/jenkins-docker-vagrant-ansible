@@ -23,7 +23,7 @@ rally:
   jenkins_machine: "localhost:8080"
 
 mongo:
-  install: true
+  install: false
 
 heroku:
   install: false
