@@ -1,12 +1,3 @@
 ---
-- include: apt-packages/nodejs.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-
-- include: apt-packages/mongo.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and mongo is defined and mongo.install
-
 - include: apt-packages/docker.yml
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-
-- include: apt-packages/heroku.yml
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and heroku is defined and heroku.install

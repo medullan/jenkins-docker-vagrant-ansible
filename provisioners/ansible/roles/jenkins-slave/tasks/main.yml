@@ -1,0 +1,16 @@
+---
+# setup docker on machine
+- name: Add Docker repository key
+  sudo: True
+  apt_key: url="https://get.docker.io/gpg"
+
+- name: Add Docker repository
+  sudo: True
+  apt_repository:
+    repo: 'deb http://get.docker.io/ubuntu docker main'
+    update_cache: yes
+
+- name: 'Install Docker  ({{ docker_package | default("lxc-docker") }})'
+  sudo: True
+  apt: pkg={{ docker_package | default("lxc-docker") }} state=installed
+#  notify: "Start Docker"

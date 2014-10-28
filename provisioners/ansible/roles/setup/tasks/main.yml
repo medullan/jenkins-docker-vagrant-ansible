@@ -5,15 +5,15 @@
 
 - include: basedep.yml tags=setup
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ] and slave is defined and slave.apt is defined
-
+#
 - include: apt.yml tags=setup
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-
-- include: piptools.yml tags=setup
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-
-- include: npm.yml tags=setup
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
-
-- include: redis.yml tags=setup
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+#
+# - include: piptools.yml tags=setup
+#   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+#
+# - include: npm.yml tags=setup
+#   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+#
+# - include: redis.yml tags=setup
+#   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

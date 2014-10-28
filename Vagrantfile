@@ -17,8 +17,38 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # box built by packer to provision with VirtualBox
   # config.vm.box = "packer_virtualbox-iso_virtualbox.box"
 
-  # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.define "jenkinsSlave" do |jenkinsSlave|
+    # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
+    jenkinsSlave.vm.box = "ubuntu/trusty64"
+
+    #jenkinsSlave.ssh.port = 2222
+
+    jenkinsSlave.vm.hostname="jenkinsSlave"
+
+    jenkinsSlave.vm.network "forwarded_port", guest: 8080, host: 8081
+    jenkinsSlave.vm.network "forwarded_port", guest: 22, host: 2201
+
+    # Provisioning for jenkins master using Ansible
+    jenkinsSlave.vm.provision "ansible" do |ansible|
+      ansible.playbook = "provisioners/ansible/jenkins-slave-playbook.yml"
+      ansible.inventory_path = "provisioners/ansible/ansible.host"
+
+      ansible.limit = 'all'
+      # can be used to skip reprovisioning dependencies
+      # ansible.skip_tags = ['setup']
+
+      # Ansible variables; select one for provision type:
+      # override/set ansible vars here for VirtualBox
+      ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml"
+
+      # override/set ansible vars here for AWS
+      # ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
+
+      # turn on verbose mode to see logging/debug (can be up to four v's eg. ('vvvv'))
+      # ansible.verbose = 'vvvv'
+    end
+  end
+
 
   # Name for vagrant box to be created
   config.vm.define "jenkinsMaster" do |jenkinsMaster|
@@ -26,18 +56,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
     jenkinsMaster.vm.box = "ubuntu/trusty64"
 
+    #jenkinsMaste.ssh.port = 2200
+
+    jenkinsMaster.vm.hostname = 'jenkinsMaster'
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 8080 on the guest machine.
     jenkinsMaster.vm.network "forwarded_port", guest: 8080, host: 8080
-    jenkinsMaster.vm.network "forwarded_port", guest: 5000, host: 5000
+    jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 2200
 
     # Provisioning for jenkins master using Ansible
     jenkinsMaster.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioners/ansible/jenkins-master-playbook.yml"
       ansible.inventory_path = "provisioners/ansible/ansible.host"
-      ansible.limit = 'jenkins'
-
+      ansible.limit = 'all'
       # can be used to skip reprovisioning dependencies
       # ansible.skip_tags = ['setup']
 
@@ -52,11 +84,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       # ansible.verbose = 'vvvv'
     end
 
-  end
-
-  config.vm.define "jenkinsSlave" do |jenkinsSlave|
-    # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
-    jenkinsSlave.vm.box = "ubuntu/trusty64"
   end
 
   config.vm.provider :aws do |aws, override|

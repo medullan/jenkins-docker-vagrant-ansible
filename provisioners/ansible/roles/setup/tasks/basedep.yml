@@ -6,39 +6,8 @@
   with_items: slave.apt.base
   when: slave.apt.base is defined
 
-# Install apt dependencies for ruby
-- name: Install base apt dependencies for ruby
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=latest"
-  with_items: slave.apt.ruby
-  when: slave.apt.ruby is defined
-
-- name: Install base apt dependencies for pip
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=latest"
-  with_items: slave.apt.pip
-  when: slave.apt.pip is defined
-
 - name: Install base apt dependencies for development
   sudo: yes
   action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=latest"
   with_items: slave.apt.devtools
   when: slave.apt.devtools is defined
-
-- name: Install base apt dependencies for redis
-  sudo: yes
-  action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=latest"
-  with_items: slave.apt.redis
-  when: slave.apt.redis is defined and install_redis
-
-# Install apt dependencies for postgres
-# - name: Install base apt dependencies for postgres
-#   sudo: yes
-#   action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=latest"
-#   with_items: slave.apt.postgres
-#   when: slave.apt.postgres is defined and install_postgres
-#TO DELETE
-# - name: set postgres password
-#   sudo: yes
-#   shell: sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'enter';"
-#   when: install_postgres

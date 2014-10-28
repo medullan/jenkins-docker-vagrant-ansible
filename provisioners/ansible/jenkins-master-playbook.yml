@@ -1,5 +1,5 @@
 - name: Jenkins Master Playbook
-  hosts: jenkins
+  hosts: jenkinsMaster
   roles:
     - shared
     - pre-install-master
