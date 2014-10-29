@@ -10,7 +10,7 @@
   sudo: yes
   action: file path={{ jenkins_dest }} state=directory
 
-# Get Jenkins CLI from localhost
+# Get Jenkins CLI from jenkins
 - name: Get Jenkins CLI
   sudo: yes
   action: get_url url=http://localhost:8080/jnlpJars/jenkins-cli.jar dest={{ jenkins.cli_dest }} mode=0440
