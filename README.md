@@ -4,7 +4,6 @@ README!
 ### Requirements:
 - `Vagrant - latest`
 - `Ansible >= v1.7.1` (will most likely get errors if version is lower)
-- `Packer - latest`
 
 Two vagrant plugins are required. To install these plugins, please run:
 ```shell
@@ -27,6 +26,8 @@ To see detailed documentation please visit the [website](http://medullan.github.
 
 ## TODOs
 
+- Automatically configure Jenkins docker cloud plugin via ansible, to use docker server ip address on slave.
+- Update ansible host with the necessary inventory information each time a AWS box is created with vagrant.
 - Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simply update the required XML nodes.
 
 ##### Happy hacking away!

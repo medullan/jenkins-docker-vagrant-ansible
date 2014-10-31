@@ -4,9 +4,8 @@ local_files_dir: '../../../files'
 machine_path: /usr/local/bin
 install_postgres: false
 install_redis: false
-target_jenkins_env: docker #Make this a param
+target_jenkins_env: docker
 slave:
-
   # these are apt packges that dont require any extra repositories to be installed
   apt:
     redis:
@@ -22,7 +21,6 @@ slave:
       - 'build-essential'
       - 'dkms'
       - 'nfs-common'
-      - 'curl'
       - 'openjdk-7-jre'
       - 'openjdk-7-jdk'
       - 'bash'
@@ -36,10 +34,7 @@ plugins:
   - 'github'
   - 'github-oauth'
   - 'ghprb'
-  - 'preSCMbuildstep'
-  - 'publish-over-ssh'
   - 'nodejs'
-  - 'deploy'
   - 'disk-usage'
   - 'metrics-diskusage'
   - 'performance'
@@ -47,22 +42,20 @@ plugins:
   - 'greenballs'
   - 'robot'
   - 'htmlpublisher'
-  - 'jenkins-multijob-plugin'
   - 'ws-cleanup'
   - 'jobConfigHistory'
   - 'groovy'
   - 'groovy-postbuild'
   - 'build-pipeline-plugin'
-  - 'throttle-concurrents'
   - 'build-name-setter'
   - 'postbuild-task'
-  - 'ec2'
   - 'port-allocator'
   - 'copy-to-slave'
   - 'docker-plugin'
   - 'docker-build-publish'
+  - 'clone-workspace-scm'
 
   # install plugins using files:
   # - stored on local machine
   # - downloaded via public urls (recommended)
-  - 'https://dl.dropboxusercontent.com/s/n5lmlponr8w4c22/rally-build-notifier.hpi?dl=0'
+  # - 'https://dl.dropboxusercontent.com/s/n5lmlponr8w4c22/rally-build-notifier.hpi?dl=0'
