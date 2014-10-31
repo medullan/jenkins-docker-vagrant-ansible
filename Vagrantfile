@@ -5,19 +5,19 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    # All Vagrant configuration is done here. The most common configuration
-    # options are documented and commented below. For a complete reference,
-    # please see the online documentation at vagrantup.com.
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
 
-    # Every Vagrant virtual environment requires a box to build off of. Choose one!
+  # Every Vagrant virtual environment requires a box to build off of. Choose one!
 
-    # box built by packer to provision with AWS
-    # config.vm.box = "packer_amazon-ebs_aws.box"
+  # box built by packer to provision with AWS
+  # config.vm.box = "packer_amazon-ebs_aws.box"
 
-    # box built by packer to provision with VirtualBox
-    # config.vm.box = "packer_virtualbox-iso_virtualbox.box"
+  # box built by packer to provision with VirtualBox
+  # config.vm.box = "packer_virtualbox-iso_virtualbox.box"
 
-    config.vm.define "jenkinsSlave" do |jenkinsSlave|
+  config.vm.define "jenkinsSlave" do |jenkinsSlave|
       # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
       jenkinsSlave.vm.box = "dummy"
 
@@ -76,8 +76,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
 
-    # Name for vagrant box to be created
-    config.vm.define "jenkinsMaster" do |jenkinsMaster|
+  # Name for vagrant box to be created
+  config.vm.define "jenkinsMaster" do |jenkinsMaster|
 
       # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
       jenkinsMaster.vm.box = "dummy"
@@ -133,10 +133,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       #Shared Folder for AWS
       jenkinsMaster.vm.synced_folder ".", "/vagrant", type: "rsync", :rsync_excludes => ['packer_cache/', 'http/', 'output-*/', '*.box', '*.pem', 'vagrant-ansible-jenkins.wiki', 'docs', '*.cer', 'node_modules', '*.js', '*.json', '.grunt']
 
-
     end
-  end
-end
+
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
