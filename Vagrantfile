@@ -50,15 +50,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     jenkinsSlave.vm.provider :aws do |aws, override|
         override.ssh.username = "ubuntu"
-        override.ssh.private_key_path = "" # location of rsa private key file here
+        override.ssh.private_key_path = ENV["PRIVATE_KEY_LOCATION"]
 
-        aws.keypair_name = ""
-        aws.access_key_id = "" # Your access key id here
-        aws.secret_access_key = "" # Your secret access key here
+        aws.keypair_name = ENV["AWS_KEYPAIR_NAME"]
+        aws.access_key_id = ENV["AWS_ACCESS_KEY_ID"]
+        aws.secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"]
 
-        aws.ami = "" # replace with AMI id generated with packer if necessary
-        #aws.instance_type = "t1.micro"
-        aws.security_groups = [""] # replace with preferred security group, must have an ssh port
+        aws.ami = ENV["AMI"]
+        aws.security_groups = [ENV['AWS_SECURITY_GROUP']]
+
         aws.region = "us-east-1"
         aws.tags = {
           'Name' => 'jenkins-docker-slave',
@@ -112,15 +112,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     jenkinsMaster.vm.provider :aws do |aws, override|
         override.ssh.username = "ubuntu"
-        override.ssh.private_key_path = "" # location of rsa private key file here
+        override.ssh.private_key_path = ENV["PRIVATE_KEY_LOCATION"]
 
-        aws.keypair_name = ""
-        aws.access_key_id = "" # Your access key id here
-        aws.secret_access_key = "" # Your secret access key here
+        aws.keypair_name = ENV["AWS_KEYPAIR_NAME"]
+        aws.access_key_id = ENV["AWS_ACCESS_KEY_ID"]
+        aws.secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"]
+        aws.ami = ENV["AMI"]
+        aws.security_groups = [ENV['AWS_SECURITY_GROUP']]
 
-        aws.ami = "" # replace with AMI id generated with packer if necessary
-        #aws.instance_type = "t1.micro"
-        aws.security_groups = [""] # replace with preferred security group, must have an ssh port
         aws.region = "us-east-1"
         aws.tags = {
           'Name' => 'jenkins-docker-master',
