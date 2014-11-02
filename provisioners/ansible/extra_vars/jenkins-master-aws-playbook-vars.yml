@@ -1,5 +1,5 @@
 ---
-startup_delay_s: 70
+startup_delay_s: 120
 
 user_home:  /home/ubuntu
 user_name: ubuntu
