@@ -15,6 +15,12 @@ vagrant plugin install vagrant-aws
 
 To see detailed documentation please visit the [website](http://medullan.github.io/vagrant-ansible-jenkins).
 
+## Quick Start
+```shell
+$ git clone https://github.com/medullan/jenkins-docker-vagrant-ansible.git
+$ vagrant up
+```
+
 
 ## Development
 
