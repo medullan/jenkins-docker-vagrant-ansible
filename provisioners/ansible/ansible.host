@@ -1,3 +1,3 @@
 [jenkins]
-jenkinsMaster ansible_ssh_host=54.161.131.47
-jenkinsSlave ansible_ssh_host=54.205.117.154
+jenkinsMaster ansible_ssh_host=54.204.144.33
+jenkinsSlave ansible_ssh_host=54.87.197.192
