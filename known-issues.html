@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Vagrant Ansible Jenkins</title>
+
+    <link type="text/css" rel="stylesheet" href="assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/print.css" media="print">
+    
+
+    <script type="text/javascript" src="assets/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    <script type="text/javascript" src="assets/js/lunr.min.js"></script>
+
+    
+
+    <script type="text/javascript">var BASE_URL = "";</script>
+    <script type="text/javascript" src="assets/js/viewer.js"></script>
+
+    
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        <header id="header">
+            <h1><a href="">Vagrant Ansible Jenkins</a></h1>
+        </header>
+        
+
+<div id="sidebar">
+    <form action="search.html"><input id="search" type="text" placeholder="Search" name="q" /></form>
+    <nav id="toc">
+        
+    <ol>
+    
+        <li>
+            <a href="home.html#home">Home</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="01-intro.html#introduction">Introduction</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="02-requirements-and-features.html#requirements">Requirements</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="02-requirements-and-features.html#features">Features</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="03-whats-already-inside.html#whats-already-inside">Whats already inside</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="031-checkurl-groovy-script.html#checkurl-groovy-script">CheckUrl Groovy Script</a>
+            
+        </li>
+    
+        <li>
+            <a href="032-saucelabs-python-script.html#saucelabs-python-script">SauceLabs Python Script</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="04-how-to-setup.html#how-to-setup">How to Setup</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#install-plugins">Install Plugins</a>
+            
+        </li>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#create-jobs">Create Jobs</a>
+            
+        </li>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#share-files-with-the-imagebox">Share Files with the Image/Box</a>
+            
+        </li>
+    
+        <li>
+            <a href="042-update-override-variables.html#update-override-variables">Update Override Variables</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="05-create-jenkins-environment-with-vagrant.html#create-jenkins-environment-with-vagrant">Create Jenkins Environment with Vagrant</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="051-provision-with-virtualbox.html#local-provisioning-with-virtualbox">Local provisioning with VirtualBox</a>
+            
+        </li>
+    
+        <li>
+            <a href="052-provision-jenkins-with-aws.html#provision-with-aws-amazon-web-service">Provision with AWS (Amazon Web Service)</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="06-docker-build-pipelines.html#docker-build-pipeline">Docker Build Pipeline</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#documentation">Documentation</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="07-documentation.html#about">About</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#editing-the-docs">Editing the Docs</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#generate-documentation-website">Generate Documentation Website</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#deploy-docs-to-gh-pages">Deploy Docs to GH-Pages</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="08-development.html#development">Development</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#known-issues">Known Issues</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="known-issues.html#issue-shared-workspace-jenkins-plugin-woes">Issue: shared-workspace Jenkins Plugin woes</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-invalid-machine-state-when-provisioning">Issue: Invalid machine state when provisioning</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansiblehost-turned-into-executable-file">Issue: ansible.host turned into executable file</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansible-provisioning-fails-when-using-jenkins-cli">Issue: Ansible Provisioning fails when using Jenkins CLI</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Issue: Ansible Provisioning with AWS fails with SSH Exception</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="license.html#license">License</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+    </nav>
+    
+    <nav id="links">
+        <ul>
+            
+        </ul>
+    </nav>
+    
+</div>
+
+        <div id="content">
+            <h1 id="known-issues">Known Issues</h1>
+<h2 id="issue-shared-workspace-jenkins-plugin-woes">Issue: shared-workspace Jenkins Plugin woes</h2>
+<p>The github-oauth@0.19 plugin doesnt play well with the shared-workspace plugin.
+At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used.
+This variable is null until a job is executed, hence the github-oauth plugin will throw a fit.</p>
+<h4 id="resolution">Resolution</h4>
+<p>Just avoid using that variable and everything will be ok.</p>
+<p><br/></p>
+<h2 id="issue-invalid-machine-state-when-provisioning">Issue: Invalid machine state when provisioning</h2>
+<p>With <code>VirtualBox v4.3.14</code>, when doing <code>vagrant up</code>, an error (or similar error) sometimes occurs saying:</p>
+<h4 id="exception">Exception</h4>
+<p>The guest machine entered an invalid state while waiting for it
+to boot. Valid states are &#39;starting, running&#39;. The machine is in the
+&#39;poweroff&#39; state. Please verify everything is configured
+properly and try again.
+If the provider you&#39;re using has a GUI that comes with it,
+it is often helpful to open that and watch the machine, since the
+GUI often has more helpful error messages than Vagrant can retrieve.
+For example, if you&#39;re using VirtualBox, run <code>vagrant up</code> while the
+VirtualBox GUI is open.</p>
+<h4 id="resolution-">Resolution:</h4>
+<p>To resolve the issue, downgrading to version <code>VirtualBox v4.3.12</code> worked</p>
+<p><br/></p>
+<h2 id="issue-ansible-host-turned-into-executable-file">Issue: ansible.host turned into executable file</h2>
+<p>Sometimes pulling the repository down will make <code>ansible.host</code> an executable file and will produce the following error:</p>
+<h4 id="exception">Exception</h4>
+<p>ERROR: The file provisioners/ansible/ansible.host is marked as executable,
+but failed to execute correctly. If this is not supposed to be an executable script,
+correct this with <code>chmod -x provisioners/ansible/ansible.host</code>.</p>
+<h4 id="resolution">Resolution</h4>
+<p>To resolve the issue, run <code>chmod -x provisioners/ansible/ansible.host</code></p>
+<p><br/></p>
+<h2 id="issue-ansible-provisioning-fails-when-using-jenkins-cli">Issue: Ansible Provisioning fails when using Jenkins CLI</h2>
+<p>Sometimes this will happen because Jenkins is not fully online after a restart during provisioning. This is either because the sleep time isn&#39;t long enough or Jenkins takes a little longer to start. </p>
+<h4 id="exception">Exception</h4>
+<pre><code class="lang-java">failed: [54.69.156.112] =&gt; {&quot;changed&quot;: true, &quot;cmd&quot;: &quot;java -jar /opt/jenkins/jenkins-cli.jar -s http://localhost:8080 list-jobs All&quot;, &quot;delta&quot;: &quot;0:00:06.720559&quot;, &quot;end&quot;: &quot;2014-09-30 14:49:18.306571&quot;, &quot;rc&quot;: 1, &quot;start&quot;: &quot;2014-09-30 14:49:11.586012&quot;}
+stderr: Exception in thread &quot;main&quot; java.io.IOException: No X-Jenkins-CLI2-Port among [X-Jenkins, null, X-Hudson, X-Hudson-Theme, Content-Length, Expires, X-Jenkins-Session, Set-Cookie, Content-Type, Server, Cache-Control]
+    at hudson.cli.CLI.getCliTcpPort(CLI.java:283)
+    at hudson.cli.CLI.&lt;init&gt;(CLI.java:126)
+    at hudson.cli.CLIConnectionFactory.connect(CLIConnectionFactory.java:72)
+    at hudson.cli.CLI._main(CLI.java:466)
+    at hudson.cli.CLI.main(CLI.java:382)
+    Suppressed: java.io.IOException: Server returned HTTP response code: 503 for URL: http://localhost:8080/cli
+        at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1626)
+        at hudson.cli.FullDuplexHttpStream.&lt;init&gt;(FullDuplexHttpStream.java:78)
+        at hudson.cli.CLI.connectViaHttp(CLI.java:156)
+        at hudson.cli.CLI.&lt;init&gt;(CLI.java:130)
+        ... 3 more
+
+FATAL: all hosts have already failed -- aborting
+</code></pre>
+<h4 id="resolution">Resolution</h4>
+<p>To resolve this just run <strong>vagrant provision</strong> again and it will should resolve the issue</p>
+<p><br/></p>
+<h2 id="issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Issue: Ansible Provisioning with AWS fails with SSH Exception</h2>
+<p>When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons. 
+This can be resolved by getting the <strong>Public IP Address</strong> of the created instance in your <strong>EC2 Console</strong> and replacing the Public IP Address within the <strong>/provisioners/ansible/ansible.host</strong> file.</p>
+<h4 id="exception">Exception</h4>
+<pre><code class="lang-bash">GATHERING FACTS *************************************************************** 
+fatal: [127.0.0.1] =&gt; SSH encountered an unknown error during the connection. 
+We recommend you re-run the command using -vvvv, which will enable SSH 
+debugging output to help diagnose the issue
+</code></pre>
+<h4 id="resolution">Resolution</h4>
+<p>Current File <strong>( /provisioners/ansible/ansible.host )</strong></p>
+<pre><code>[jenkins]
+127.0.0.1 ansible_ssh_port=2222
+</code></pre><p>Eg. of what to be updated to:</p>
+<pre><code>[jenkins]
+54.69.58.64
+</code></pre><p>then run:</p>
+<pre><code>$ vagrant provision
+</code></pre><p>This will now provision the machine properly (given the IP address you put is correct). </p>
+<p><strong>NB.</strong> Note that the machine is already running and we do not need to run <strong>vagrant up</strong> again. Thus running <strong>vagrant provision</strong> will work just fine</p>
+
+
+
+
+        </div>
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="all.html?print=1">Print all pages</a>
+            
+                <a href="https://github.com/https://github.com/medullan/vagrant-ansible-jenkins.git" id="fork-me-on-github">Fork me on Github</a>
+            
+        </footer>
+    </div>
+</body>
+</html>

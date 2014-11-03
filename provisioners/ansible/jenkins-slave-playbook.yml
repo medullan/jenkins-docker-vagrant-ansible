@@ -1,4 +1,0 @@
-- name: Jenkins Slave Playbook
-  hosts: jenkinsSlave
-  roles:
-    - jenkins-slave

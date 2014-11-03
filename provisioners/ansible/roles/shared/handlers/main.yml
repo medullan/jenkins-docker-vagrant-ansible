@@ -1,4 +1,0 @@
-# remove temp folder
-- name: Delete Remote Temporary Folder
-  sudo: yes
-  command: rm -rf {{ remote_tmp_folder }}

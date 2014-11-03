@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Vagrant Ansible Jenkins</title>
+
+    <link type="text/css" rel="stylesheet" href="assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/print.css" media="print">
+    
+
+    <script type="text/javascript" src="assets/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    <script type="text/javascript" src="assets/js/lunr.min.js"></script>
+
+    
+
+    <script type="text/javascript">var BASE_URL = "";</script>
+    <script type="text/javascript" src="assets/js/viewer.js"></script>
+
+    
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        <header id="header">
+            <h1><a href="">Vagrant Ansible Jenkins</a></h1>
+        </header>
+        
+
+<div id="sidebar">
+    <form action="search.html"><input id="search" type="text" placeholder="Search" name="q" /></form>
+    <nav id="toc">
+        
+    <ol>
+    
+        <li>
+            <a href="home.html#home">Home</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="01-intro.html#introduction">Introduction</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="02-requirements-and-features.html#requirements">Requirements</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="02-requirements-and-features.html#features">Features</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="03-whats-already-inside.html#whats-already-inside">Whats already inside</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="031-checkurl-groovy-script.html#checkurl-groovy-script">CheckUrl Groovy Script</a>
+            
+        </li>
+    
+        <li>
+            <a href="032-saucelabs-python-script.html#saucelabs-python-script">SauceLabs Python Script</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="04-how-to-setup.html#how-to-setup">How to Setup</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#install-plugins">Install Plugins</a>
+            
+        </li>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#create-jobs">Create Jobs</a>
+            
+        </li>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#share-files-with-the-imagebox">Share Files with the Image/Box</a>
+            
+        </li>
+    
+        <li>
+            <a href="042-update-override-variables.html#update-override-variables">Update Override Variables</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="05-create-jenkins-environment-with-vagrant.html#create-jenkins-environment-with-vagrant">Create Jenkins Environment with Vagrant</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="051-provision-with-virtualbox.html#local-provisioning-with-virtualbox">Local provisioning with VirtualBox</a>
+            
+        </li>
+    
+        <li>
+            <a href="052-provision-jenkins-with-aws.html#provision-with-aws-amazon-web-service">Provision with AWS (Amazon Web Service)</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="06-docker-build-pipelines.html#docker-build-pipeline">Docker Build Pipeline</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#documentation">Documentation</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="07-documentation.html#about">About</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#editing-the-docs">Editing the Docs</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#generate-documentation-website">Generate Documentation Website</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#deploy-docs-to-gh-pages">Deploy Docs to GH-Pages</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="08-development.html#development">Development</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#known-issues">Known Issues</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="known-issues.html#issue-shared-workspace-jenkins-plugin-woes">Issue: shared-workspace Jenkins Plugin woes</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-invalid-machine-state-when-provisioning">Issue: Invalid machine state when provisioning</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansiblehost-turned-into-executable-file">Issue: ansible.host turned into executable file</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansible-provisioning-fails-when-using-jenkins-cli">Issue: Ansible Provisioning fails when using Jenkins CLI</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Issue: Ansible Provisioning with AWS fails with SSH Exception</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="license.html#license">License</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+    </nav>
+    
+    <nav id="links">
+        <ul>
+            
+        </ul>
+    </nav>
+    
+</div>
+
+        <div id="content">
+            <h2 id="saucelabs-python-script">SauceLabs Python Script</h2>
+<p>The <code>SauceLabs.py</code> script, discovered in a <a href="http://datakurre.pandala.org/2014/03/cross-browser-selenium-testing-with.html">blog</a>, is used to run robotframework tests on SauceLabs while creating the outputs on the machine that executed the command.</p>
+<p>This Requires the following pip packages: </p>
+<ul>
+<li><code>robotframework-selenium2library</code></li>
+<li><code>simplejson</code></li>
+<li><code>requests</code></li>
+</ul>
+<h3 id="where-is-it-">Where is it?</h3>
+<p>The script is copied to the <strong><em>/usr/local/bin</em></strong> directory where it can be referenced by python when a script is run that imports the SauceLabs library</p>
+
+
+
+
+        </div>
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="all.html?print=1">Print all pages</a>
+            
+                <a href="https://github.com/https://github.com/medullan/vagrant-ansible-jenkins.git" id="fork-me-on-github">Fork me on Github</a>
+            
+        </footer>
+    </div>
+</body>
+</html>

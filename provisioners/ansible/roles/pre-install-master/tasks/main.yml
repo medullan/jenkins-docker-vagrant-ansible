@@ -1,7 +1,0 @@
----
-# Add Setup task files
-# Include all sub task files here
-# Tasks will be executed in the order they appear here
-
-- include: jenkins-master-install.yml tags=presetupmaster
-  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]

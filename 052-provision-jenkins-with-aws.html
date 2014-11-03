@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Vagrant Ansible Jenkins</title>
+
+    <link type="text/css" rel="stylesheet" href="assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/print.css" media="print">
+    
+
+    <script type="text/javascript" src="assets/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    <script type="text/javascript" src="assets/js/lunr.min.js"></script>
+
+    
+
+    <script type="text/javascript">var BASE_URL = "";</script>
+    <script type="text/javascript" src="assets/js/viewer.js"></script>
+
+    
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        <header id="header">
+            <h1><a href="">Vagrant Ansible Jenkins</a></h1>
+        </header>
+        
+
+<div id="sidebar">
+    <form action="search.html"><input id="search" type="text" placeholder="Search" name="q" /></form>
+    <nav id="toc">
+        
+    <ol>
+    
+        <li>
+            <a href="home.html#home">Home</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="01-intro.html#introduction">Introduction</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="02-requirements-and-features.html#requirements">Requirements</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="02-requirements-and-features.html#features">Features</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="03-whats-already-inside.html#whats-already-inside">Whats already inside</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="031-checkurl-groovy-script.html#checkurl-groovy-script">CheckUrl Groovy Script</a>
+            
+        </li>
+    
+        <li>
+            <a href="032-saucelabs-python-script.html#saucelabs-python-script">SauceLabs Python Script</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="04-how-to-setup.html#how-to-setup">How to Setup</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#install-plugins">Install Plugins</a>
+            
+        </li>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#create-jobs">Create Jobs</a>
+            
+        </li>
+    
+        <li>
+            <a href="041-verify-list-of-jenkins-plugins-and-jobs-to-be-installed.html#share-files-with-the-imagebox">Share Files with the Image/Box</a>
+            
+        </li>
+    
+        <li>
+            <a href="042-update-override-variables.html#update-override-variables">Update Override Variables</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="05-create-jenkins-environment-with-vagrant.html#create-jenkins-environment-with-vagrant">Create Jenkins Environment with Vagrant</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="051-provision-with-virtualbox.html#local-provisioning-with-virtualbox">Local provisioning with VirtualBox</a>
+            
+        </li>
+    
+        <li>
+            <a href="052-provision-jenkins-with-aws.html#provision-with-aws-amazon-web-service">Provision with AWS (Amazon Web Service)</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="06-docker-build-pipelines.html#docker-build-pipeline">Docker Build Pipeline</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#documentation">Documentation</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="07-documentation.html#about">About</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#editing-the-docs">Editing the Docs</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#generate-documentation-website">Generate Documentation Website</a>
+            
+        </li>
+    
+        <li>
+            <a href="07-documentation.html#deploy-docs-to-gh-pages">Deploy Docs to GH-Pages</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="08-development.html#development">Development</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#known-issues">Known Issues</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="known-issues.html#issue-shared-workspace-jenkins-plugin-woes">Issue: shared-workspace Jenkins Plugin woes</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-invalid-machine-state-when-provisioning">Issue: Invalid machine state when provisioning</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansiblehost-turned-into-executable-file">Issue: ansible.host turned into executable file</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansible-provisioning-fails-when-using-jenkins-cli">Issue: Ansible Provisioning fails when using Jenkins CLI</a>
+            
+        </li>
+    
+        <li>
+            <a href="known-issues.html#issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Issue: Ansible Provisioning with AWS fails with SSH Exception</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="license.html#license">License</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+    </nav>
+    
+    <nav id="links">
+        <ul>
+            
+        </ul>
+    </nav>
+    
+</div>
+
+        <div id="content">
+            <h2 id="provision-with-aws-amazon-web-service-">Provision with AWS (Amazon Web Service)</h2>
+<h3 id="step-1-change-the-vm-box-to-be-used">Step 1 - Change the vm box to be used</h3>
+<p>To provision with AWS, the AWS box built with <strong><em>packer</em></strong> or a referenced AWS vagrant box from some archive must be used. If the box was built update the base box in the Vagrantfile</p>
+<p>for eg.</p>
+<pre><code class="lang-yaml">config.vm.box = &quot;dummy.box&quot;
+</code></pre>
+<h3 id="step-2-change-ansible-override-variables">Step 2 - Change Ansible Override Variables</h3>
+<p>from:</p>
+<pre><code class="lang-yaml">ansible.extra_vars = &quot;provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml&quot;
+</code></pre>
+<p>to:</p>
+<pre><code class="lang-yaml">ansible.extra_vars = &quot;provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml&quot;
+</code></pre>
+<h3 id="step-3-fill-in-required-aws-info">Step 3 - Fill in required AWS info</h3>
+<p>Inorder to provision environments within AWS, it is a requirement to provide sensitive AWS information such as the <code>access_key_id</code> and <code>secret_access_key</code>. Since this code is being committed to a github repository where other persons can view the code base, environment variables are being used to set this information in a local terminal, for e.g. <code>export AWS_SECRET_ACCESS_KEY=SOMEKEYHASH</code>.</p>
+<pre><code class="lang-ruby">  def aws_provider_configs(config)
+    config.vm.provider :aws do |aws, override|
+        override.ssh.username = ENV[&quot;AWS_SSH_USER&quot;]
+        override.ssh.private_key_path = ENV[&quot;AWS_KEY_LOCATION&quot;]
+
+        aws.keypair_name = ENV[&quot;AWS_KEYPAIR_NAME&quot;]
+        aws.access_key_id = ENV[&quot;AWS_ACCESS_KEY_ID&quot;]
+        aws.secret_access_key = ENV[&quot;AWS_SECRET_ACCESS_KEY&quot;]
+        aws.ami = ENV[&quot;AMI&quot;]
+        aws.security_groups = [ENV[&#39;AWS_SECURITY_GROUP&#39;]]
+
+        aws.region = &quot;us-east-1&quot;
+        aws.tags = {
+          &#39;Name&#39; =&gt; &#39;jenkins-docker-master&#39;,
+          &#39;Provisioner&#39; =&gt; &#39;Medullan&#39;,
+          &#39;OS_Version&#39; =&gt; &#39;Ubuntu&#39;,
+          &#39;Release&#39; =&gt; &#39;Latest&#39;
+        }
+    end
+  end
+</code></pre>
+<h3 id="step-4-uncomment-rsync-folder-sharing">Step 4 - Uncomment Rsync Folder sharing</h3>
+<p>This step is important. The rsync line lists files that should be ignore when syncing files on the local machine with the AWS machine. If these are not ignore then the process will attempt to transfer very huge files and you may wait a very long time before seeing any progress.</p>
+<pre><code class="lang-yaml">config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, type: &quot;rsync&quot;, :rsync_excludes =&gt; [&#39;packer_cache/&#39;, &#39;http/&#39;, ... ]
+</code></pre>
+<p>then run:</p>
+<pre><code>$ vagrant up --provider=aws
+</code></pre><p>This will create and run an AWS instance in your account.</p>
+<p>For more information on provisioning with AWS please view the following repository:</p>
+<p><a href="https://github.com/mitchellh/vagrant-aws">https://github.com/mitchellh/vagrant-aws</a></p>
+<h3 id="extras">Extras</h3>
+<p>There are some Ansible roles that are shared when provisioning the base image and the Jenkins environments.
+One such role would be <strong>setup</strong>. If you wat to ignore this role when provisioning the Jenkins environments, Then uncomment the following line in the Vagrantfile:</p>
+<pre><code class="lang-yaml">ansible.skip_tags = [&#39;setup&#39;]
+</code></pre>
+<h3 id="caveats">Caveats</h3>
+<p>When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons.
+To see how to resolve, please see the <a href="http://medullan.github.io/vagrant-ansible-jenkins/known-issues.html#issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Known Issues</a> section for this topic</p>
+
+
+
+
+        </div>
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="all.html?print=1">Print all pages</a>
+            
+                <a href="https://github.com/https://github.com/medullan/vagrant-ansible-jenkins.git" id="fork-me-on-github">Fork me on Github</a>
+            
+        </footer>
+    </div>
+</body>
+</html>
