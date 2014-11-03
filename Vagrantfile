@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       jenkinsMaster.vm.hostname = 'jenkinsMaster'
 
       jenkinsMaster.vm.network "forwarded_port", guest: 8080, host: 8080
-      jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 2200
+      jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 2222
 
       jenkinsMaster.vm.provision "ansible" do |ansible|
 
