@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   var pkg = grunt.file.readJSON('package.json');
   var docsRepo = 'https://github.com/medullan/jenkins-docker-vagrant-ansible.wiki.git';
   var docManifest = {
-      title: "Vagrant Ansible Jenkins",
+      title: "Jenkins Docker CI (Vagrant Ansible)",
       github: pkg.repository.url,
       files: []
   };
