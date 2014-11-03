@@ -2,7 +2,7 @@
 
 module.exports = function(grunt) {
   var pkg = grunt.file.readJSON('package.json');
-  var docsRepo = 'https://github.com/medullan/vagrant-ansible-jenkins.wiki.git';
+  var docsRepo = 'https://github.com/medullan/jenkins-docker-vagrant-ansible.wiki.git';
   var docManifest = {
       title: "Vagrant Ansible Jenkins",
       github: pkg.repository.url,
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       }
     },
     clean:{
-      docs: ['docs','vagrant-ansible-jenkins.wiki']
+      docs: ['docs','jenkins-docker-vagrant-ansible.wiki']
     },
     gta: {
         cloneWiki: {
