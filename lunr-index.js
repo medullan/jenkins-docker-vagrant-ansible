@@ -316,7 +316,7 @@ documentTitles["06-docker-build-pipelines.html#docker-build-pipeline"] = "Docker
 index.add({
     url: "06-docker-build-pipelines.html#docker-build-pipeline",
     title: "Docker Build Pipeline",
-    body: "# Docker Build Pipeline  Currently, the ansible scripts provision a generic Docker build pipeline, with the following layout.  1. **Phase 1**     * GetLatestFromSCM 2. **Phase 2**     * IntegrationTesting     * UnitTesting 3. **Phase 3**     * PushToDockerHub 4. **Phase 4**     * FunctionalTesting 5. **Phase 5**     * PushToDockerHub-QA 6. **Phase 6**     * DeployToQA  Key Jenkins plugin used:  - docker-plugin - docker-build-step - build-pipeline-plugin - clone-workspace-scm   NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools need to run builds are installed on the docker slaves.  To provision the Jenkins environment with your pipeline of choice, the **target_jenkins_env** variable should be overridden.  * Set it to **docker** to create a docker pipeline  To override, locate the desired override variable file in the **provisioners/ansible/roles/shared/vars** folder and place the following within the yaml file.  "
+    body: "# Docker Build Pipeline  Currently, the ansible scripts provision a generic Docker build pipeline, with the following layout.  1. **Phase 1**     * GetLatestFromSCM 2. **Phase 2**     * IntegrationTesting     * UnitTesting 3. **Phase 3**     * PushToDockerHub 4. **Phase 4**     * FunctionalTesting 5. **Phase 5**     * PushToDockerHub-QA 6. **Phase 6**     * DeployToQA  Key Jenkins plugin used:  - docker-plugin - docker-build-step - build-pipeline-plugin - clone-workspace-scm   NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools needed to run builds are installed on the docker slaves.  To provision the Jenkins environment with your pipeline of choice, the **target_jenkins_env** variable should be overridden.  * Set it to **docker** to create a docker pipeline  To override, locate the desired override variable file in the **provisioners/ansible/roles/shared/vars** folder and place the following within the yaml file.  "
 });
 
 documentTitles["06-docker-build-pipelines.html#example"] = "Example";
@@ -402,20 +402,6 @@ index.add({
     body: "# Known Issues  "
 });
 
-documentTitles["known-issues.html#issue-shared-workspace-jenkins-plugin-woes"] = "Issue: shared-workspace Jenkins Plugin woes";
-index.add({
-    url: "known-issues.html#issue-shared-workspace-jenkins-plugin-woes",
-    title: "Issue: shared-workspace Jenkins Plugin woes",
-    body: "## Issue: shared-workspace Jenkins Plugin woes  The github-oauth@0.19 plugin doesnt play well with the shared-workspace plugin. At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used. This variable is null until a job is executed, hence the github-oauth plugin will throw a fit.  "
-});
-
-documentTitles["known-issues.html#resolution"] = "Resolution";
-index.add({
-    url: "known-issues.html#resolution",
-    title: "Resolution",
-    body: "#### Resolution Just avoid using that variable and everything will be ok.  &lt;br/&gt; "
-});
-
 documentTitles["known-issues.html#issue-invalid-machine-state-when-provisioning"] = "Issue: Invalid machine state when provisioning";
 index.add({
     url: "known-issues.html#issue-invalid-machine-state-when-provisioning",
@@ -455,7 +441,7 @@ documentTitles["known-issues.html#issue-ansible-provisioning-fails-when-using-je
 index.add({
     url: "known-issues.html#issue-ansible-provisioning-fails-when-using-jenkins-cli",
     title: "Issue: Ansible Provisioning fails when using Jenkins CLI",
-    body: "## Issue: Ansible Provisioning fails when using Jenkins CLI Sometimes this will happen because Jenkins is not fully online after a restart during provisioning. This is either because the sleep time isn't long enough or Jenkins takes a little longer to start.  ####Exception ```java failed: [54.69.156.112] =&gt; {\&quot;changed\&quot;: true, \&quot;cmd\&quot;: \&quot;java -jar /opt/jenkins/jenkins-cli.jar -s http://localhost:8080 list-jobs All\&quot;, \&quot;delta\&quot;: \&quot;0:00:06.720559\&quot;, \&quot;end\&quot;: \&quot;2014-09-30 14:49:18.306571\&quot;, \&quot;rc\&quot;: 1, \&quot;start\&quot;: \&quot;2014-09-30 14:49:11.586012\&quot;} stderr: Exception in thread \&quot;main\&quot; java.io.IOException: No X-Jenkins-CLI2-Port among [X-Jenkins, null, X-Hudson, X-Hudson-Theme, Content-Length, Expires, X-Jenkins-Session, Set-Cookie, Content-Type, Server, Cache-Control] 	at hudson.cli.CLI.getCliTcpPort(CLI.java:283) 	at hudson.cli.CLI.&lt;init&gt;(CLI.java:126) 	at hudson.cli.CLIConnectionFactory.connect(CLIConnectionFactory.java:72) 	at hudson.cli.CLI._main(CLI.java:466) 	at hudson.cli.CLI.main(CLI.java:382) 	Suppressed: java.io.IOException: Server returned HTTP response code: 503 for URL: http://localhost:8080/cli 		at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1626) 		at hudson.cli.FullDuplexHttpStream.&lt;init&gt;(FullDuplexHttpStream.java:78) 		at hudson.cli.CLI.connectViaHttp(CLI.java:156) 		at hudson.cli.CLI.&lt;init&gt;(CLI.java:130) 		... 3 more  FATAL: all hosts have already failed -- aborting ```  "
+    body: "## Issue: Ansible Provisioning fails when using Jenkins CLI Sometimes this will happen because Jenkins is not fully online after a restart during provisioning. This is either because the sleep time isn't long enough or Jenkins takes a little longer to start. ####Exception ```java failed: [54.69.156.112] =&gt; {\&quot;changed\&quot;: true, \&quot;cmd\&quot;: \&quot;java -jar /opt/jenkins/jenkins-cli.jar -s http://localhost:8080 list-jobs All\&quot;, \&quot;delta\&quot;: \&quot;0:00:06.720559\&quot;, \&quot;end\&quot;: \&quot;2014-09-30 14:49:18.306571\&quot;, \&quot;rc\&quot;: 1, \&quot;start\&quot;: \&quot;2014-09-30 14:49:11.586012\&quot;} stderr: Exception in thread \&quot;main\&quot; java.io.IOException: No X-Jenkins-CLI2-Port among [X-Jenkins, null, X-Hudson, X-Hudson-Theme, Content-Length, Expires, X-Jenkins-Session, Set-Cookie, Content-Type, Server, Cache-Control] 	at hudson.cli.CLI.getCliTcpPort(CLI.java:283) 	at hudson.cli.CLI.&lt;init&gt;(CLI.java:126) 	at hudson.cli.CLIConnectionFactory.connect(CLIConnectionFactory.java:72) 	at hudson.cli.CLI._main(CLI.java:466) 	at hudson.cli.CLI.main(CLI.java:382) 	Suppressed: java.io.IOException: Server returned HTTP response code: 503 for URL: http://localhost:8080/cli 		at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1626) 		at hudson.cli.FullDuplexHttpStream.&lt;init&gt;(FullDuplexHttpStream.java:78) 		at hudson.cli.CLI.connectViaHttp(CLI.java:156) 		at hudson.cli.CLI.&lt;init&gt;(CLI.java:130) 		... 3 more  FATAL: all hosts have already failed -- aborting ```  "
 });
 
 documentTitles["known-issues.html#resolution"] = "Resolution";
@@ -469,14 +455,14 @@ documentTitles["known-issues.html#issue-ansible-provisioning-with-aws-fails-with
 index.add({
     url: "known-issues.html#issue-ansible-provisioning-with-aws-fails-with-ssh-exception",
     title: "Issue: Ansible Provisioning with AWS fails with SSH Exception",
-    body: "## Issue: Ansible Provisioning with AWS fails with SSH Exception  When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons.  This can be resolved by getting the **Public IP Address** of the created instance in your **EC2 Console** and replacing the Public IP Address within the **/provisioners/ansible/ansible.host** file. ####Exception ```bash GATHERING FACTS ***************************************************************  fatal: [127.0.0.1] =&gt; SSH encountered an unknown error during the connection.  We recommend you re-run the command using -vvvv, which will enable SSH  debugging output to help diagnose the issue ```  "
+    body: "## Issue: Ansible Provisioning with AWS fails with SSH Exception  When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons. This can be resolved by getting the **Public IP Address** of the created instance in your **EC2 Console** and replacing the Public IP Address within the **/provisioners/ansible/ansible.host** file. ####Exception ```bash GATHERING FACTS *************************************************************** fatal: [127.0.0.1] =&gt; SSH encountered an unknown error during the connection. We recommend you re-run the command using -vvvv, which will enable SSH debugging output to help diagnose the issue ```  "
 });
 
 documentTitles["known-issues.html#resolution"] = "Resolution";
 index.add({
     url: "known-issues.html#resolution",
     title: "Resolution",
-    body: "#### Resolution Current File **( /provisioners/ansible/ansible.host )** ``` [jenkins] 127.0.0.1 ansible_ssh_port=2222 ```  Eg. of what to be updated to: ``` [jenkins] 54.69.58.64 ```  then run: ``` $ vagrant provision ```  This will now provision the machine properly (given the IP address you put is correct).   **NB.** Note that the machine is already running and we do not need to run **vagrant up** again. Thus running **vagrant provision** will work just fine "
+    body: "#### Resolution Current File **( /provisioners/ansible/ansible.host )** ``` [jenkins] 127.0.0.1 ansible_ssh_port=2222 ```  Eg. of what to be updated to: ``` [jenkins] 54.69.58.64 ```  then run: ``` $ vagrant provision ```  This will now provision the machine properly (given the IP address you put is correct).  **NB.** Note that the machine is already running and we do not need to run **vagrant up** again. Thus running **vagrant provision** will work just fine "
 });
 
 

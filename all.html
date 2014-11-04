@@ -212,11 +212,6 @@
     <ol>
     
         <li>
-            <a href="known-issues.html#issue-shared-workspace-jenkins-plugin-woes">Issue: shared-workspace Jenkins Plugin woes</a>
-            
-        </li>
-    
-        <li>
             <a href="known-issues.html#issue-invalid-machine-state-when-provisioning">Issue: Invalid machine state when provisioning</a>
             
         </li>
@@ -593,7 +588,7 @@ To see how to resolve, please see the <a href="http://medullan.github.io/vagrant
 <li>build-pipeline-plugin</li>
 <li>clone-workspace-scm</li>
 </ul>
-<p>NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools need to run builds are installed on the docker slaves.</p>
+<p>NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools needed to run builds are installed on the docker slaves.</p>
 <p>To provision the Jenkins environment with your pipeline of choice, the <strong>target_jenkins_env</strong> variable should be overridden.</p>
 <ul>
 <li>Set it to <strong>docker</strong> to create a docker pipeline</li>
@@ -656,13 +651,6 @@ To see how to resolve, please see the <a href="http://medullan.github.io/vagrant
 </ul>
 
 <h1 id="known-issues">Known Issues</h1>
-<h2 id="issue-shared-workspace-jenkins-plugin-woes">Issue: shared-workspace Jenkins Plugin woes</h2>
-<p>The github-oauth@0.19 plugin doesnt play well with the shared-workspace plugin.
-At version 0.19, the github-oauth plugin checks each job for a git url and if this url is null then an exception is thrown. This happens when the ${SHAREDSPACE_SCM_URL} is used.
-This variable is null until a job is executed, hence the github-oauth plugin will throw a fit.</p>
-<h4 id="resolution">Resolution</h4>
-<p>Just avoid using that variable and everything will be ok.</p>
-<p><br/></p>
 <h2 id="issue-invalid-machine-state-when-provisioning">Issue: Invalid machine state when provisioning</h2>
 <p>With <code>VirtualBox v4.3.14</code>, when doing <code>vagrant up</code>, an error (or similar error) sometimes occurs saying:</p>
 <h4 id="exception">Exception</h4>
@@ -688,7 +676,7 @@ correct this with <code>chmod -x provisioners/ansible/ansible.host</code>.</p>
 <p>To resolve the issue, run <code>chmod -x provisioners/ansible/ansible.host</code></p>
 <p><br/></p>
 <h2 id="issue-ansible-provisioning-fails-when-using-jenkins-cli">Issue: Ansible Provisioning fails when using Jenkins CLI</h2>
-<p>Sometimes this will happen because Jenkins is not fully online after a restart during provisioning. This is either because the sleep time isn&#39;t long enough or Jenkins takes a little longer to start. </p>
+<p>Sometimes this will happen because Jenkins is not fully online after a restart during provisioning. This is either because the sleep time isn&#39;t long enough or Jenkins takes a little longer to start.</p>
 <h4 id="exception">Exception</h4>
 <pre><code class="lang-java">failed: [54.69.156.112] =&gt; {&quot;changed&quot;: true, &quot;cmd&quot;: &quot;java -jar /opt/jenkins/jenkins-cli.jar -s http://localhost:8080 list-jobs All&quot;, &quot;delta&quot;: &quot;0:00:06.720559&quot;, &quot;end&quot;: &quot;2014-09-30 14:49:18.306571&quot;, &quot;rc&quot;: 1, &quot;start&quot;: &quot;2014-09-30 14:49:11.586012&quot;}
 stderr: Exception in thread &quot;main&quot; java.io.IOException: No X-Jenkins-CLI2-Port among [X-Jenkins, null, X-Hudson, X-Hudson-Theme, Content-Length, Expires, X-Jenkins-Session, Set-Cookie, Content-Type, Server, Cache-Control]
@@ -710,12 +698,12 @@ FATAL: all hosts have already failed -- aborting
 <p>To resolve this just run <strong>vagrant provision</strong> again and it will should resolve the issue</p>
 <p><br/></p>
 <h2 id="issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Issue: Ansible Provisioning with AWS fails with SSH Exception</h2>
-<p>When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons. 
+<p>When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons.
 This can be resolved by getting the <strong>Public IP Address</strong> of the created instance in your <strong>EC2 Console</strong> and replacing the Public IP Address within the <strong>/provisioners/ansible/ansible.host</strong> file.</p>
 <h4 id="exception">Exception</h4>
-<pre><code class="lang-bash">GATHERING FACTS *************************************************************** 
-fatal: [127.0.0.1] =&gt; SSH encountered an unknown error during the connection. 
-We recommend you re-run the command using -vvvv, which will enable SSH 
+<pre><code class="lang-bash">GATHERING FACTS ***************************************************************
+fatal: [127.0.0.1] =&gt; SSH encountered an unknown error during the connection.
+We recommend you re-run the command using -vvvv, which will enable SSH
 debugging output to help diagnose the issue
 </code></pre>
 <h4 id="resolution">Resolution</h4>
@@ -727,7 +715,7 @@ debugging output to help diagnose the issue
 54.69.58.64
 </code></pre><p>then run:</p>
 <pre><code>$ vagrant provision
-</code></pre><p>This will now provision the machine properly (given the IP address you put is correct). </p>
+</code></pre><p>This will now provision the machine properly (given the IP address you put is correct).</p>
 <p><strong>NB.</strong> Note that the machine is already running and we do not need to run <strong>vagrant up</strong> again. Thus running <strong>vagrant provision</strong> will work just fine</p>
 
 <h1 id="license">License</h1>
