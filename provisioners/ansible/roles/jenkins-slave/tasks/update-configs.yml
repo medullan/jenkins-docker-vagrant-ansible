@@ -1,0 +1,19 @@
+- name: make tmp directory to place docker configs files
+  sudo: yes
+  shell: mkdir -p {{ remote_tmp_folder }}/docker
+  notify:
+    - 'Delete Remote Temporary Folder'
+
+- name: copy docker config files to machine
+  sudo: yes
+  copy: src={{ item }} dest={{ remote_tmp_folder }}/docker/ owner={{ user_name | default('vagrant') }} mode=600
+  with_fileglob:
+        - "{{ local_files_dir }}/docker/docker"
+
+- name: remove docker old config file from /opt/default/
+  sudo: yes
+  command: rm -f /etc/default/docker
+
+- name: copy docker config file to /opt/default/
+  sudo: yes
+  command: cp {{ remote_tmp_folder }}/docker/docker /etc/default/

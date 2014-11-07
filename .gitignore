@@ -68,4 +68,4 @@ node_modules
 .lock-wscript
 
 docs/
-vagrant-ansible-jenkins.wiki/
+jenkins-docker-vagrant-ansible.wiki/

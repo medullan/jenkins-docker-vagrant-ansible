@@ -9,13 +9,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  environment = "virtual_box" #TODO: configure to read from yaml file
+  environment = "aws" #TODO: consider configure to read from yaml file
 
   config.vm.define "jenkinsSlave" do |jenkinsSlave|
 
       jenkinsSlave.vm.hostname="jenkinsSlave"
 
-      jenkinsSlave.vm.network "forwarded_port", guest: 22, host: 2220
+      jenkinsSlave.vm.network "forwarded_port", guest: 22, host: 22
 
       jenkinsSlave.vm.provision "ansible" do |ansible|
 
@@ -23,6 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ansible.inventory_path = "provisioners/ansible/ansible.host"
 
         ansible.limit = 'all'
+
 
         if environment == "virtual_box" then
           jenkinsSlave.vm.box = "ubuntu/trusty64"
@@ -36,12 +37,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
   end
 
-  config.vm.define "jenkinsMaster" do |jenkinsMaster|
+  config.vm.define "aws" do |jenkinsMaster|
 
       jenkinsMaster.vm.hostname = 'jenkinsMaster'
 
       jenkinsMaster.vm.network "forwarded_port", guest: 8080, host: 8080
-      jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 2222
+      jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 22
 
       jenkinsMaster.vm.provision "ansible" do |ansible|
 

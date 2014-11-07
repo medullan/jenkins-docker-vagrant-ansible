@@ -13,4 +13,14 @@
 - name: 'Install Docker  ({{ docker_package | default("lxc-docker") }})'
   sudo: True
   apt: pkg={{ docker_package | default("lxc-docker") }} state=installed
-#  notify: "Start Docker"
+
+- name: Stop docker daemon
+  sudo: True
+  service: name=docker state=stopped
+
+- include: update-configs.yml
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
+- name: Start docker daemon
+  sudo: True
+  service: name=docker state=started
