@@ -12,14 +12,14 @@ documentTitles["home.html#home"] = "Home";
 index.add({
     url: "home.html#home",
     title: "Home",
-    body: "# Home  Welcome to the vagrant-ansible-jenkins documentation!  To get started view the Introduction page,  otherwise, select the specific topic that you require.  Jump right in!   ![github](http://ciembor.github.io/4bit/images/github.png)  [Repository](https://github.com/medullan/vagrant-ansible-jenkins)   ![wiki](http://www.altera.com/common/template/08/icon-wiki.gif)  [Edit On Guthub](https://github.com/medullan/vagrant-ansible-jenkins/wiki)   "
+    body: "# Home  Welcome to the vagrant-ansible-jenkins documentation!  To get started view the Introduction page, otherwise, select the specific topic that you require.  Jump right in!   ![github](http://ciembor.github.io/4bit/images/github.png) [Repository](https://github.com/medullan/jenkins-docker-vagrant-ansible)  ![wiki](http://www.altera.com/common/template/08/icon-wiki.gif) [Edit On Guthub](https://github.com/medullan/jenkins-docker-vagrant-ansible/wiki)   "
 });
 
 documentTitles["home.html#useful-links"] = "Useful Links:";
 index.add({
     url: "home.html#useful-links",
     title: "Useful Links:",
-    body: "### Useful Links: - [Ansible](http://docs.ansible.com/) - [Packer](http://www.packer.io/docs) - [Vagrant](http://docs.vagrantup.com/v2/) - [DropBox Direct Link Creation](http://techapple.net/2014/04/trick-obtain-direct-download-links-dropbox-files-dropbox-direct-link-maker-tool-cloudlinker/)"
+    body: "### Useful Links: - [Ansible](http://docs.ansible.com/) - [Vagrant](http://docs.vagrantup.com/v2/) - [DropBox Direct Link Creation](http://techapple.net/2014/04/trick-obtain-direct-download-links-dropbox-files-dropbox-direct-link-maker-tool-cloudlinker/) "
 });
 
 
@@ -36,6 +36,94 @@ index.add({
     url: "01-intro.html#credits",
     title: "Credits",
     body: "### Credits  This repository was inspired and designed around ansible-jenkins:  https://github.com/ICTO/ansible-jenkins "
+});
+
+
+
+documentTitles["012-docker-build-pipelines.html#docker-build-pipeline"] = "Docker Build Pipeline";
+index.add({
+    url: "012-docker-build-pipelines.html#docker-build-pipeline",
+    title: "Docker Build Pipeline",
+    body: "# Docker Build Pipeline  Currently, the ansible scripts provision a generic Docker build pipeline, with the following layout.  1. **Phase 1**     * GetLatestFromSCM 2. **Phase 2**     * IntegrationTesting     * UnitTesting 3. **Phase 3**     * PushToDockerHub 4. **Phase 4**     * FunctionalTesting 5. **Phase 5**     * PushToDockerHub-QA 6. **Phase 6**     * DeployToQA  Key Jenkins plugin used:  - docker-plugin - docker-build-step - build-pipeline-plugin - clone-workspace-scm   NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools needed to run builds are installed on the docker slaves.  To provision the Jenkins environment with your pipeline of choice, the **target_jenkins_env** variable should be overridden.  * Set it to **docker** to create a docker pipeline  To override, locate the desired override variable file in the **provisioners/ansible/roles/shared/vars** folder and place the following within the yaml file.  "
+});
+
+documentTitles["012-docker-build-pipelines.html#example"] = "Example";
+index.add({
+    url: "012-docker-build-pipelines.html#example",
+    title: "Example",
+    body: "#### Example  ```yaml target_jenkins_env: docker # creates a docker pipeline ``` "
+});
+
+
+
+documentTitles["013-docker-build-pipelines-requirements.html#quick-start-guide"] = "Quick Start Guide";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#quick-start-guide",
+    title: "Quick Start Guide",
+    body: "# Quick Start Guide   "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#purpose"] = "Purpose";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#purpose",
+    title: "Purpose",
+    body: "### Purpose  This guide will give you an understanding of the elements that needs to be updated in order get up and running with the Jenkins environment provision by the ansible scripts.  The Jenkins environment that is provided by the ansible script is configured for general usage. What this mean is that, there isn't a “one configuration fits all scenario”. The continuous integration environment has to be configure on a case by case basis. In order to accomplish this, you’re required to have some familiarity with the following elements before proceeding:  - Docker - Jenkins (of course) - CoreOS (this is optional since deployment can happen on other   environments that support containers.)  There is a wealth of documentation [here](https://medullan.atlassian.net/wiki/display/QA/Docker+Continuous+Integration). Its highly recommended that you review this document.  Below there are links pointing to specific elements that can help as well.  Each step is listed below with the required items identified.  All the Job in the pipeline may require important build variables to be propagated throughout the pipeline an example of this can be found [here](#sample-build-variables)  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#getlatestfromscm"] = "GetLatestFromSCM";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#getlatestfromscm",
+    title: "GetLatestFromSCM",
+    body: "#### GetLatestFromSCM - SCM url - Build variables e.g. APP_VERSION_TAG this will be used for tagging the docker   containers when they’re push to the docker hub.  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#integrationtesting"] = "IntegrationTesting";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#integrationtesting",
+    title: "IntegrationTesting",
+    body: "#### IntegrationTesting - Configure Docker slave - [link to documentation](https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave)  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#unittesting"] = "UnitTesting";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#unittesting",
+    title: "UnitTesting",
+    body: "#### UnitTesting - Configure Docker slave - [link to documentation](https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave)  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#pushtodockerhub"] = "PushToDockerHub";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#pushtodockerhub",
+    title: "PushToDockerHub",
+    body: "#### PushToDockerHub - Configure the Jenkins build and push plugin with the appropriate credentials. Documentation can be found [here](https://wiki.jenkins-ci.org/display/JENKINS/Docker+build+publish+Plugin).  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#functionaltesting"] = "FunctionalTesting";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#functionaltesting",
+    title: "FunctionalTesting",
+    body: "#### FunctionalTesting - Configure Docker slave - [link to documentation](https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave) - Configure to use the appropriate tools to run functional tests e.g. Sauce labs.  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#pushtodockerhub-qa"] = "PushToDockerHub-QA";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#pushtodockerhub-qa",
+    title: "PushToDockerHub-QA",
+    body: "#### PushToDockerHub-QA - Configure the jenkins build and push plugin with the appropriate credentials.Documentation can be found [here](https://wiki.jenkins-ci.org/display/JENKINS/Docker+build+publish+Plugin).  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#deploytoqa"] = "DeployToQA";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#deploytoqa",
+    title: "DeployToQA",
+    body: "#### DeployToQA - Configure Docker slave - [link to documentation](https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave) - This can be any remote environment that supports container deployment e.g. CoreOS.  "
+});
+
+documentTitles["013-docker-build-pipelines-requirements.html#sample-build-variables"] = "Sample Build Variables";
+index.add({
+    url: "013-docker-build-pipelines-requirements.html#sample-build-variables",
+    title: "Sample Build Variables",
+    body: "#### Sample Build Variables  These are some sample build variables that can be used in your build pipeline, to make the pipeline configurations cleaner.  This can be used with `parameterized-trigger` that already provision on Jenkins, once this script was used to provision it. Documentation on this plugin can be found [here](https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Build).  ```shell DB_NAME - Test database name CI_DB_DOMAIN - Address for the CI test database CI_DB_PORT - Port for the CI test database QA_DB_URL - Address for the QA test database QA_DB_PORT - Port for the CI test database APP_VERSION_TAG - Unique tag for the docker container APP_SERVER - Address for the application server FLEETCTL_TUNNEL - IP address for the CoreOS fleet CI_HTTP_PORT - IP address per build when doing functional test ``` "
 });
 
 
@@ -312,22 +400,6 @@ index.add({
 
 
 
-documentTitles["06-docker-build-pipelines.html#docker-build-pipeline"] = "Docker Build Pipeline";
-index.add({
-    url: "06-docker-build-pipelines.html#docker-build-pipeline",
-    title: "Docker Build Pipeline",
-    body: "# Docker Build Pipeline  Currently, the ansible scripts provision a generic Docker build pipeline, with the following layout.  1. **Phase 1**     * GetLatestFromSCM 2. **Phase 2**     * IntegrationTesting     * UnitTesting 3. **Phase 3**     * PushToDockerHub 4. **Phase 4**     * FunctionalTesting 5. **Phase 5**     * PushToDockerHub-QA 6. **Phase 6**     * DeployToQA  Key Jenkins plugin used:  - docker-plugin - docker-build-step - build-pipeline-plugin - clone-workspace-scm   NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools needed to run builds are installed on the docker slaves.  To provision the Jenkins environment with your pipeline of choice, the **target_jenkins_env** variable should be overridden.  * Set it to **docker** to create a docker pipeline  To override, locate the desired override variable file in the **provisioners/ansible/roles/shared/vars** folder and place the following within the yaml file.  "
-});
-
-documentTitles["06-docker-build-pipelines.html#example"] = "Example";
-index.add({
-    url: "06-docker-build-pipelines.html#example",
-    title: "Example",
-    body: "#### Example  ```yaml target_jenkins_env: docker # creates a docker pipeline ``` "
-});
-
-
-
 documentTitles["07-documentation.html#documentation"] = "Documentation";
 index.add({
     url: "07-documentation.html#documentation",
@@ -339,21 +411,21 @@ documentTitles["07-documentation.html#about"] = "About";
 index.add({
     url: "07-documentation.html#about",
     title: "About",
-    body: "## About This documentation is hosted for editing on Github wiki and parsed into HTML for the gh-pages. These pages are parsed in the order of how they appear and will be displayed on the website in the same order. The **Home** Page is an exception to this rule however, it always appears first in the generated documentation. This is so because of the globbling pattern used in the **gruntfile**:  ```js var markdown = [       'vagrant-ansible-jenkins.wiki/Home.md',       'vagrant-ansible-jenkins.wiki/*.md',       '!vagrant-ansible-jenkins.wiki/_Footer.md'     ]; ```  This pattern includes the Home page first, includes all other files and then ignores the Footer page used in the wiki.  &lt;br/&gt; "
+    body: "## About This documentation is hosted for editing on Github wiki and parsed into HTML for the gh-pages. These pages are parsed in the order of how they appear and will be displayed on the website in the same order. The **Home** Page is an exception to this rule however, it always appears first in the generated documentation. This is so because of the globbling pattern used in the **gruntfile**:  ```js var markdown = [       'jenkins-docker-vagrant-ansible.wiki/Home.md',       'jenkins-docker-vagrant-ansible.wiki/*.md',       '!jenkins-docker-vagrant-ansible.wiki/_Footer.md'     ]; ```  This pattern includes the Home page first, includes all other files and then ignores the Footer page used in the wiki.  &lt;br/&gt; "
 });
 
 documentTitles["07-documentation.html#editing-the-docs"] = "Editing the Docs";
 index.add({
     url: "07-documentation.html#editing-the-docs",
     title: "Editing the Docs",
-    body: "## Editing the Docs You can edit the documentation by visiting the [Github wiki](https://github.com/medullan/vagrant-ansible-jenkins/wiki) of this repository. The wiki is parsed and used to generate the documentation for the [website](http://medullan.github.io/vagrant-ansible-jenkins).  &lt;br/&gt; "
+    body: "## Editing the Docs You can edit the documentation by visiting the [Github wiki](https://github.com/medullan/jenkins-docker-vagrant-ansible/wiki) of this repository. The wiki is parsed and used to generate the documentation for the [website](http://medullan.github.io/jenkins-docker-vagrant-ansible).  &lt;br/&gt; "
 });
 
 documentTitles["07-documentation.html#generate-documentation-website"] = "Generate Documentation Website";
 index.add({
     url: "07-documentation.html#generate-documentation-website",
     title: "Generate Documentation Website",
-    body: "## Generate Documentation Website  To get started with generating the documentation, you must have already cloned the [git repository](https://github.com/medullan/vagrant-ansible-jenkins) and be inside the root directory with your console.  The tools needed to get you started are all powered by:  - [Nodejs](http://nodejs.org/) - [npm](https://www.npmjs.org/)  - [Grunt](http://gruntjs.com/)   Therefore, you must have **Nodejs** and **npm** installed with [grunt](http://gruntjs.com/getting-started#installing-the-cli) installed globally as a **npm** package  Assuming all the dependencies above are installed and ready to use, the following steps will show you how to generate documentation for the repository. &lt;br/&gt; "
+    body: "## Generate Documentation Website  To get started with generating the documentation, you must have already cloned the [git repository](https://github.com/medullan/jenkins-docker-vagrant-ansible) and be inside the root directory with your console.  The tools needed to get you started are all powered by: - [Nodejs](http://nodejs.org/) - [npm](https://www.npmjs.org/) - [Grunt](http://gruntjs.com/)  Therefore, you must have **Nodejs** and **npm** installed with [grunt](http://gruntjs.com/getting-started#installing-the-cli) installed globally as a **npm** package  Assuming all the dependencies above are installed and ready to use, the following steps will show you how to generate documentation for the repository. &lt;br/&gt; "
 });
 
 documentTitles["07-documentation.html#step-1"] = "Step 1";
@@ -374,7 +446,7 @@ documentTitles["07-documentation.html#deploy-docs-to-gh-pages"] = "Deploy Docs t
 index.add({
     url: "07-documentation.html#deploy-docs-to-gh-pages",
     title: "Deploy Docs to GH-Pages",
-    body: "## Deploy Docs to GH-Pages  When the documentation is generated and parsed properly then you can deploy to the [website](http://medullan.github.io/vagrant-ansible-jenkins)  **NB.** Please review generated docs locally before deploying  You can deploy by running: ```bash $ grunt deploy ``` "
+    body: "## Deploy Docs to GH-Pages  When the documentation is generated and parsed properly then you can deploy to the [website](http://medullan.github.io/jenkins-docker-vagrant-ansible)  **NB.** Please review generated docs locally before deploying  You can deploy by running: ```bash $ grunt deploy ``` "
 });
 
 
@@ -471,7 +543,7 @@ documentTitles["license.html#license"] = "License";
 index.add({
     url: "license.html#license",
     title: "License",
-    body: "# License  The MIT License  Copyright (c) 2014. https://github.com/medullan/vagrant-ansible-jenkins  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \&quot;Software\&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED \&quot;AS IS\&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    body: "# License  The MIT License  Copyright (c) 2014. https://github.com/medullan/jenkins-docker-vagrant-ansible  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \&quot;Software\&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED \&quot;AS IS\&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. "
 });
 
 

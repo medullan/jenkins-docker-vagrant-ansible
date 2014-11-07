@@ -271,59 +271,73 @@
 </div>
 
         <div id="content">
-            <h2 id="provision-with-aws-amazon-web-service-">Provision with AWS (Amazon Web Service)</h2>
-<h3 id="step-1-change-the-vm-box-to-be-used">Step 1 - Change the vm box to be used</h3>
-<p>To provision with AWS, the AWS box built with <strong><em>packer</em></strong> or a referenced AWS vagrant box from some archive must be used. If the box was built update the base box in the Vagrantfile</p>
-<p>for eg.</p>
-<pre><code class="lang-yaml">config.vm.box = &quot;dummy.box&quot;
+            <h1 id="quick-start-guide">Quick Start Guide</h1>
+<h3 id="purpose">Purpose</h3>
+<p>This guide will give you an understanding of the elements that needs to be updated in order
+get up and running with the Jenkins environment provision by the ansible scripts.</p>
+<p>The Jenkins environment that is provided by the ansible script is configured for
+general usage. What this mean is that, there isn&#39;t a “one configuration fits all
+scenario”. The continuous integration environment has to be configure on a case
+by case basis. In order to accomplish this, you’re required to have some
+familiarity with the following elements before proceeding:</p>
+<ul>
+<li>Docker</li>
+<li>Jenkins (of course)</li>
+<li>CoreOS (this is optional since deployment can happen on other
+environments that support containers.)</li>
+</ul>
+<p>There is a wealth of documentation <a href="https://medullan.atlassian.net/wiki/display/QA/Docker+Continuous+Integration">here</a>. Its highly recommended that you review this document.</p>
+<p>Below there are links pointing to
+specific elements that can help as well.</p>
+<p>Each step is listed below with the required items identified.</p>
+<p>All the Job in the pipeline may require important build variables to be propagated throughout the pipeline an example of this can be found <a href="#sample-build-variables">here</a></p>
+<h4 id="getlatestfromscm">GetLatestFromSCM</h4>
+<ul>
+<li>SCM url</li>
+<li>Build variables e.g. APP_VERSION_TAG this will be used for tagging the docker
+containers when they’re push to the docker hub.</li>
+</ul>
+<h4 id="integrationtesting">IntegrationTesting</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+</ul>
+<h4 id="unittesting">UnitTesting</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+</ul>
+<h4 id="pushtodockerhub">PushToDockerHub</h4>
+<ul>
+<li>Configure the Jenkins build and push plugin with the appropriate credentials. Documentation can be found <a href="https://wiki.jenkins-ci.org/display/JENKINS/Docker+build+publish+Plugin">here</a>.</li>
+</ul>
+<h4 id="functionaltesting">FunctionalTesting</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+<li>Configure to use the appropriate tools to run functional tests e.g. Sauce labs.</li>
+</ul>
+<h4 id="pushtodockerhub-qa">PushToDockerHub-QA</h4>
+<ul>
+<li>Configure the jenkins build and push plugin with the appropriate credentials.Documentation can be found <a href="https://wiki.jenkins-ci.org/display/JENKINS/Docker+build+publish+Plugin">here</a>.</li>
+</ul>
+<h4 id="deploytoqa">DeployToQA</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+<li>This can be any remote environment that supports container deployment e.g. CoreOS.</li>
+</ul>
+<h4 id="sample-build-variables">Sample Build Variables</h4>
+<p>These are some sample build variables that can be used in your build pipeline,
+to make the pipeline configurations cleaner.</p>
+<p>This can be used with <code>parameterized-trigger</code> that already provision on Jenkins,
+once this script was used to provision it. Documentation on this plugin can be found <a href="https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Build">here</a>.</p>
+<pre><code class="lang-shell">DB_NAME - Test database name
+CI_DB_DOMAIN - Address for the CI test database
+CI_DB_PORT - Port for the CI test database
+QA_DB_URL - Address for the QA test database
+QA_DB_PORT - Port for the CI test database
+APP_VERSION_TAG - Unique tag for the docker container
+APP_SERVER - Address for the application server
+FLEETCTL_TUNNEL - IP address for the CoreOS fleet
+CI_HTTP_PORT - IP address per build when doing functional test
 </code></pre>
-<h3 id="step-2-change-ansible-override-variables">Step 2 - Change Ansible Override Variables</h3>
-<p>from:</p>
-<pre><code class="lang-yaml">ansible.extra_vars = &quot;provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml&quot;
-</code></pre>
-<p>to:</p>
-<pre><code class="lang-yaml">ansible.extra_vars = &quot;provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml&quot;
-</code></pre>
-<h3 id="step-3-fill-in-required-aws-info">Step 3 - Fill in required AWS info</h3>
-<p>Inorder to provision environments within AWS, it is a requirement to provide sensitive AWS information such as the <code>access_key_id</code> and <code>secret_access_key</code>. Since this code is being committed to a github repository where other persons can view the code base, environment variables are being used to set this information in a local terminal, for e.g. <code>export AWS_SECRET_ACCESS_KEY=SOMEKEYHASH</code>.</p>
-<pre><code class="lang-ruby">  def aws_provider_configs(config)
-    config.vm.provider :aws do |aws, override|
-        override.ssh.username = ENV[&quot;AWS_SSH_USER&quot;]
-        override.ssh.private_key_path = ENV[&quot;AWS_KEY_LOCATION&quot;]
-
-        aws.keypair_name = ENV[&quot;AWS_KEYPAIR_NAME&quot;]
-        aws.access_key_id = ENV[&quot;AWS_ACCESS_KEY_ID&quot;]
-        aws.secret_access_key = ENV[&quot;AWS_SECRET_ACCESS_KEY&quot;]
-        aws.ami = ENV[&quot;AMI&quot;]
-        aws.security_groups = [ENV[&#39;AWS_SECURITY_GROUP&#39;]]
-
-        aws.region = &quot;us-east-1&quot;
-        aws.tags = {
-          &#39;Name&#39; =&gt; &#39;jenkins-docker-master&#39;,
-          &#39;Provisioner&#39; =&gt; &#39;Medullan&#39;,
-          &#39;OS_Version&#39; =&gt; &#39;Ubuntu&#39;,
-          &#39;Release&#39; =&gt; &#39;Latest&#39;
-        }
-    end
-  end
-</code></pre>
-<h3 id="step-4-uncomment-rsync-folder-sharing">Step 4 - Uncomment Rsync Folder sharing</h3>
-<p>This step is important. The rsync line lists files that should be ignore when syncing files on the local machine with the AWS machine. If these are not ignore then the process will attempt to transfer very huge files and you may wait a very long time before seeing any progress.</p>
-<pre><code class="lang-yaml">config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, type: &quot;rsync&quot;, :rsync_excludes =&gt; [&#39;packer_cache/&#39;, &#39;http/&#39;, ... ]
-</code></pre>
-<p>then run:</p>
-<pre><code>$ vagrant up --provider=aws
-</code></pre><p>This will create and run an AWS instance in your account.</p>
-<p>For more information on provisioning with AWS please view the following repository:</p>
-<p><a href="https://github.com/mitchellh/vagrant-aws">https://github.com/mitchellh/vagrant-aws</a></p>
-<h3 id="extras">Extras</h3>
-<p>There are some Ansible roles that are shared when provisioning the base image and the Jenkins environments.
-One such role would be <strong>setup</strong>. If you wat to ignore this role when provisioning the Jenkins environments, Then uncomment the following line in the Vagrantfile:</p>
-<pre><code class="lang-yaml">ansible.skip_tags = [&#39;setup&#39;]
-</code></pre>
-<h3 id="caveats">Caveats</h3>
-<p>When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons.
-To see how to resolve, please see the <a href="http://medullan.github.io/vagrant-ansible-jenkins/known-issues.html#issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Known Issues</a> section for this topic</p>
 
 
 

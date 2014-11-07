@@ -58,6 +58,28 @@
         </li>
     
         <li>
+            <a href="012-docker-build-pipelines.html#docker-build-pipeline">Docker Build Pipeline</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="013-docker-build-pipelines-requirements.html#quick-start-guide">Quick Start Guide</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
             <a href="02-requirements-and-features.html#requirements">Requirements</a>
             
                 
@@ -146,17 +168,6 @@
             <a href="052-provision-jenkins-with-aws.html#provision-with-aws-amazon-web-service">Provision with AWS (Amazon Web Service)</a>
             
         </li>
-    
-</ol>
-
-            
-        </li>
-    
-        <li>
-            <a href="06-docker-build-pipelines.html#docker-build-pipeline">Docker Build Pipeline</a>
-            
-                
-    <ol>
     
 </ol>
 
@@ -262,17 +273,16 @@
         <div id="content">
             <h1 id="home">Home</h1>
 <p>Welcome to the vagrant-ansible-jenkins documentation!</p>
-<p>To get started view the Introduction page, 
+<p>To get started view the Introduction page,
 otherwise, select the specific topic that you require.</p>
 <p>Jump right in!</p>
-<p><img src="http://ciembor.github.io/4bit/images/github.png" alt="github"> 
-<a href="https://github.com/medullan/vagrant-ansible-jenkins">Repository</a> </p>
-<p><img src="http://www.altera.com/common/template/08/icon-wiki.gif" alt="wiki"> 
-<a href="https://github.com/medullan/vagrant-ansible-jenkins/wiki">Edit On Guthub</a></p>
+<p><img src="http://ciembor.github.io/4bit/images/github.png" alt="github">
+<a href="https://github.com/medullan/jenkins-docker-vagrant-ansible">Repository</a></p>
+<p><img src="http://www.altera.com/common/template/08/icon-wiki.gif" alt="wiki">
+<a href="https://github.com/medullan/jenkins-docker-vagrant-ansible/wiki">Edit On Guthub</a></p>
 <h3 id="useful-links-">Useful Links:</h3>
 <ul>
 <li><a href="http://docs.ansible.com/">Ansible</a></li>
-<li><a href="http://www.packer.io/docs">Packer</a></li>
 <li><a href="http://docs.vagrantup.com/v2/">Vagrant</a></li>
 <li><a href="http://techapple.net/2014/04/trick-obtain-direct-download-links-dropbox-files-dropbox-direct-link-maker-tool-cloudlinker/">DropBox Direct Link Creation</a></li>
 </ul>
@@ -289,6 +299,120 @@ otherwise, select the specific topic that you require.</p>
 <h3 id="credits">Credits</h3>
 <p>This repository was inspired and designed around ansible-jenkins:</p>
 <p><a href="https://github.com/ICTO/ansible-jenkins">https://github.com/ICTO/ansible-jenkins</a></p>
+
+<h1 id="docker-build-pipeline">Docker Build Pipeline</h1>
+<p>Currently, the ansible scripts provision a generic Docker build pipeline, with the following layout.</p>
+<ol>
+<li><strong>Phase 1</strong><ul>
+<li>GetLatestFromSCM</li>
+</ul>
+</li>
+<li><strong>Phase 2</strong><ul>
+<li>IntegrationTesting</li>
+<li>UnitTesting</li>
+</ul>
+</li>
+<li><strong>Phase 3</strong><ul>
+<li>PushToDockerHub</li>
+</ul>
+</li>
+<li><strong>Phase 4</strong><ul>
+<li>FunctionalTesting</li>
+</ul>
+</li>
+<li><strong>Phase 5</strong><ul>
+<li>PushToDockerHub-QA</li>
+</ul>
+</li>
+<li><strong>Phase 6</strong><ul>
+<li>DeployToQA</li>
+</ul>
+</li>
+</ol>
+<p>Key Jenkins plugin used:</p>
+<ul>
+<li>docker-plugin</li>
+<li>docker-build-step</li>
+<li>build-pipeline-plugin</li>
+<li>clone-workspace-scm</li>
+</ul>
+<p>NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools needed to run builds are installed on the docker slaves.</p>
+<p>To provision the Jenkins environment with your pipeline of choice, the <strong>target_jenkins_env</strong> variable should be overridden.</p>
+<ul>
+<li>Set it to <strong>docker</strong> to create a docker pipeline</li>
+</ul>
+<p>To override, locate the desired override variable file in the <strong>provisioners/ansible/roles/shared/vars</strong> folder and place the following within the yaml file.</p>
+<h4 id="example">Example</h4>
+<pre><code class="lang-yaml">target_jenkins_env: docker # creates a docker pipeline
+</code></pre>
+
+<h1 id="quick-start-guide">Quick Start Guide</h1>
+<h3 id="purpose">Purpose</h3>
+<p>This guide will give you an understanding of the elements that needs to be updated in order
+get up and running with the Jenkins environment provision by the ansible scripts.</p>
+<p>The Jenkins environment that is provided by the ansible script is configured for
+general usage. What this mean is that, there isn&#39;t a “one configuration fits all
+scenario”. The continuous integration environment has to be configure on a case
+by case basis. In order to accomplish this, you’re required to have some
+familiarity with the following elements before proceeding:</p>
+<ul>
+<li>Docker</li>
+<li>Jenkins (of course)</li>
+<li>CoreOS (this is optional since deployment can happen on other
+environments that support containers.)</li>
+</ul>
+<p>There is a wealth of documentation <a href="https://medullan.atlassian.net/wiki/display/QA/Docker+Continuous+Integration">here</a>. Its highly recommended that you review this document.</p>
+<p>Below there are links pointing to
+specific elements that can help as well.</p>
+<p>Each step is listed below with the required items identified.</p>
+<p>All the Job in the pipeline may require important build variables to be propagated throughout the pipeline an example of this can be found <a href="#sample-build-variables">here</a></p>
+<h4 id="getlatestfromscm">GetLatestFromSCM</h4>
+<ul>
+<li>SCM url</li>
+<li>Build variables e.g. APP_VERSION_TAG this will be used for tagging the docker
+containers when they’re push to the docker hub.</li>
+</ul>
+<h4 id="integrationtesting">IntegrationTesting</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+</ul>
+<h4 id="unittesting">UnitTesting</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+</ul>
+<h4 id="pushtodockerhub">PushToDockerHub</h4>
+<ul>
+<li>Configure the Jenkins build and push plugin with the appropriate credentials. Documentation can be found <a href="https://wiki.jenkins-ci.org/display/JENKINS/Docker+build+publish+Plugin">here</a>.</li>
+</ul>
+<h4 id="functionaltesting">FunctionalTesting</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+<li>Configure to use the appropriate tools to run functional tests e.g. Sauce labs.</li>
+</ul>
+<h4 id="pushtodockerhub-qa">PushToDockerHub-QA</h4>
+<ul>
+<li>Configure the jenkins build and push plugin with the appropriate credentials.Documentation can be found <a href="https://wiki.jenkins-ci.org/display/JENKINS/Docker+build+publish+Plugin">here</a>.</li>
+</ul>
+<h4 id="deploytoqa">DeployToQA</h4>
+<ul>
+<li>Configure Docker slave - <a href="https://medullan.atlassian.net/wiki/display/QA/Provisioning+a+container+to+run+as+a+Jenkins+slave">link to documentation</a></li>
+<li>This can be any remote environment that supports container deployment e.g. CoreOS.</li>
+</ul>
+<h4 id="sample-build-variables">Sample Build Variables</h4>
+<p>These are some sample build variables that can be used in your build pipeline,
+to make the pipeline configurations cleaner.</p>
+<p>This can be used with <code>parameterized-trigger</code> that already provision on Jenkins,
+once this script was used to provision it. Documentation on this plugin can be found <a href="https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Build">here</a>.</p>
+<pre><code class="lang-shell">DB_NAME - Test database name
+CI_DB_DOMAIN - Address for the CI test database
+CI_DB_PORT - Port for the CI test database
+QA_DB_URL - Address for the QA test database
+QA_DB_PORT - Port for the CI test database
+APP_VERSION_TAG - Unique tag for the docker container
+APP_SERVER - Address for the application server
+FLEETCTL_TUNNEL - IP address for the CoreOS fleet
+CI_HTTP_PORT - IP address per build when doing functional test
+</code></pre>
 
 <h1 id="requirements">Requirements</h1>
 <ul>
@@ -552,73 +676,27 @@ One such role would be <strong>setup</strong>. If you wat to ignore this role wh
 <p>When provisioning the Jenkins environment with AWS for the first time, the provisioning will fail for SSH reasons.
 To see how to resolve, please see the <a href="http://medullan.github.io/vagrant-ansible-jenkins/known-issues.html#issue-ansible-provisioning-with-aws-fails-with-ssh-exception">Known Issues</a> section for this topic</p>
 
-<h1 id="docker-build-pipeline">Docker Build Pipeline</h1>
-<p>Currently, the ansible scripts provision a generic Docker build pipeline, with the following layout.</p>
-<ol>
-<li><strong>Phase 1</strong><ul>
-<li>GetLatestFromSCM</li>
-</ul>
-</li>
-<li><strong>Phase 2</strong><ul>
-<li>IntegrationTesting</li>
-<li>UnitTesting</li>
-</ul>
-</li>
-<li><strong>Phase 3</strong><ul>
-<li>PushToDockerHub</li>
-</ul>
-</li>
-<li><strong>Phase 4</strong><ul>
-<li>FunctionalTesting</li>
-</ul>
-</li>
-<li><strong>Phase 5</strong><ul>
-<li>PushToDockerHub-QA</li>
-</ul>
-</li>
-<li><strong>Phase 6</strong><ul>
-<li>DeployToQA</li>
-</ul>
-</li>
-</ol>
-<p>Key Jenkins plugin used:</p>
-<ul>
-<li>docker-plugin</li>
-<li>docker-build-step</li>
-<li>build-pipeline-plugin</li>
-<li>clone-workspace-scm</li>
-</ul>
-<p>NB. All plugins and dependencies listed above are all installed using Ansible by default. Also, most of the tools needed to run builds are installed on the docker slaves.</p>
-<p>To provision the Jenkins environment with your pipeline of choice, the <strong>target_jenkins_env</strong> variable should be overridden.</p>
-<ul>
-<li>Set it to <strong>docker</strong> to create a docker pipeline</li>
-</ul>
-<p>To override, locate the desired override variable file in the <strong>provisioners/ansible/roles/shared/vars</strong> folder and place the following within the yaml file.</p>
-<h4 id="example">Example</h4>
-<pre><code class="lang-yaml">target_jenkins_env: docker # creates a docker pipeline
-</code></pre>
-
 <h1 id="documentation">Documentation</h1>
 <h2 id="about">About</h2>
 <p>This documentation is hosted for editing on Github wiki and parsed into HTML for the gh-pages. These pages are parsed in the order of how they appear and will be displayed on the website in the same order. The <strong>Home</strong> Page is an exception to this rule however, it always appears first in the generated documentation. This is so because of the globbling pattern used in the <strong>gruntfile</strong>:</p>
 <pre><code class="lang-js">var markdown = [
-      &#39;vagrant-ansible-jenkins.wiki/Home.md&#39;,
-      &#39;vagrant-ansible-jenkins.wiki/*.md&#39;,
-      &#39;!vagrant-ansible-jenkins.wiki/_Footer.md&#39;
+      &#39;jenkins-docker-vagrant-ansible.wiki/Home.md&#39;,
+      &#39;jenkins-docker-vagrant-ansible.wiki/*.md&#39;,
+      &#39;!jenkins-docker-vagrant-ansible.wiki/_Footer.md&#39;
     ];
 </code></pre>
 <p>This pattern includes the Home page first, includes all other files and then ignores the Footer page used in the wiki.</p>
 <p><br/></p>
 <h2 id="editing-the-docs">Editing the Docs</h2>
-<p>You can edit the documentation by visiting the <a href="https://github.com/medullan/vagrant-ansible-jenkins/wiki">Github wiki</a> of this repository. The wiki is parsed and used to generate the documentation for the <a href="http://medullan.github.io/vagrant-ansible-jenkins">website</a>.</p>
+<p>You can edit the documentation by visiting the <a href="https://github.com/medullan/jenkins-docker-vagrant-ansible/wiki">Github wiki</a> of this repository. The wiki is parsed and used to generate the documentation for the <a href="http://medullan.github.io/jenkins-docker-vagrant-ansible">website</a>.</p>
 <p><br/></p>
 <h2 id="generate-documentation-website">Generate Documentation Website</h2>
-<p>To get started with generating the documentation, you must have already cloned the <a href="https://github.com/medullan/vagrant-ansible-jenkins">git repository</a> and be inside the root directory with your console.</p>
-<p>The tools needed to get you started are all powered by: </p>
+<p>To get started with generating the documentation, you must have already cloned the <a href="https://github.com/medullan/jenkins-docker-vagrant-ansible">git repository</a> and be inside the root directory with your console.</p>
+<p>The tools needed to get you started are all powered by:</p>
 <ul>
 <li><a href="http://nodejs.org/">Nodejs</a></li>
-<li><a href="https://www.npmjs.org/">npm</a> </li>
-<li><a href="http://gruntjs.com/">Grunt</a> </li>
+<li><a href="https://www.npmjs.org/">npm</a></li>
+<li><a href="http://gruntjs.com/">Grunt</a></li>
 </ul>
 <p>Therefore, you must have <strong>Nodejs</strong> and <strong>npm</strong> installed with <a href="http://gruntjs.com/getting-started#installing-the-cli">grunt</a> installed globally as a <strong>npm</strong> package</p>
 <p>Assuming all the dependencies above are installed and ready to use, the following steps will show you how to generate documentation for the repository.
@@ -635,7 +713,7 @@ To see how to resolve, please see the <a href="http://medullan.github.io/vagrant
 <p>This will then generate the documentation locally to the <strong>docs</strong> folder.</p>
 <p><br/></p>
 <h2 id="deploy-docs-to-gh-pages">Deploy Docs to GH-Pages</h2>
-<p>When the documentation is generated and parsed properly then you can deploy to the <a href="http://medullan.github.io/vagrant-ansible-jenkins">website</a></p>
+<p>When the documentation is generated and parsed properly then you can deploy to the <a href="http://medullan.github.io/jenkins-docker-vagrant-ansible">website</a></p>
 <p><strong>NB.</strong> Please review generated docs locally before deploying</p>
 <p>You can deploy by running:</p>
 <pre><code class="lang-bash">$ grunt deploy
@@ -720,7 +798,7 @@ debugging output to help diagnose the issue
 
 <h1 id="license">License</h1>
 <p>The MIT License</p>
-<p>Copyright (c) 2014. <a href="https://github.com/medullan/vagrant-ansible-jenkins">https://github.com/medullan/vagrant-ansible-jenkins</a></p>
+<p>Copyright (c) 2014. <a href="https://github.com/medullan/jenkins-docker-vagrant-ansible">https://github.com/medullan/jenkins-docker-vagrant-ansible</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal
 in the Software without restriction, including without limitation the rights
@@ -747,7 +825,7 @@ THE SOFTWARE.</p>
             <a href="#top">Back to top</a> - <a href="all.html">Everything on a single page</a>
             - <a href="?print=1">Print current page</a> - <a href="all.html?print=1">Print all pages</a>
             
-                <a href="https://github.com/https://github.com/medullan/vagrant-ansible-jenkins.git" id="fork-me-on-github">Fork me on Github</a>
+                <a href="https://github.com/https://github.com/medullan/jenkins-docker-vagrant-ansible.git" id="fork-me-on-github">Fork me on Github</a>
             
         </footer>
     </div>

@@ -58,6 +58,28 @@
         </li>
     
         <li>
+            <a href="012-docker-build-pipelines.html#docker-build-pipeline">Docker Build Pipeline</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="013-docker-build-pipelines-requirements.html#quick-start-guide">Quick Start Guide</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
             <a href="02-requirements-and-features.html#requirements">Requirements</a>
             
                 
@@ -146,17 +168,6 @@
             <a href="052-provision-jenkins-with-aws.html#provision-with-aws-amazon-web-service">Provision with AWS (Amazon Web Service)</a>
             
         </li>
-    
-</ol>
-
-            
-        </li>
-    
-        <li>
-            <a href="06-docker-build-pipelines.html#docker-build-pipeline">Docker Build Pipeline</a>
-            
-                
-    <ol>
     
 </ol>
 
@@ -264,23 +275,23 @@
 <h2 id="about">About</h2>
 <p>This documentation is hosted for editing on Github wiki and parsed into HTML for the gh-pages. These pages are parsed in the order of how they appear and will be displayed on the website in the same order. The <strong>Home</strong> Page is an exception to this rule however, it always appears first in the generated documentation. This is so because of the globbling pattern used in the <strong>gruntfile</strong>:</p>
 <pre><code class="lang-js">var markdown = [
-      &#39;vagrant-ansible-jenkins.wiki/Home.md&#39;,
-      &#39;vagrant-ansible-jenkins.wiki/*.md&#39;,
-      &#39;!vagrant-ansible-jenkins.wiki/_Footer.md&#39;
+      &#39;jenkins-docker-vagrant-ansible.wiki/Home.md&#39;,
+      &#39;jenkins-docker-vagrant-ansible.wiki/*.md&#39;,
+      &#39;!jenkins-docker-vagrant-ansible.wiki/_Footer.md&#39;
     ];
 </code></pre>
 <p>This pattern includes the Home page first, includes all other files and then ignores the Footer page used in the wiki.</p>
 <p><br/></p>
 <h2 id="editing-the-docs">Editing the Docs</h2>
-<p>You can edit the documentation by visiting the <a href="https://github.com/medullan/vagrant-ansible-jenkins/wiki">Github wiki</a> of this repository. The wiki is parsed and used to generate the documentation for the <a href="http://medullan.github.io/vagrant-ansible-jenkins">website</a>.</p>
+<p>You can edit the documentation by visiting the <a href="https://github.com/medullan/jenkins-docker-vagrant-ansible/wiki">Github wiki</a> of this repository. The wiki is parsed and used to generate the documentation for the <a href="http://medullan.github.io/jenkins-docker-vagrant-ansible">website</a>.</p>
 <p><br/></p>
 <h2 id="generate-documentation-website">Generate Documentation Website</h2>
-<p>To get started with generating the documentation, you must have already cloned the <a href="https://github.com/medullan/vagrant-ansible-jenkins">git repository</a> and be inside the root directory with your console.</p>
-<p>The tools needed to get you started are all powered by: </p>
+<p>To get started with generating the documentation, you must have already cloned the <a href="https://github.com/medullan/jenkins-docker-vagrant-ansible">git repository</a> and be inside the root directory with your console.</p>
+<p>The tools needed to get you started are all powered by:</p>
 <ul>
 <li><a href="http://nodejs.org/">Nodejs</a></li>
-<li><a href="https://www.npmjs.org/">npm</a> </li>
-<li><a href="http://gruntjs.com/">Grunt</a> </li>
+<li><a href="https://www.npmjs.org/">npm</a></li>
+<li><a href="http://gruntjs.com/">Grunt</a></li>
 </ul>
 <p>Therefore, you must have <strong>Nodejs</strong> and <strong>npm</strong> installed with <a href="http://gruntjs.com/getting-started#installing-the-cli">grunt</a> installed globally as a <strong>npm</strong> package</p>
 <p>Assuming all the dependencies above are installed and ready to use, the following steps will show you how to generate documentation for the repository.
@@ -297,7 +308,7 @@
 <p>This will then generate the documentation locally to the <strong>docs</strong> folder.</p>
 <p><br/></p>
 <h2 id="deploy-docs-to-gh-pages">Deploy Docs to GH-Pages</h2>
-<p>When the documentation is generated and parsed properly then you can deploy to the <a href="http://medullan.github.io/vagrant-ansible-jenkins">website</a></p>
+<p>When the documentation is generated and parsed properly then you can deploy to the <a href="http://medullan.github.io/jenkins-docker-vagrant-ansible">website</a></p>
 <p><strong>NB.</strong> Please review generated docs locally before deploying</p>
 <p>You can deploy by running:</p>
 <pre><code class="lang-bash">$ grunt deploy
@@ -312,7 +323,7 @@
             <a href="#top">Back to top</a> - <a href="all.html">Everything on a single page</a>
             - <a href="?print=1">Print current page</a> - <a href="all.html?print=1">Print all pages</a>
             
-                <a href="https://github.com/https://github.com/medullan/vagrant-ansible-jenkins.git" id="fork-me-on-github">Fork me on Github</a>
+                <a href="https://github.com/https://github.com/medullan/jenkins-docker-vagrant-ansible.git" id="fork-me-on-github">Fork me on Github</a>
             
         </footer>
     </div>
