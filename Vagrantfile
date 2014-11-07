@@ -9,142 +9,92 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of. Choose one!
-
-  # box built by packer to provision with AWS
-  # config.vm.box = "packer_amazon-ebs_aws.box"
-
-  # box built by packer to provision with VirtualBox
-  # config.vm.box = "packer_virtualbox-iso_virtualbox.box"
+  environment = "virtual_box" #TODO: configure to read from yaml file
 
   config.vm.define "jenkinsSlave" do |jenkinsSlave|
-      # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
-      jenkinsSlave.vm.box = "dummy"
-
-      #jenkinsSlave.ssh.port = 2222
 
       jenkinsSlave.vm.hostname="jenkinsSlave"
 
-      jenkinsSlave.vm.network "forwarded_port", guest: 8080, host: 8081
-      jenkinsSlave.vm.network "forwarded_port", guest: 22, host: 22
+      jenkinsSlave.vm.network "forwarded_port", guest: 22, host: 2220
 
-      # Provisioning for jenkins master using Ansible
       jenkinsSlave.vm.provision "ansible" do |ansible|
+
         ansible.playbook = "provisioners/ansible/jenkins-slave-playbook.yml"
         ansible.inventory_path = "provisioners/ansible/ansible.host"
 
         ansible.limit = 'all'
-        # can be used to skip reprovisioning dependencies
-        # ansible.skip_tags = ['setup']
 
-        # Ansible variables; select one for provision type:
-        # override/set ansible vars here for VirtualBox
-        ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
+        if environment == "virtual_box" then
+          jenkinsSlave.vm.box = "ubuntu/trusty64"
+          ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml"
+        end
 
-        # override/set ansible vars here for AWS
-        # ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
-
-        # turn on verbose mode to see logging/debug (can be up to four v's eg. ('vvvv'))
-        # ansible.verbose = 'vvvv'
+        if environment == "aws" then
+          jenkinsSlave.vm.box = "dummy"
+          aws_ansible(jenkinsSlave, ansible)
+        end
       end
+  end
 
-      jenkinsSlave.vm.provider :aws do |aws, override|
-          override.ssh.username = ENV["AWS_SSH_USER"]
-          override.ssh.private_key_path = ENV["PRIVATE_KEY_LOCATION"]
-
-          aws.keypair_name = ENV["AWS_KEYPAIR_NAME"]
-          aws.access_key_id = ENV["AWS_ACCESS_KEY_ID"]
-          aws.secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"]
-
-          aws.ami = ENV["AMI"]
-          aws.security_groups = [ENV['AWS_SECURITY_GROUP']]
-
-          aws.region = "us-east-1"
-          aws.tags = {
-            'Name' => 'jenkins-docker-slave',
-            'Provisioner' => 'Medullan',
-            'OS_Version' => 'Ubuntu',
-            'Release' => 'Latest'
-          }
-      end
-
-      #Shared Folder for Virtual box
-      #Shared Folder for AWS
-      jenkinsSlave.vm.synced_folder ".", "/vagrant", type: "rsync", :rsync_excludes => ['packer_cache/', 'http/', 'output-*/', '*.box', '*.pem', 'vagrant-ansible-jenkins.wiki', 'docs', '*.cer', 'node_modules', '*.js', '*.json', '.grunt']
-
-
-    end
-
-
-  # Name for vagrant box to be created
   config.vm.define "jenkinsMaster" do |jenkinsMaster|
 
-      # box from VagrantCloud to provision with VirtualBox (clean ubuntu)
-      jenkinsMaster.vm.box = "dummy"
-
-      #jenkinsMaste.ssh.port = 2200
-
       jenkinsMaster.vm.hostname = 'jenkinsMaster'
-      # Create a forwarded port mapping which allows access to a specific port
-      # within the machine from a port on the host machine. In the example below,
-      # accessing "localhost:8080" will access port 8080 on the guest machine.
-      jenkinsMaster.vm.network "forwarded_port", guest: 8080, host: 8080
-      jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 22
 
-      # Provisioning for jenkins master using Ansible
+      jenkinsMaster.vm.network "forwarded_port", guest: 8080, host: 8080
+      jenkinsMaster.vm.network "forwarded_port", guest: 22, host: 2222
+
       jenkinsMaster.vm.provision "ansible" do |ansible|
+
         ansible.playbook = "provisioners/ansible/jenkins-master-playbook.yml"
         ansible.inventory_path = "provisioners/ansible/ansible.host"
         ansible.limit = 'all'
-        # can be used to skip reprovisioning dependencies
-        # ansible.skip_tags = ['setup']
 
-        # Ansible variables; select one for provision type:
-        # override/set ansible vars here for VirtualBox
-        ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
+        if environment == "virtual_box" then
+          jenkinsMaster.vm.box = "ubuntu/trusty64"
+          ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-playbook-vars.yml"
+        end
 
-        # override/set ansible vars here for AWS
-        # ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
-
-        # turn on verbose mode to see logging/debug (can be up to four v's eg. ('vvvv'))
-        # ansible.verbose = 'vvvv'
+        if environment == "aws" then
+          jenkinsMaster.vm.box = "dummy"
+          aws_ansible(jenkinsMaster, ansible)
       end
-
-      jenkinsMaster.vm.provider :aws do |aws, override|
-          override.ssh.username = ENV["AWS_SSH_USER"]
-          override.ssh.private_key_path = ENV["PRIVATE_KEY_LOCATION"]
-
-          aws.keypair_name = ENV["AWS_KEYPAIR_NAME"]
-          aws.access_key_id = ENV["AWS_ACCESS_KEY_ID"]
-          aws.secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"]
-          aws.ami = ENV["AMI"]
-          aws.security_groups = [ENV['AWS_SECURITY_GROUP']]
-
-          aws.region = "us-east-1"
-          aws.tags = {
-            'Name' => 'jenkins-docker-master',
-            'Provisioner' => 'Medullan',
-            'OS_Version' => 'Ubuntu',
-            'Release' => 'Latest'
-          }
-      end
-
-      #Shared Folder for Virtual box
-      #Shared Folder for AWS
-      jenkinsMaster.vm.synced_folder ".", "/vagrant", type: "rsync", :rsync_excludes => ['packer_cache/', 'http/', 'output-*/', '*.box', '*.pem', 'vagrant-ansible-jenkins.wiki', 'docs', '*.cer', 'node_modules', '*.js', '*.json', '.grunt']
-
     end
+  end
 
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
+  #Method definitions
+
+  def aws_ansible(config, ansible)
+    ansible.extra_vars = "provisioners/ansible/extra_vars/jenkins-master-aws-playbook-vars.yml"
+    aws_provider_configs(config)
+    config.vm.synced_folder ".", "/vagrant", type: "rsync", :rsync_excludes => ['packer_cache/', 'http/', 'output-*/', '*.box', '*.pem', 'vagrant-ansible-jenkins.wiki', 'docs', '*.cer', 'node_modules', '*.js', '*.json', '.grunt']
+  end
+
+
+  def aws_provider_configs(config)
+    config.vm.provider :aws do |aws, override|
+        override.ssh.username = ENV["AWS_SSH_USER"]
+        override.ssh.private_key_path = ENV["AWS_KEY_LOCATION"]
+
+        aws.keypair_name = ENV["AWS_KEYPAIR_NAME"]
+        aws.access_key_id = ENV["AWS_ACCESS_KEY_ID"]
+        aws.secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"]
+        aws.ami = ENV["AMI"]
+        aws.security_groups = [ENV['AWS_SECURITY_GROUP']]
+
+        aws.region = "us-east-1"
+        aws.tags = {
+          'Name' => 'jenkins-docker-master',
+          'Provisioner' => 'Medullan',
+          'OS_Version' => 'Ubuntu',
+          'Release' => 'Latest'
+        }
+    end
+  end
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
-  #
   config.vm.provider "virtualbox" do |vb|
     # Don't boot with headless mode
     # vb.gui = true
