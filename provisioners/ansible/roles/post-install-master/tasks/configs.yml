@@ -1,5 +1,10 @@
 ---
 # Set configurations for tools
+- name: Add jenkins user to docker group
+  sudo: True
+  user: name=jenkins append=yes groups=docker
+  when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
+
 - name: Set Git Global Name
   sudo: yes
   shell: 'git config --global user.name "{{ git.name }}"'
