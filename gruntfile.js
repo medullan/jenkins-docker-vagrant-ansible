@@ -2,9 +2,9 @@
 
 module.exports = function(grunt) {
   var pkg = grunt.file.readJSON('package.json');
-  var docsRepo = 'https://github.com/medullan/vagrant-ansible-jenkins.wiki.git';
+  var docsRepo = 'https://github.com/medullan/jenkins-docker-vagrant-ansible.wiki.git';
   var docManifest = {
-      title: "Vagrant Ansible Jenkins",
+      title: "Jenkins Docker CI (Vagrant Ansible)",
       github: pkg.repository.url,
       files: []
   };
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       }
     },
     clean:{
-      docs: ['docs','vagrant-ansible-jenkins.wiki']
+      docs: ['docs','jenkins-docker-vagrant-ansible.wiki']
     },
     gta: {
         cloneWiki: {
@@ -49,9 +49,9 @@ module.exports = function(grunt) {
   grunt.registerTask('refreshFiles', 'Get refreshed list of files from wiki', function(){
     var gruntConfigProp = 'bfdocs';
     var markdown = [
-      'vagrant-ansible-jenkins.wiki/Home.md',
-      'vagrant-ansible-jenkins.wiki/*.md',
-      '!vagrant-ansible-jenkins.wiki/_Footer.md'
+      'jenkins-docker-vagrant-ansible.wiki/Home.md',
+      'jenkins-docker-vagrant-ansible.wiki/*.md',
+      '!jenkins-docker-vagrant-ansible.wiki/_Footer.md'
     ];
     var files = grunt.file.expand(markdown);
     docManifest.files = files;

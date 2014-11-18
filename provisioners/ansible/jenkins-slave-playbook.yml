@@ -1,4 +1,5 @@
 - name: Jenkins Slave Playbook
   hosts: jenkinsSlave
   roles:
+    - shared
     - jenkins-slave
