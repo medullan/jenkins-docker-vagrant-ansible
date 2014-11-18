@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
   end
 
-  config.vm.define "aws" do |jenkinsMaster|
+  config.vm.define "jenkinsMaster" do |jenkinsMaster|
 
       jenkinsMaster.vm.hostname = 'jenkinsMaster'
 
