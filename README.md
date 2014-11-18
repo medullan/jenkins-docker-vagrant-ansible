@@ -14,13 +14,8 @@ vagrant plugin install vagrant-aws
 
 ## How to use
 
-To see detailed documentation please visit the [website](http://medullan.github.io/jenkins-docker-vagrant-ansible).
+**To see detailed documentation please visit the [website](http://medullan.github.io/jenkins-docker-vagrant-ansible).**
 
-## Quick Start
-```shell
-$ git clone https://github.com/medullan/jenkins-docker-vagrant-ansible.git
-$ vagrant up
-```
 ## TODOs
 - Update `environment` variable in the Vagrantfile to be read from a yaml config file. This variable is set to `virtual_box` by default.
 - Automatically configure Jenkins docker cloud plugin via ansible, to use docker server ip address on Jenkins slave.
