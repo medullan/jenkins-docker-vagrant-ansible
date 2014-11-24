@@ -23,10 +23,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       jenkinsSlave.vm.provision "ansible" do |ansible|
 
         ansible.playbook = "provisioners/ansible/jenkins-slave-playbook.yml"
-        ansible.inventory_path = "provisioners/ansible/ansible.host"
-
-        ansible.limit = 'all'
-
 
         if environment == "virtual_box" then
           jenkinsSlave.vm.box = "ubuntu/trusty64"
@@ -50,8 +46,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       jenkinsMaster.vm.provision "ansible" do |ansible|
 
         ansible.playbook = "provisioners/ansible/jenkins-master-playbook.yml"
-        ansible.inventory_path = "provisioners/ansible/ansible.host"
-        ansible.limit = 'all'
 
         if environment == "virtual_box" then
           jenkinsMaster.vm.box = "ubuntu/trusty64"
