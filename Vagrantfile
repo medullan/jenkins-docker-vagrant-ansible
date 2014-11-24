@@ -1,5 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+require 'yaml'
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
@@ -9,7 +10,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  environment = "aws" #TODO: consider configure to read from yaml file
+  configs = YAML.load_file('config.yml')
+
+  environment = configs['main']['environment']
 
   config.vm.define "jenkinsSlave" do |jenkinsSlave|
 
@@ -93,14 +96,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
   config.vm.provider "virtualbox" do |vb|
-    # Don't boot with headless mode
-    # vb.gui = true
 
-    # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
 

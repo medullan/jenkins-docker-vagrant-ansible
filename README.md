@@ -17,7 +17,6 @@ vagrant plugin install vagrant-aws
 **To see detailed documentation please visit the [website](http://medullan.github.io/jenkins-docker-vagrant-ansible).**
 
 ## TODOs
-- Update `environment` variable in the Vagrantfile to be read from a yaml config file. This variable is set to `virtual_box` by default.
 - Automatically configure Jenkins docker cloud plugin via ansible, to use docker server ip address on Jenkins slave.
 - Update ansible host with the necessary inventory information each time a AWS box is created with vagrant.
 - Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simply update the required XML nodes.
