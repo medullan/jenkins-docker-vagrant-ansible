@@ -18,7 +18,6 @@ vagrant plugin install vagrant-aws
 
 ## TODOs
 - Automatically configure Jenkins docker cloud plugin via ansible, to use docker server ip address on Jenkins slave.
-- Update ansible host with the necessary inventory information each time a AWS box is created with vagrant.
 - Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simply update the required XML nodes.
 
 ## Development
