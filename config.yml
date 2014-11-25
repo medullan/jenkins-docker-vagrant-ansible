@@ -6,6 +6,7 @@ main:
     key_location:
     keypair_name:
     access_key_id:
+    secret_access_key:
     ami:
     security_group:
     region: "us-east-1"
