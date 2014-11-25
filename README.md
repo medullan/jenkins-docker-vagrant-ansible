@@ -17,7 +17,6 @@ vagrant plugin install vagrant-aws
 **To see detailed documentation please visit the [website](http://medullan.github.io/jenkins-docker-vagrant-ansible).**
 
 ## TODOs
-- Automatically configure Jenkins docker cloud plugin via ansible, to use docker server ip address on Jenkins slave.
 - Add ability to turn off overwrite of config files. This will be smart enough to see if the file exists then simply update the required XML nodes.
 
 ## Development

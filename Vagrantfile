@@ -6,10 +6,8 @@ require 'yaml'
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
 
+  # Reads environment variable from config.yml file
   configs = YAML.load_file('config.yml')
 
   environment = configs['main']['environment']
@@ -70,17 +68,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
   def aws_provider_configs(config)
+
     config.vm.provider :aws do |aws, override|
-        override.ssh.username = ENV["AWS_SSH_USER"]
-        override.ssh.private_key_path = ENV["AWS_KEY_LOCATION"]
 
-        aws.keypair_name = ENV["AWS_KEYPAIR_NAME"]
-        aws.access_key_id = ENV["AWS_ACCESS_KEY_ID"]
-        aws.secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"]
-        aws.ami = ENV["AMI"]
-        aws.security_groups = [ENV['AWS_SECURITY_GROUP']]
+        # Reads environment variable from config.yml file
+        configs = YAML.load_file('config.yml')
 
-        aws.region = "us-east-1"
+        aws_configs = configs["main"]["aws"]
+
+        override.ssh.username = ENV["AWS_SSH_USER"] || aws_configs["ssh_user"]
+        override.ssh.private_key_path = ENV["AWS_KEY_LOCATION"] || aws_configs["key_location"]
+        aws.keypair_name = ENV["AWS_KEYPAIR_NAME"] || aws_configs["keypair_name"]
+        aws.access_key_id = ENV["AWS_ACCESS_KEY_ID"] || aws_configs["access_key_id"]
+        aws.secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"] || aws_configs["secret_access_key"]
+        aws.ami = ENV["AMI"] || aws_configs["ami"]
+        aws.security_groups = [ENV['AWS_SECURITY_GROUP']] || aws_configs["security_group"]
+        aws.region = ENV["AWS_REGION"] || aws_configs["region"]
+
         aws.tags = {
           'Name' => 'jenkins-docker-master',
           'Provisioner' => 'Medullan',
@@ -91,7 +95,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider "virtualbox" do |vb|
-
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
 
