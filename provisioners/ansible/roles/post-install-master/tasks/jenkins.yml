@@ -2,7 +2,7 @@
 # Hard-restart Jenkins
 # Copy Job xml to be used in virtual machine
 # Create jobs in jenkins instance
-# run security script
+
 - name: Restarting Jenkins NOW
   sudo: yes
   command: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 restart
@@ -13,24 +13,13 @@
   wait_for: port=8080 delay={{ startup_delay_s | default(45) }}
   when: hard_restart.changed
 
+# Setup Docker Jobs
+
 - name: list all jobs
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 list-jobs All
   register: existing_jobs
 
-- name: list default jobs to be created
-  sudo: yes
-  shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs'
-  register: default_jobs_list
-
-- name: create default jobs
-  sudo: yes
-  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-job {{ item }} < {{ remote_tmp_folder }}/jobs/{{ item }}.xml
-  with_items: default_jobs_list.stdout_lines
-  when: "existing_jobs.changed and default_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1"
-  register: default_jobs_created
-
-# Setup Docker Jobs
 - name: list docker jobs to be created
   sudo: yes
   shell: groovy {{ remote_tmp_folder }}/script/jobs.groovy -j '{{ remote_tmp_folder }}/jobs/docker_pipeline'
@@ -44,11 +33,13 @@
   when: "existing_jobs.changed and docker_jobs_list is defined and existing_jobs.stdout.find('{{ item }}') == -1 and target_jenkins_env == 'docker'"
   register: docker_jobs_created
 
+# Create build pipeline view
+
 - name: create build pipeline view
   sudo: yes
   shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:8080 create-view < {{ remote_tmp_folder }}/views/build_pipeline_view.xml
   when: "target_jenkins_env == 'docker'"
-  ignore_errors: yes #TODO: should update this
+  ignore_errors: True
 
 # Setup Security
 - name: setup security
