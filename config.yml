@@ -1,12 +1,12 @@
 main:
-  environment: "aws"
+  environment: "virtual_box"
 
   aws:
-    ssh_user: ubuntu
-    key_location:
-    keypair_name:
-    access_key_id:
-    secret_access_key:
-    ami:
-    security_group:
+    ssh_user: "ubuntu"
+    key_location: ""
+    keypair_name: ""
+    access_key_id: ""
+    secret_access_key: ""
+    ami: ""
+    security_group: ""
     region: "us-east-1"
